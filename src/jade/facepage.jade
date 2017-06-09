@@ -1,0 +1,148 @@
+doctype html
+div.container-fluid.wow.fadeIn
+  h3.page-title 基本功能
+  div.row-fluid
+    div.span12
+      div.portlet.box.blue(id="form_wizard_1")
+        div.portlet-title
+          div.caption
+            i.icon-emoticon-smile
+            | 人脸识别
+        div.portlet-body.form
+          form(action="#",class="form-horizontal",id="submit_form",novalidate="novalidate")
+            div.form-wizard
+              div.navbar.steps
+                div.navbar-inner
+                  ul.row-fluid.nav.nav-pills(id="myTab")
+                    li.span4.active
+                      a(href="#tab1",data-toggle="tab",class="step active")
+                        span.number(ms-text="'1'")
+                        span.desc
+                          i.icon-ok 
+                          | 读卡
+                          
+                    li.span4
+                      a(href="#tab2",data-toggle="tab",class="step")
+                        span.number 2
+                        span.desc
+                          i.icon-ok 
+                          | 摄像
+
+                    li.span4
+                      a(href="#tab3",data-toggle="tab",class="step")
+                        span.number 3
+                        span.desc
+                          i.icon-ok 
+                          | 对比   
+
+              div(id="bar",class="progress progress-success progress-striped")
+                div(class="bar")
+
+              div.tab-content
+                div.alert.alert-error.hide
+                  button(class="close",data-dismiss="alert")
+                  | 请先完成此步骤
+                div(class="tab-pane active",id="tab1")
+                  h3(class="block") 自动读卡，将身份证放置于读卡器中央
+                  div.row-fluid.profile(ms-if="show_card_result==true")
+                    div.span12
+                      ul.unstyled.profile-nav
+                        li(style="text-align: center;")
+                          //img(src="",alt="",id="Idcard",style="border-radius: 70px !important;width: 120px;height: 140px;")
+                          canvas(id="canvas_card",style="border-radius: 70px !important;width: 120px;height: 140px;")
+                    
+                    div.span12
+                      div.portlet.sale-summary(style="padding-right: 20px;")
+                        ul.unstyled
+                          li
+                            span(class="sale-info") 姓名
+                            span(class="sale-num",ms-text="personName",style="font-size: 14px;padding-right: 14px;") 
+                          li
+                            span(class="sale-info") 性别
+                            span(class="sale-num",ms-text="sex",style="font-size: 14px;padding-right: 14px;") 
+                          li
+                            span(class="sale-info") 出生日期
+                            span(class="sale-num",ms-text="birthday",style="font-size: 14px;padding-right: 14px;") 
+                          li
+                            span(class="sale-info") 民族
+                            span(class="sale-num",ms-text="nation",style="font-size: 14px;padding-right: 14px;") 
+                          li
+                            span(class="sale-info") 身份证号
+                            span(class="sale-num",ms-text="personId",style="font-size: 14px;padding-right: 14px;") 
+                          li
+                            span(class="sale-info") 地址
+                            span(class="sale-num",ms-text="address",style="font-size: 14px;padding-right: 14px;") 
+                          li
+                            span(class="sale-info") 发证期
+                            span(class="sale-num",ms-text="startDate",style="font-size: 14px;padding-right: 14px;") 
+                          li
+                            span(class="sale-info") 有效期
+                            span(class="sale-num",ms-text="endDate",style="font-size: 14px;padding-right: 14px;") 
+                          li
+                            span(class="sale-info") 发证地点
+                            span(class="sale-num",ms-text="department",style="font-size: 14px;padding-right: 14px;")  
+                          li
+                            span(class="sale-info") 相片保存路径
+                            span(class="sale-num",ms-text="imgPath",style="font-size: 14px;padding-right: 14px;") 
+
+                  //div.control-group
+                    //a(href="javascript:;",class="btn blue",ms-click="get_card")
+                      //| 读卡
+                      //i.m-icon-swapright.m-icon-white
+
+                div(class="tab-pane",id="tab2")
+                  h3(class="block") 将面部对准摄像头
+                  div.row-fluid
+                    div.span6
+                      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;height:400px")
+                        div.portlet-title(style="margin-bottom: 22px;border-bottom: 1px solid rgb(238, 238, 238);padding: 12px 10px 17px;")
+                          div.caption(style="font-weight:bold")
+                            i.icon-camera
+                            | 摄像头
+                          div.tools
+                            a.btn.blue.btn-outline.mini.btn-circle(id="shot",href="javascript:;")
+                              i.icon-camera
+                        div.portlet-body(style="text-align: center;padding-top: 70px;")
+                          //div(style="border: 1px solid #DADADA;position: absolute;height: 175px;width: 205px;left: 330px;top: 535px;background: rgba(255, 255, 255, 0.26);")
+                          i.fa.fa-meh-o(style="font-size: 85px;color: rgb(182, 182, 182);",ms-if="camera_error === true")
+                          h5(style="font-weight:bold;color: rgb(182, 182, 182);",ms-if="camera_error === true") 未发现摄像头
+                          a.btn.btn-outline.mini.btn-circle.blue(ms-click="retry_camera",href="javascript:;",ms-if="camera_error === true")
+                              | 重试
+                          div#webcam
+                            
+                    div.span6
+                      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;height:400px")
+                        div.portlet-title(style="margin-bottom: 22px;border-bottom: 1px solid rgb(238, 238, 238);padding: 12px 10px 17px;")
+                          div.caption(style="font-weight:bold")
+                            i.icon-frame
+                            | 捕捉
+                          div.tools
+                        div.portlet-body(style="text-align: center;padding-top: 70px;")
+                          i.fa.fa-meh-o(style="font-size: 85px;color: rgb(182, 182, 182);",ms-if="camera_error === true")
+                          h5(style="font-weight:bold;color: rgb(182, 182, 182);",ms-if="camera_error === true") 未发现摄像头
+                          img#mirror(src="")
+
+                  //div.control-group
+                    //a(href="javascript:;",class="btn blue",ms-click="compare")
+                      //| 对比
+                      //i.m-icon-swapright.m-icon-white
+
+                div(class="tab-pane",id="tab3",style="")
+                  h3(class="block",ms-text="compare_result")
+                  div(class="loader1",ms-if="show_loading === true",style="margin-top: 100px;")
+                    i
+                    i
+                  p(style="text-align: center;padding-top:44px;font-size:16px;font-family: 'Microsoft Yahei';color: rgb(136, 136, 136);",ms-if="show_loading === true") 正在对比....
+                  div(style="text-align: right",id="div_result")
+                    img(src="",id="show_result_pass",style="height: 120px")
+
+              div.form-actions.clearfix(style="background-color: rgb(255, 255, 255);")
+                a(href="javascript:;",class="btn button-previous",style="display: none;")
+                  i.m-icon-swapleft
+                  | 上一步
+                a(href="javascript:;",class="btn blue button-next")
+                  | {{next_action}}
+                  i.m-icon-swapright.m-icon-white
+                a(href="javascript:;",class="btn green button-submit",style="display: inline-block;")
+                  | 完成
+                  i(class="m-icon-swapright m-icon-white")

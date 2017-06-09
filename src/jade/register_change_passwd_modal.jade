@@ -1,0 +1,45 @@
+doctype html
+div
+  div.modal-header
+    button.close(type="button",data-dismiss="modal",aria-hidden="true")
+    h4(ms-text="'修改密码'")
+  div.modal-body
+    form.passwd.form-horizontal(action="javascripts:;")
+      div.alert.alert-error.hide
+        button(class="close",data-dismiss="alert")
+        | 旧密码输入错误
+      div.control-group
+        label.control-label(ms-text="'账号'")
+        div.controls
+          div.input-icon.left
+            i.icon-user
+            input.m-wrap.hastip(type="text",ms-duplex="account",name="username",readonly,disabled)
+
+      div.control-group
+        label.control-label(ms-text="'旧密码'")
+        div.controls
+          div.input-icon.left
+            i.icon-lock
+            input.m-wrap.hastip(type="password",placeholder="旧密码",name="old_passwd",title="旧密码",ms-duplex="old_passwd")
+
+      div.control-group
+        label.control-label(ms-text="'新密码'")
+        div.controls
+          div.input-icon.left
+            i.icon-lock
+            input.m-wrap.hastip(type="password",placeholder="新密码",name="new_passwd",title="新密码",ms-duplex="new_passwd")
+
+      div.control-group
+        label.control-label(ms-text="'确认密码'")
+        div.controls
+          div.input-icon.left
+            i.icon-lock
+            input.m-wrap.hastip(type="password",placeholder="确认新密码",name="confirm_passwd",title="确认新密码",ms-duplex="confirm_passwd")
+                
+  div.modal-footer
+    button.btn(type="button",data-dismiss="modal")
+      i.fa.fa-undo
+      | {{lang.btn_cancel}}
+    button.btn.green(type="button",ms-click="submit")
+      i.fa.fa-check
+      | {{lang.btn_confirm}}

@@ -1,0 +1,122 @@
+doctype html
+div.container-fluid
+  h3.page-title(ms-html="'管理后台'")      
+  div.row-fluid.wow.fadeIn
+    div.responsive.span3(data-tablet="span6",data-desktop="span3")
+      div.dashboard-stat.purple(style="background:#3598dc;border-radius: 2px !important;")
+        div.visual(style="margin-left: -35px;")
+          i.fa.fa-users(style="opacity: 0.1;font-size: 110px;")
+        div.details(style="padding-top: 16px;")
+          div.number
+            span.countup(ms-text="users_num")
+          div.desc(ms-text="'用户数'")
+        a.more(href="javascript:;",style="background:rgb(78, 154, 219);border-radius: 2px !important")
+          | 更多
+          i.m-icon-swapright.m-icon-white
+          
+    div.responsive.span3(data-tablet="span6",data-desktop="span3")
+      div.dashboard-stat.yellow(style="background:#e35b5a;border-radius: 2px !important;")
+        div.visual(style="margin-left: -35px;")
+          i.fa.fa-desktop(style="opacity: 0.1;font-size: 110px;")
+        div.details(style="padding-top: 16px;")
+          div.number.countup(ms-text="num_log")
+          div.desc(ms-text="'记录数'")
+        a.more(href="javascript:;",style="background:#e04a49;border-radius: 2px !important")
+          | 更多
+          i.m-icon-swapright.m-icon-white
+          
+    div.responsive.span3(data-tablet="span6 fix-offset",data-desktop="span3")
+      div.dashboard-stat.green(style="background:#32c5d2;border-radius: 2px !important;")
+        div.visual(style="margin-left: -35px;")
+          i.fa.fa-bullhorn(style="opacity: 0.1;font-size: 110px;")
+        div.details(style="padding-top: 16px;")
+          div.number
+            span(ms-text="num_recharge")
+          div.desc(ms-text="'充值总数'")
+        a.more(href="javascript:;",style="background:rgb(49, 193, 206);border-radius: 2px !important")
+          | 更多
+          i.m-icon-swapright.m-icon-white
+          
+    div.responsive.span3(data-tablet="span6",data-desktop="span3")
+      div.dashboard-stat.blue(style="background:#8E44AD;border-radius: 2px !important;")
+        div.visual(style="margin-left: -35px;")
+          i.fa.fa-sitemap(style="opacity: 0.1;font-size: 110px;")
+        div.details(style="padding-top: 16px;")
+          div.number.countup(ms-text="num_compare")
+          div.desc(ms-text="'对比次数'")
+        a.more(href="javascript:;",style="background:rgb(142, 68, 173);border-radius: 2px !important")
+          | 更多
+          i.m-icon-swapright.m-icon-white
+          
+  div.row-fluid.wow.fadeIn
+    div.span12
+      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
+        div.portlet-title(style="margin:10px")
+          div.caption(style="font-weight:bold")
+            //i.ico-pointer  
+            | 位置分布
+          div.actions
+            //div.btn-group.pull-right(data-toggle="buttons-radio",ms-click="clear_log")
+              //a.btn.green(href="javascript:;",ms-text="lang.clear_log",ms-class="active:flow_type=='fwrite_mb'",data-flow-type="fwrite_mb")
+        div.portlet-body
+          div(id="map",style="height: 300px;")
+
+  div.row-fluid.wow.fadeIn
+    div.span12
+      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
+        div.portlet-title(style="padding: 12px 10px 17px;")
+          div.caption(style="font-weight:bold")
+            //i.ti-wallet
+            | 用户列表
+          div.actions
+            div.btn-group.pull-right(data-toggle="buttons-radio")
+              a.btn.green(href="javascript:;",ms-text="'注册'",ms-click="add_user")
+              //a.btn.red(href="javascript:;",ms-text="'删除'",id="delete_user")
+        div.portlet-body
+          div#users-scroller-1.scroller(data-height="320px")
+            table#users-table.table.table-striped.table-hover
+              thead
+                tr
+                  th(style="width:20px")
+                    input(type="checkbox",id="checkall")
+                  th(ms-text="'创建时间'")
+                  th(ms-text="'账号'")
+                  th(ms-text="'用户名'")
+                  th(ms-text="'位置'")
+                  th(ms-text="'操作'",style="text-align: center;")
+
+  div.row-fluid.wow.fadeIn
+    div.span12
+      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
+        div.portlet-title(style="margin:10px")
+          div.caption(style="font-weight:bold")
+            //i.ti-wallet
+            | 历史记录
+          div.actions
+            //div.btn-group.pull-right(data-toggle="buttons-radio",ms-click="clear_log")
+              //a.btn.green(href="javascript:;",ms-text="lang.clear_log",ms-class="active:flow_type=='fwrite_mb'",data-flow-type="fwrite_mb")
+        div.portlet-body
+          div#journals-scroller-1.scroller(data-height="320px")
+            table#log-table1.table.table-striped.table-hover
+              thead
+                tr
+                  th(ms-text="'时间'")
+                  th(ms-text="'类型'")
+                  th(ms-text="'内容'")
+                  th(ms-text="'操作'")
+                tr
+                  th
+                    input.m-wrap(type="text",name="start_time",id="start_time",placeholder="开始时间",style="width:75px;")
+                    p(style="display: -webkit-inline-box;padding: 8px 12px 0px 12px;") -
+                    input.m-wrap(type="text",name="end_time",id="end_time",placeholder="结束时间",style="width:75px;")
+                  th
+                    //input.m-wrap.hastip(placeholder="类型",type="text",id="logtype",name="logtype",style="width:75px;")
+                  th
+                    input.m-wrap.hastip(placeholder="最小相似度",type="text",id="min",name="min",style="width:75px;")
+                    p(style="display: -webkit-inline-box;padding: 8px 12px 0px 12px;") -
+                    input.m-wrap.hastip(placeholder="最大相似度",type="text",id="max",name="max",style="width:75px;")
+                  th
+                    //p 搜索功能
+                    
+
+                  

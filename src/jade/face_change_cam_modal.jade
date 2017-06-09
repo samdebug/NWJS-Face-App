@@ -1,0 +1,50 @@
+doctype html
+div
+  div.modal-header
+    button.close(type="button",data-dismiss="modal",aria-hidden="true")
+    h4(ms-text="'更换信号源'")
+  div.modal-body
+    form.create.form-horizontal(action="javascripts:;")   
+      div.control-group
+        label.control-label(ms-text="'信号源'")
+        div.controls
+          div.input-icon.left
+            i.icon-camera
+          select#cam_option.proselection(ms-each-e="options_cam",name="cam")
+            option(ms-value="e.value",ms-text="e.key")
+            
+      div.control-group(ms-visible="show_url === true")
+        label.control-label(ms-text="'地址'")
+        div.controls
+          div.input-icon.left
+            i.icon-pencil
+            input#cam_ip.m-wrap.tooltips(type="text",name="ip",ms-duplex="ip",data-trigger="hover",ms-data-original-title="'支持rtsp流摄像头'",data-placement="top")
+
+      div.control-group(ms-visible="show_url === true")
+        label.control-label(ms-text="'端口'")
+        div.controls
+          div.input-icon.left
+            i.icon-pencil
+            input#cam_ip.m-wrap.tooltips(type="text",name="port",ms-duplex="port",data-trigger="hover",ms-data-original-title="'支持rtsp流摄像头'",data-placement="top")
+
+      div.control-group(ms-visible="show_url === true")
+        label.control-label(ms-text="'账号'")
+        div.controls
+          div.input-icon.left
+            i.icon-pencil
+            input#cam_ip.m-wrap.tooltips(type="text",name="username",ms-duplex="username",data-trigger="hover",ms-data-original-title="'支持rtsp流摄像头'",data-placement="top")
+
+      div.control-group(ms-visible="show_url === true")
+        label.control-label(ms-text="'密码'")
+        div.controls
+          div.input-icon.left
+            i.icon-pencil
+            input#cam_ip.m-wrap.tooltips(type="password",name="passwd",ms-duplex="passwd",data-trigger="hover",ms-data-original-title="'支持rtsp流摄像头'",data-placement="top")
+
+  div.modal-footer
+    button.btn(type="button",data-dismiss="modal")
+      i.fa.fa-undo
+      | {{lang.btn_cancel}}
+    button.btn.green(type="button",ms-click="submit")
+      i.fa.fa-check
+      | {{lang.btn_confirm}}

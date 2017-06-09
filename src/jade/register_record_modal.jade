@@ -1,0 +1,68 @@
+doctype html
+div
+  div.modal-header
+    button.close(type="button",data-dismiss="modal",aria-hidden="true")
+    h4(ms-text="'对比详情'")
+  div.modal-body
+    div.tabbable.tabbable-custom(style="margin-top: 32px;")
+      ul.nav.nav-tabs(id="myTab")
+        li
+          a(class="special",href="#page_1",data-toggle="tab")
+            i.icon-user
+            | 身份证资料
+
+        li
+          a(class="special",href="#page_2",data-toggle="tab")
+            i.icon-picture
+            | 摄像头照片
+  
+      div.tab-content
+        div.tab-pane(id="page_1",class="fade")
+          div.row-fluid.profile
+            div.span12
+              ul.unstyled.profile-nav
+                li(style="text-align: center;")
+                  canvas(id="person",style="border-radius: 70px !important;width: 140px;height: 140px;")
+            
+            div.span12
+              div.portlet.sale-summary(style="padding-right: 20px;")
+                ul.unstyled
+                  li
+                    span(class="sale-info") 姓名
+                    span(class="sale-num",ms-text="personName",style="font-size: 14px;padding-right: 14px;") 
+                  li
+                    span(class="sale-info") 性别
+                    span(class="sale-num",ms-text="sex",style="font-size: 14px;padding-right: 14px;") 
+                  li
+                    span(class="sale-info") 出生日期
+                    span(class="sale-num",ms-text="birthday",style="font-size: 14px;padding-right: 14px;") 
+                  li
+                    span(class="sale-info") 民族
+                    span(class="sale-num",ms-text="nation",style="font-size: 14px;padding-right: 14px;") 
+                  li
+                    span(class="sale-info") 身份证号
+                    span(class="sale-num",ms-text="personId",style="font-size: 14px;padding-right: 14px;") 
+                  li
+                    span(class="sale-info") 地址
+                    span(class="sale-num",ms-text="address",style="font-size: 14px;padding-right: 14px;") 
+                  li
+                    span(class="sale-info") 发证期
+                    span(class="sale-num",ms-text="startDate",style="font-size: 14px;padding-right: 14px;") 
+                  li
+                    span(class="sale-info") 有效期
+                    span(class="sale-num",ms-text="endDate",style="font-size: 14px;padding-right: 14px;") 
+                  li
+                    span(class="sale-info") 发证地点
+                    span(class="sale-num",ms-text="department",style="font-size: 14px;padding-right: 14px;")  
+
+        div.tab-pane(id="page_2",class="fade")
+          div.span12(style="")
+            canvas(id="own",style="",width="200px",height="200px")
+
+  div.modal-footer
+    button.btn(type="button",data-dismiss="modal")
+      i.fa.fa-undo
+      | 取消
+    button.btn.green(type="button",ms-click="submit")
+      i.fa.fa-check
+      | 确定  

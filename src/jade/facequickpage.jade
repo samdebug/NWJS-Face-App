@@ -1,0 +1,82 @@
+doctype html
+div.container-fluid.wow.fadeIn
+  h3.page-title 基本功能
+  div.row-fluid
+    div.span12
+      div.portlet.box.blue(id="form_wizard_1")
+        div.portlet-title
+          div.caption
+            i.icon-emoticon-smile
+            | 人脸识别
+        div.portlet-body.form
+          form(action="#",class="form-horizontal",id="submit_form",novalidate="novalidate")
+            div.form-wizard
+              div.navbar.steps
+                div.navbar-inner
+                  ul.row-fluid.nav.nav-pills(id="myTab")
+                    li.span4.active
+                      a(href="#tab1",data-toggle="tab",class="step active")
+                        span.number 1
+                        span.desc
+                          i.icon-ok 
+                          | 识别
+
+                    li.span4
+                      a(href="#tab2",data-toggle="tab",class="step")
+                        span.number 2
+                        span.desc
+                          i.icon-ok 
+                          | 结果
+
+              div(id="bar",class="progress progress-success progress-striped")
+                div(class="bar")
+
+              div.tab-content
+                div.alert.alert-error.hide
+                  button(class="close",data-dismiss="alert")
+                  | 请先完成此步骤
+
+                div(class="tab-pane active",id="tab1")
+                  h4(class="block") 1.将身份证置于读卡器中央
+                  h4(class="block") 2.五官对准摄像头
+                  div.row-fluid
+                    div.span12
+                      div(style="text-align: center;")
+                        i.fa.fa-meh-o(style="font-size: 85px;color: rgb(182, 182, 182);",ms-if="camera_error === true")
+                        h5(style="font-weight:bold;color: rgb(182, 182, 182);",ms-if="camera_error === true") 未发现摄像头
+                        a.btn.btn-outline.mini.btn-circle.blue(ms-click="retry_camera",href="javascript:;",ms-if="camera_error === true")
+                            | 重试
+                        div#webcam
+                          canvas(id="canvas",width="640",height="480",style="position:absolute")
+
+                div(class="tab-pane",id="tab2",style="")
+                  h3(class="block",ms-text="compare_result")
+                  div(class="loader1",ms-if="show_loading === true",style="margin-top: 100px;")
+                    i
+                    i
+                  p(style="font-weight:bold;text-align: center;padding-top:44px;font-size:16px;font-family: 'Microsoft Yahei';color: rgb(136, 136, 136);",ms-if="show_loading === true") 正在对比....
+                  div.row-fluid(ms-visible="show_loading === false")
+                    div.span6
+                      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;height:400px")
+                        div.portlet-title(style="margin-bottom: 22px;border-bottom: 1px solid rgb(238, 238, 238);padding: 12px 10px 17px;")
+                          div.caption(style="font-weight:bold")
+                            i.icon-camera
+                            | 身份证
+                          div.tools
+                        div.portlet-body(style="text-align: center;padding-top: 70px;")
+                          canvas(id="canvas_card",style="")
+                            
+                    div.span6
+                      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;height:400px")
+                        div.portlet-title(style="margin-bottom: 22px;border-bottom: 1px solid rgb(238, 238, 238);padding: 12px 10px 17px;")
+                          div.caption(style="font-weight:bold")
+                            i.icon-frame
+                            | 摄像头
+                          div.tools
+                        div.portlet-body(style="text-align: center;")
+                          img#mirror(src="")
+
+                  div(style="text-align: right",id="div_result")
+                    img(src="",id="show_result_pass",style="height: 120px")
+
+               

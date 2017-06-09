@@ -1,0 +1,144 @@
+doctype html
+ul.nav.pull-right
+  li.dropdown(ms-click="broadcast")
+    a.frameless-header.dropdown-toggle(href="javascript:;",ms-if="show_server")
+      span.label.label-info
+        | 搜寻
+  li.dropdown(ms-click="add_machine",ms-if="show_server")
+    a.frameless-header.dropdown-toggle(href="javascript:;")
+      span.label.label-warning
+        | 添加
+  li.dropdown(ms-click="server_switch",ms-if="show_server")
+    a.frameless-header.dropdown-toggle(href="javascript:;")
+      span.label.label-server
+        | 服务
+        
+  li.dropdown.user(style="display:none",id="user_head")
+    a.frameless-header.dropdown-toggle(href="#",data-toggle="dropdown",style="width: 102px;")
+      canvas(id="user_img",style="border-radius: 47px !important;height: 31px;vertical-align: middle;padding-top: 3px;")
+      span(class="username",style="font-size: 13px;padding-left: 10px;",ms-text="user_name")
+      i.icon-angle-down(style="padding-left: 10px;padding-top: 7px;margin-top: 4px !important;")
+  
+    ul.wow.bounceInLeft(class="dropdown-menu")
+      li
+        a(href="extra_profile.html")
+          i.icon-user
+          | 个人资料
+      li
+        a(href="page_calendar.html")
+          i.icon-calendar
+          | 个人行程
+      li
+        a(href="inbox.html")
+          i.icon-envelope
+          | 收件箱
+      li
+        a(href="#")
+          i.icon-tasks
+          | 个人任务
+      li.divider
+      li
+        a(href="extra_lock.html")
+          i.icon-lock
+          | 锁定屏幕
+      li
+        a(href="login.html")
+          i.icon-key
+          | 退出登录
+
+  li.dropdown#log_event(style="display:none;")
+    a.frameless-header.dropdown-toggle(href="#",data-toggle="dropdown",style="height:29px")
+      button#login-btn.btn.own.pull-right(type="button",style="border: 0px;padding: 6px;")
+        i.icon-bell
+      span(class="badge",ms-text="'12'")
+    ul.dropdown-menu.extended.notification
+      div#journals.scroller(data-height="320px")
+        table#log.table.table-striped
+          li
+            a(href="#")
+              span.label.label-warning
+                i.icon-bell
+              | 你有一条告警信息
+              span.time
+                | 刚刚
+          li
+            a(href="#")
+              span.label.label-important
+                i.icon-bell
+              | 你有一条告警信息
+              span.time
+                | 刚刚
+          li
+            a(href="#")
+              span.label.label-warning
+                i.icon-bell
+              | 你有一条告警信息
+              span.time
+                | 刚刚
+          li
+            a(href="#")
+              span.label.label-warning
+                i.icon-bell
+              | 你有一条告警信息
+              span.time
+                | 刚刚
+          li
+            a(href="#")
+              span.label.label-warning
+                i.icon-bell
+              | 你有一条告警信息
+              span.time
+                | 刚刚
+                
+  li.dropdown(style="display:none",id="user_setting")
+    a.frameless-header.dropdown-toggle.wave(href="#",data-toggle="dropdown",style="height:29px;padding-right: 14px;padding-left: 14px;")
+      i.icon-settings(style="")
+  
+    ul(class="dropdown-menu")
+      li
+        a.wave(href="javascript:;",ms-click="change_data")
+          i.icon-user(style="padding-top: 3px;")
+          | 个人资料
+      li
+        a.wave(href="javascript:;",ms-click="change_passwd")
+          i.icon-key(style="padding-top: 3px;")
+          | 修改密码
+      li.divider
+      li
+        a.wave(href="javascript:;",ms-click="lock")
+          i.icon-lock(style="padding-top: 3px;")
+          | 锁定屏幕
+      li
+        a.wave(href="javascript:;",ms-click="add_machine")
+          i.icon-logout(style="padding-top: 3px;")
+          | 退出登录
+
+  //li(style="display:none",id="user_setting",ms-click="add_machine")
+    //a.frameless-header.dropdown-toggle.wave(href="javascript:;",style="height:29px;padding: 10px 10px 10px;")
+      //i.icon-logout(style="padding-top: 7px;")
+
+  li(ms-click="add_machine")
+    a.frameless-header.dropdown-toggle(href="javascript:;",style="height:29px;padding: 10px 10px 10px;")
+      //img(src="images/LOGOUT.png",style="padding-top: 7px;height: 17px;")
+      i.icon-logout(style="padding-top: 7px;")
+        
+  li(ms-click="refresh")
+    a.frameless-header.dropdown-toggle.wave(href="javascript:;",style="height:29px;padding: 10px 10px 10px;")
+      //img(src="images/REFRESH.png",style="padding-top: 7px;height: 17px;")
+      i.icon-refresh(style="padding-top: 7px;")
+        
+  li(ms-click="mini_window")
+    a.frameless-header.dropdown-toggle.wave(href="javascript:;",style="height:29px;padding: 10px 10px 10px;")
+      //img(src="images/MIN.png",style="padding-top: 7px;height: 14px;")
+      i.icon-minus(style="padding-top: 7px;")
+        
+  //li(ms-click="resize_window")
+    //a.frameless-header.dropdown-toggle.wave(href="javascript:;",style="height:29px;padding: 10px 10px 10px;")
+      //i(ms-class="icon-size-fullscreen:!fullscreen",ms-class-1="icon-size-actual:fullscreen",style="padding-top: 7px;")
+        
+  li(ms-click="close_window")
+    a.frameless-header.dropdown-toggle.wave(href="javascript:;",style="height:29px;padding: 10px 10px 10px;")
+      //img(src="images/CLOSE.png",style="padding-top: 7px;height: 12px;")
+      i.icon-close(style="padding-top: 7px;")
+
+

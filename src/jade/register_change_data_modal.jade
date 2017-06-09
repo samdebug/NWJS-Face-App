@@ -1,0 +1,89 @@
+doctype html
+div
+  div.modal-header
+    button.close(type="button",data-dismiss="modal",aria-hidden="true")
+    h4(ms-text="lang.title")
+  div.modal-body
+    form.userdata.form-horizontal(action="javascripts:;")
+
+      div.control-group
+        label.control-label(ms-text="lang.label_id")
+        div.controls
+          div.input-icon.left
+            i.icon-user
+            input.m-wrap(type="text",ms-duplex="id",name="id",readonly,disabled)
+
+      div.control-group
+        label.control-label(ms-text="lang.label_email")
+        div.controls
+          div.input-icon.left
+            i.icon-envelope
+            input.m-wrap(type="text",name="full_name",ms-duplex="email")
+
+      div.control-group
+        label.control-label(ms-text="lang.label_username")
+        div.controls
+          div.input-icon.left
+            i.icon-user
+            input.m-wrap(type="text",ms-duplex="user",name="username")
+
+      div.control-group(style="display:none")
+        label.control-label(ms-text="lang.label_sex")
+        div.controls
+          div.input-icon.left
+            i.icon-user
+          select#chosen_sex.chosen(name="mode-select",tabindex="0",style="width:247px;",ms-each-e="options_sex")
+            option(ms-value="e.value",ms-text="e.key")
+      
+      div.control-group
+        label.control-label(ms-text="lang.label_sex")
+        div.sex-controls(style="padding-top: 5px;")
+          span(style="padding-left: 40px;")
+            label.radio
+              input(type="radio",name="option",value="男",ms-duplex-text="option")
+              | 男
+          span(style="padding-left: 40px;")
+            label.radio
+              input(type="radio",name="option",value="女",ms-duplex-text="option")
+              | 女
+
+      div.control-group
+        label.control-label(ms-text="lang.label_realname")
+        div.controls
+          div.input-icon.left
+            i.icon-pencil
+            input.m-wrap(type="text",name="realname",ms-duplex="realname")
+
+      div.control-group
+        label.control-label(ms-text="lang.label_tel")
+        div.controls
+          div.input-icon.left
+            i.fa.fa-phone
+            input.m-wrap(type="text",name="tel",ms-duplex="tel")
+
+      div.control-group
+        label.control-label(ms-text="lang.label_hotelname")
+        div.controls
+          div.input-icon.left
+            i.icon-pointer
+            input.m-wrap(type="text",name="hotelname",ms-duplex="hotelname")
+
+      //div.control-group
+        //label.control-label(ms-text="lang.label_location")
+        //div.controls
+          //select#location_p(name="location_p",tabindex="0",style="width:247px;")
+          //select#location_c(name="location_c",tabindex="0",style="width:247px;")
+          //select#location_a(name="location_a",tabindex="0",style="width:247px;")
+
+      div.control-group
+        label.control-label(ms-text="lang.label_location")
+        div.controls
+          textarea(name="location",ms-duplex="location",style="max-width: 225px;min-height: 100px;font-family: Microsoft YaHei;padding:10px;width:225px !important")
+                
+  div.modal-footer
+    button.btn(type="button",data-dismiss="modal")
+      i.fa.fa-undo
+      | {{lang.btn_cancel}}
+    button.btn.green(type="button",ms-click="submit")
+      i.fa.fa-check
+      | {{lang.btn_confirm}}

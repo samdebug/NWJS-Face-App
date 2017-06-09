@@ -1,0 +1,88 @@
+/*
+ * d3 style
+ */
+
+
+#body{
+    height: 500px;
+    width: 500px;
+    padding: 0px 0px 0px 112px;
+}
+/*d3js*/
+.node circle {
+    cursor: pointer;
+    /*stroke: steelblue;*/
+    stroke: rgba(252, 252, 252, 0);
+    stroke-width: 1.5px;
+}
+
+.node text {
+    font-size: 11px;
+    cursor: pointer;
+}
+
+path.link {
+    fill: none;
+    stroke: rgb(121, 117, 117);
+    /*stroke-width: 1.5px;*/
+   /*animation: dash 5s linear alternate infinite;*/
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: dash 5s linear forwards;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.tooltip_tree{
+    font-family: Microsoft YaHei;
+    font-size: 12px;
+    width: 120 !important;
+    position: absolute;
+    text-align: center;
+    background-color: rgba(32, 32, 32, 0.82);
+    border-radius: 5px;
+    color: rgb(255, 255, 255);
+    padding: 5px;
+    border-radius: 3px !important;
+}
+
+.icon_export{
+    font-size: 38px;
+    cursor: pointer;
+    /*background: url(../images/d3/networking.png);*/
+}   
+.icon_storage{
+    font-size: 38px;
+    cursor: pointer;
+    /*background: url(../images/d3/computer-1.png);*/
+}
+.span_success{
+    border: 1px solid #3cc051;
+    border-radius: 20px !important;
+    background: #3cc051;
+    display: inline-block;
+	padding: 6px 11px;
+	font-size: 11.844px;
+	font-weight: bold;
+	line-height: 14px;
+	color: rgb(255, 255, 255);
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	white-space: nowrap;
+	vertical-align: baseline;
+}
+.span_warning{
+    padding: 5px;
+    border: 1px solid orangered;
+    border-radius: 20px !important;
+    background: orangered;
+}
+/*
+.icon-server:hover{
+  border: 1px solid red;
+  border-radius: 10px !important;
+}
+*/

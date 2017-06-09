@@ -1,0 +1,168 @@
+doctype html
+div.container-fluid
+  h3.page-title(ms-html="'数据统计'")
+  div.row-fluid.wow.fadeIn
+    div.span6
+      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;height: 380px;")
+        div.portlet-title(style="padding: 12px 10px 17px;")
+           div.caption(style="font-weight:bold")
+             //i.icon-paper-plane
+             | 详情
+           div.actions
+             a.btn.blue(ms-click="rechoose") 重新选择
+
+        div.portlet-body(style="padding-top: 43px;")
+          div.portlet.sale-summary
+            //div.portlet-title
+              //div.caption
+              //| Sales Summary
+            ul.unstyled
+              li
+                span(class="sale-info") 摄像头序号
+                span(class="sale-num",ms-text="ipc",style="font-family: 'Open Sans';")
+              li
+                span(class="sale-info") 开始时间 
+                span(class="sale-num",ms-text="start",style="font-family: 'Open Sans';")
+              li
+                span(class="sale-info") 结束时间 
+                span(class="sale-num",ms-text="end",style="font-family: 'Open Sans';")
+              li
+                span(class="sale-info") 摄像头地点
+                span(class="sale-num",ms-text="location",style="")
+              li
+                span(class="sale-info") 总数据量
+                span(class="sale-num",ms-text="total_data + '条'",style="font-family: 'Open Sans';")          
+    div.span6
+      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
+        div.portlet-title(style="padding: 12px 10px 17px;")
+          div.caption(style="font-weight:bold")
+            //i.icon-pointer
+            | 位置
+          div.actions           
+        div.portlet-body(style="")
+          div.row-fluid
+            div(id="allmap",style="height: 300px;")
+ 
+  div.row-fluid.wow.fadeIn(style="display:none")
+    div.span12
+      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
+        div.portlet-title(style="padding: 12px 10px 17px;")
+          div.caption(style="font-weight:bold")
+            //i.icon-paper-plane
+            | 时间人流量
+          div.actions           
+        div.portlet-body(style="")
+          div.row-fluid
+            div.span6
+              div(id="chart3",style="height:250px;")
+
+            div.span6(style="border-left: 1px solid rgb(233, 233, 233);")
+              p(ms-text="'人流量最多的时间段是'",style="font-family:Microsoft Yahei;font-size: 20px;text-align: center;font-weight: 800;")
+              p(ms-text="'15:00-18:00'",style="font-family: bebas;color: rgb(0, 159, 221);font-size: 24px;text-align: center;")
+              div(style="text-align: center;padding:10px")
+               img(src="images/count/rewind-time.png",style="height:146px")
+     
+  div.row-fluid.wow.fadeIn
+    div.span12
+      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
+        div.portlet-title(style="padding: 12px 10px 17px;")
+          div.caption(style="font-weight:bold")
+            //i.icon-paper-plane
+            | 性别比例
+          div.actions           
+        div.portlet-body(style="")
+          div.row-fluid
+            div.span6
+              div(id="chart4",style="height:250px;")
+
+            div.span6(style="border-left: 1px solid rgb(233, 233, 233);")
+              p(ms-text="'人流量最多的性别是'",style="font-family:Microsoft Yahei;font-size: 20px;text-align: center;font-weight: 800;")
+              p(ms-text="calculate_sex",style="font-family: Microsoft Yahei;color: rgb(0, 159, 221);font-size: 24px;text-align: center;font-weight: 800;")
+              div(style="text-align: center;padding:10px")
+                img(src="images/count/genders.png",style="height:146px")
+          
+  div.row-fluid.wow.fadeIn
+    div.span12
+      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
+        div.portlet-title(style="padding: 12px 10px 17px;")
+          div.caption(style="font-weight:bold")
+            //i.icon-paper-plane
+            | 年龄比例
+          div.actions
+        div.portlet-body
+          div.row-fluid
+            div.span6
+              div(id="chart7",style="height:250px;")
+
+            div.span6(style="border-left: 1px solid rgb(233, 233, 233);")
+              p(ms-text="'人流量最多的年龄段是'",style="font-family:Microsoft Yahei;font-size: 20px;text-align: center;font-weight: 800;")
+              p(style="text-align: center;")
+                span(ms-text="calculate_age",style="font-family: bebas;color: rgb(0, 159, 221);font-size: 31px;")
+                span(ms-text="unit_age",style="font-family:Microsoft Yahei;color: rgb(0, 159, 221);font-size: 25px;")
+
+              div(style="text-align: center;padding:10px")
+               img(src="images/count/man.png",style="height:146px")
+
+  div.row-fluid.wow.fadeIn
+    div.span12
+      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
+        div.portlet-title(style="padding: 12px 10px 17px;")
+          div.caption(style="font-weight:bold")
+            //i.icon-paper-plane
+            | 性别人流量对比
+          div.actions
+        div.portlet-body
+          div(id="chart1",style="height:250px;")
+          
+  div.row-fluid.wow.fadeIn
+    div.span12
+      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
+        div.portlet-title(style="padding: 12px 10px 17px;")
+          div.caption(style="font-weight:bold")
+            //i.icon-paper-plane
+            | 人流总数
+          div.actions
+        div.portlet-body
+          div(id="chart2",style="height:250px;")
+
+  div.row-fluid.wow.fadeIn(style="")
+    div.span12
+      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
+        div.portlet-title(style="padding: 12px 10px 17px;")
+          div.caption(style="font-weight:bold")
+            //i.icon-paper-plane
+            | 散点图(随机100份数据)
+          div.actions
+        div.portlet-body
+          div(id="chart5",style="height:250px;")
+
+  div.row-fluid.wow.fadeIn(style="display:none")
+    div.span12
+      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
+        div.portlet-title(style="padding: 12px 10px 17px;")
+          div.caption(style="font-weight:bold")
+            //i.icon-paper-plane
+            | 条形图
+          div.actions
+        div.portlet-body
+          div(id="chart6",style="height:400px;")
+
+  div.row-fluid.wow.fadeIn
+    div.span12
+      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
+        div.portlet-title(style="margin:10px")
+          div.caption(style="font-weight:bold")
+            //i.ti-wallet
+            | 资料总览
+          div.actions
+            //div.btn-group.pull-right(data-toggle="buttons-radio",ms-click="clear_log")
+              //a.btn.green(href="javascript:;",ms-text="lang.clear_log",ms-class="active:flow_type=='fwrite_mb'",data-flow-type="fwrite_mb")
+        div.portlet-body
+          div#journals-scroller-1.scroller(data-height="320px")
+            table#log-table1.table.table-striped.table-hover
+              thead
+                tr
+                  th(ms-text="'头像'",style="")
+                  th(ms-text="'性别'",style="")
+                  th(ms-text="'年龄'",style="")
+                  th(ms-text="'时间点'",style="")

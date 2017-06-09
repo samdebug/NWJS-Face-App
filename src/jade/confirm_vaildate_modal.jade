@@ -1,0 +1,23 @@
+doctype html
+div
+  div.modal-header
+    h3(ms-text='title')
+  div.modal-body
+    div.portlet-body.form
+      div.alert.alert-block.alert-error.fade.in
+        h4.alert-heading(ms-text='lang.heading')
+        p(ms-text='message')
+
+      form.passwd.form-vertical(action="javascripts:;",visible="confirm")
+        div.control-group
+          div.controls
+            div.input-icon.left
+              i.icon-lock
+              input.m-wrap.placeholder-no-fix(type="password",ms-attr-placeholder="lang.init_passwd",name="confirm_passwd",ms-duplex="confirm_passwd",ms-keypress="keypress_passwd")
+  div.modal-footer
+    button.btn(type="button",data-dismiss="modal")
+      i.icon-undo
+      | {{lang.btn_cancel}}
+    button.btn.green(type="button",ms-click="submit")
+      i.icon-ok
+      | {{lang.btn_confirm}}

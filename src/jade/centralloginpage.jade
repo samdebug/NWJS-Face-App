@@ -1,0 +1,188 @@
+doctype html
+//div.container-fluid(style="position: relative;left: -9%;z-index: 1;")
+div.container-fluid(style="position: relative;left: 0%;z-index: 1;padding-left: 40px;")
+  div.logo(style="")
+    img(src="images/logo-big.png",style="height:25px")
+  div.content.wow.bounceInDown(style="background:#FFF")
+    form.form-vertical.login-form(action="javascript:;")
+      //div.control-group
+        //a(href="javascript:;",style="padding-left: 95px;")
+          //img(class="img-circle",src="images/bb.png",style="height: 100px;border-radius: 50% !important;")
+      h3.form-title(ms-text="lang.title",style="text-align: center;color: #32c5d2!important;")
+      div.alert.alert-error.hide
+        button.close(ms-click="close_alert")
+        span(ms-text="lang.login_error")
+
+      div.control-group(ms-if="show_ip==true")
+        //label.control-label(ms-text="lang.label_device")
+        div.controls
+          div.input-icon.left
+            i.ti-link(style="color: rgb(130, 144, 163);padding-top: 4px;")
+            input#login-ip.m-wrap.hastip-login(title="请输入服务器地址",type="text",name="device",data-provide="typeahead",ms-duplex="device",ms-keypress="keypress",placeholder="服务器地址",style="background: rgb(221, 227, 236);color: rgb(130, 144, 163);border: 1px solid rgb(221, 227, 236);height: 28px;")
+      div.control-group
+        //label.control-label(ms-text="lang.label_username")
+        div.controls
+          div.input-icon.left
+            i.icon-user(style="color: rgb(130, 144, 163);padding-top: 4px;")
+            input.m-wrap.hastip-login(title="请输入账号或邮箱地址登陆",type="text",name="username",ms-duplex="username",ms-keypress="keypress",placeholder="账号或邮箱",style="background: rgb(221, 227, 236);color: rgb(130, 144, 163);border: 1px solid rgb(221, 227, 236);height: 28px;")
+      div.control-group
+        //label.control-label(ms-text="lang.label_passwd")
+        div.controls
+          div.input-icon.left
+            i.icon-lock(style="color: rgb(130, 144, 163);padding-top: 4px;")
+            input.m-wrap.hastip-login(title="请输入密码",type="password",name="passwd",ms-duplex="passwd",ms-keypress="keypress",placeholder="密码",style="background: rgb(221, 227, 236);color: rgb(130, 144, 163);border: 1px solid rgb(221, 227, 236);height: 28px;")
+      
+      div.form-actions(style="margin-bottom: 0px;border-bottom:1px solid #F1F1F1")
+        button#login-btn.btn.green.pull-right(type="button",ms-click="submit",style="")
+          | 登录
+          i.m-icon-swapright.m-icon-white
+        a(href="javascript:;",id="forget-password",class="forget-password",style="display: block;margin-top: 10px;") 忘记密码?
+
+      div.login-options(style="display:none")
+        h5(style="float: left;color: #E0E0E0;padding: 14px 44px 0px 0px;") 社交帐号登录
+        ul.social-icons(style="display: inline-flex;padding-left: 62px;padding-top: 20px;padding-bottom: 20px;")
+          li
+            a(class="social-icon-color qq",href="javascript:;",style="display: flex !important;",id="qqLoginBtn")
+              //i.fa.fa-qq
+              img(src="images/QQ.png")
+          li
+            a(class="social-icon-color weixin",href="javascript:;",style="display: flex !important;",ms-click="weixinlogin")
+              //i.fa.fa-weixin
+              img(src="images/weixin.png")
+          li
+            a(class="social-icon-color weibo",href="javascript:;",style="display: flex !important;",ms-click="weibologin")
+              //i.fa.fa-weibo
+              img(src="images/weibo.png")
+
+      div.create-account(style="margin: 0 -30px -15px;padding: 10px 0 10px;text-align: center;background-color: rgb(108, 122, 141);")
+        p
+          a(href="javascript:;",id="register-btn",class="uppercase",style="color: rgb(195, 206, 221);font-weight: 800;") 注册一个新账号
+
+    form.wow.fadeIn(class="form-vertical forget-form",action="index.html",novalidate="novalidate",style="display: none;")
+      h3(style="text-align: center;color: #32c5d2!important;") 忘记密码 ?
+      p(style="color: #000!important;") 输入您的电子邮箱地址,以便密码找回
+      div(class="control-group")
+        div(class="controls")
+          div(class="input-icon left")
+            i.icon-envelope(style="color: rgb(130, 144, 163);padding-top: 4px;")
+            input(class="m-wrap placeholder-no-fix",type="text",placeholder="Email",name="email",style="background: rgb(221, 227, 236);color: rgb(130, 144, 163);border: 1px solid rgb(221, 227, 236);height: 28px;",ms-duplex="forget_email")
+      div(class="form-actions")
+        button(type="button",id="back-btn",class="btn")
+          i.m-icon-swapleft 
+          | 返回
+        button(type="submit",class="btn green pull-right",style="")
+          | 提交
+          i.m-icon-swapright.m-icon-white
+    
+    form.wow.fadeIn(class="form-vertical register-form",action="index.html",novalidate="novalidate",style="display: none;")
+      h3(style="text-align: center;color: #32c5d2!important;") 注册
+      p(style="color: #000!important;") 填写以下内容
+      div(class="control-group")
+        label(class="control-label visible-ie8 visible-ie9") 用户名
+        div(class="controls")
+          div(class="input-icon left")
+            i.icon-user(style="color: rgb(130, 144, 163);padding-top: 4px;")
+            input(class="m-wrap placeholder-no-fix",type="text",placeholder="用户名",name="username",ms-duplex="register_name",style="background: rgb(221, 227, 236);color: rgb(130, 144, 163);border: 1px solid rgb(221, 227, 236);height: 28px;")
+
+      div(class="control-group")
+        label(class="control-label visible-ie8 visible-ie9") 密码
+        div(class="controls")
+          div(class="input-icon left")
+            i.icon-lock(style="color: rgb(130, 144, 163);padding-top: 4px;")
+            input(class="m-wrap placeholder-no-fix",type="password",id="register_password",placeholder="密码",ms-duplex="register_passwd",name="password",style="background: rgb(221, 227, 236);color: rgb(130, 144, 163);border: 1px solid rgb(221, 227, 236);height: 28px;")
+
+      div(class="control-group")
+        label(class="control-label visible-ie8 visible-ie9") 确认密码
+        div(class="controls")
+          div(class="input-icon left")
+            i.fa.fa-check(style="color: rgb(130, 144, 163);padding-top: 4px;")
+            input(class="m-wrap placeholder-no-fix",type="password",placeholder="确认密码",name="rpassword",ms-duplex="register_confirm_passwd",style="background: rgb(221, 227, 236);color: rgb(130, 144, 163);border: 1px solid rgb(221, 227, 236);height: 28px;")
+            
+      div(class="control-group")
+        label(class="control-label visible-ie8 visible-ie9") 邮箱
+        div(class="controls")
+          div(class="input-icon left")
+            i.icon-envelope(style="color: rgb(130, 144, 163);padding-top: 4px;")
+            input(class="m-wrap placeholder-no-fix",type="text",placeholder="邮箱",name="email",ms-duplex="register_email",style="background: rgb(221, 227, 236);color: rgb(130, 144, 163);border: 1px solid rgb(221, 227, 236);height: 28px;")
+      
+      div.control-group
+        //label.control-label(ms-text="'省'")
+        div.controls(style="")
+          div.input-icon.left
+            i.icon-location-pin(style="color: rgb(130, 144, 163);padding-top: 4px;")
+          select#location_p.register-select(name="location_p",tabindex="0")
+
+      div.control-group
+        //label.control-label(ms-text="'市'")
+        div.controls(style="")
+          div.input-icon.left
+            i.icon-location-pin(style="color: rgb(130, 144, 163);padding-top: 4px;")
+          select#location_c.register-select(name="location_c",tabindex="0")
+
+      div.control-group
+        //label.control-label(ms-text="'区'")
+        div.controls(style="")
+          div.input-icon.left
+            i.icon-location-pin(style="color: rgb(130, 144, 163);padding-top: 4px;")
+          select#location_a.register-select(name="location_a",tabindex="0")
+
+      //div.control-group
+        //label.control-label(ms-text="lang.label_location")
+        //div.controls
+          //select#location_p(name="location_p",tabindex="0",style="width:247px;")
+          //select#location_c(name="location_c",tabindex="0",style="width:247px;")
+          //select#location_a(name="location_a",tabindex="0",style="width:247px;")
+
+      //div(class="control-group")
+      //  label(class="control-label visible-ie8 visible-ie9") 省市区
+      //  div(class="controls",style="")
+      //    div(class="input-icon left")
+      //      i.icon-pin(style="color: rgb(130, 144, 163);padding-top: 4px;")
+      //      input(data-toggle="city-picker",class="m-wrap placeholder-no-fix",type="text",placeholder="请选择省市区",name="location",ms-duplex="register_hotelname",style="background: rgb(221, 227, 236);color: rgb(130, 144, 163);border: 1px solid rgb(221, 227, 236);height: 28px;")
+
+      div(class="control-group")
+        label(class="control-label visible-ie8 visible-ie9") 地址
+        div(class="controls",style="")
+          div(class="input-icon left")
+            i.icon-location-pin(style="color: rgb(130, 144, 163);padding-top: 4px;")
+            input(class="m-wrap placeholder-no-fix",type="text",placeholder="酒店名称",name="location",ms-duplex="register_hotelname",style="background: rgb(221, 227, 236);color: rgb(130, 144, 163);border: 1px solid rgb(221, 227, 236);height: 28px;")
+
+      div(class="control-group")
+        div(class="controls",style="margin-top: -28px;")
+          label(class="checkbox",style="display: block;")
+          input(type="checkbox",name="tnc",style="margin-right: 6px;margin-bottom: 6px;")
+          | 我同意服务条款和隐私政策
+          div(id="register_tnc_error")
+
+      div(class="form-actions")
+        button(id="register-back-btn",type="button",class="btn")
+          i.m-icon-swapleft 
+          | 返回
+        button(type="submit",id="register-submit-btn",class="btn green pull-right",style="")
+          | 注册
+          i.m-icon-swapright.m-icon-white
+
+    form.wow.fadeIn(class="form-vertical forget-success-form",action="index.html",novalidate="novalidate",style="display: none;")
+      h3(style="text-align: center;color: #32c5d2!important;",ms-text="'恭喜您,密码已成功发送到您的邮箱,请查收'")
+      div(class="control-group")
+      div(class="form-actions",style="text-align: center;")
+        button(type="submit",id="forget-back-btn",class="btn green pull-right",style="border-radius: 0 !important;background: #32c5d2!important;color: rgb(255, 255, 255);")
+          | 返回登陆
+          i.m-icon-swapright.m-icon-white
+
+    form.wow.fadeIn(class="form-vertical wellcome-form",action="index.html",novalidate="novalidate",style="display: none;")
+      h3(style="text-align: center;color: #32c5d2!important;",ms-text="'恭喜您注册成功,您的账号是' + user_id")
+      //p(style="color: #000!important;") 您现在可以登录了！
+      div(class="control-group")
+      div(class="form-actions",style="text-align: center;")
+        button(id="wellcome-back-btn",type="button",class="btn",style="margin-right: 100px;")
+          i.m-icon-swapleft 
+          | 返回
+        button(type="submit",id="register-submit-btn",class="btn green pull-right",style="border-radius: 0 !important;background: #32c5d2!important;color: rgb(255, 255, 255);")
+          | 直接登陆
+          i.m-icon-swapright.m-icon-white
+
+  div.copyright(style="color: #7a8ca5;")
+    | {{lang.copyright}}
+
+div(class="backstretch",id="particles-js",style="position: absolute;width: 100%;height: 99%;;background-color: rgb(54, 65, 80);background-image: url('');background-repeat: no-repeat;background-size: cover;background-position: 50% 50%;position: absolute;left: 0;top: 0;")

@@ -1,0 +1,37 @@
+doctype html
+ul.page-sidebar-menu(ms-each-e="navs", ms-if="server ==='store'")
+  li(ms-class="active:$index===active_index",ms-class-1="{{e.menuid}}")
+    a(href="javascript:;",ms-data-idx="$index",ms-click="tab_click",ms-hover="hover")
+      span.remove
+        i.icon-remove-circle
+      i.icon-home
+      span.title
+      | {{e.title}}
+      span.selected(ms-class="active:$index===active_index")
+      span
+    ul.sub-menu(style="display:none;")
+
+ul.page-sidebar-menu(ms-each-e="navs", ms-if="server ==='central'",data-slide-speed="200",data-auto-scroll="true")
+  li(ms-class="active:$index===active_index",ms-class-1="{{e.menuid}}")
+    a(href="javascript:;",ms-data-idx="$index",ms-click="tab_click",style="display:none")
+      span.remove
+        i.icon-remove
+      i.icon-home
+      span.title
+      | {{e.title}}
+      span.selected(ms-class="active:$index===active_index")
+      span
+    ul.sub-menu(style="display:none;margin-top: 0px;")
+
+ul.page-sidebar-menu(ms-each-e="navs", ms-if="server ==='centrals'",data-slide-speed="200",data-auto-scroll="true")
+  li(ms-class="active:$index===active_index",ms-class-1="{{e.menuid}}")
+    a.wave(href="javascript:;",ms-data-idx="$index",ms-click="tab_click",style="background: rgba(49, 61, 78, 0)!important;")
+      div(style="")
+        span
+          canvas(style="border-radius: 70px !important;width: 50px;height: 50px;cursor: pointer;",id="sibar_head")
+        span.title
+        | {{user_name}}
+        span.arrow.open
+
+    ul.sub-menu(style="display:none;margin-top: 0px;")
+      

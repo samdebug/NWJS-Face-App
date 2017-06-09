@@ -1,0 +1,41 @@
+doctype html
+div.container-fluid.wow.fadeIn
+  h3.page-title(ms-html="'数据统计'")
+  div(class="loader1",ms-visible="show_search === false",style="margin-top: 100px;")
+    i
+    i
+  div.row-fluid(ms-visible="show_search===true")
+    div.span12
+      div.portlet.box.green-sharp
+        div.portlet-title
+          div.caption
+            i.icon-pie-chart
+            | 人流量搜索
+        div.portlet-body.form
+          form.search.form-horizontal(action="javascripts:;")
+            div.control-group
+              label.control-label(ms-text="'摄像头'")
+              div.controls
+                div.input-icon.left
+                  i.icon-camcorder
+                select#camera.chosen(name="mode-select",tabindex="0",style="width:247px;",ms-each-e="option_camera")
+                  option(ms-value="e.value",ms-text="e.key")
+
+            div.control-group
+              label.control-label(ms-text="'开始时间'")
+              div.controls
+                div.input-icon.left
+                  i.icon-calendar
+                  input.m-wrap(type="text",name="start_time",id="start_time",ms-duplex="_start")
+
+            div.control-group
+              label.control-label(ms-text="'结束时间'")
+              div.controls
+                div.input-icon.left
+                  i.icon-calendar
+                  input.m-wrap(type="text",name="end_time",id="end_time",ms-duplex="_end")
+
+            div.form-actions
+              a(href="javascript:;",class="btn blue",style="width: 220px;",ms-click="search_data")
+                | 搜索
+                i.m-icon-swapright.m-icon-white

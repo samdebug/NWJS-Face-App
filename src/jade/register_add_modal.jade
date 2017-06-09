@@ -1,0 +1,79 @@
+doctype html
+div
+  div.modal-header
+    button.close(type="button",data-dismiss="modal",aria-hidden="true")
+    h4(ms-text="'注册'")
+  div.modal-body
+    div.row-fluid
+      div.span12
+        form(class="form-horizontal register-form",style="")
+          div(class="control-group")
+            label(class="control-label") 用户名
+            div(class="controls")
+              div(class="input-icon left")
+                i.icon-user
+                input(class="m-wrap",type="text",placeholder="用户名",name="username",ms-duplex="register_name")
+
+          div(class="control-group")
+            label(class="control-label") 密码
+            div(class="controls")
+              div(class="input-icon left")
+                i.icon-lock
+                input(class="m-wrap",type="password",id="register_password",placeholder="密码",ms-duplex="register_passwd",name="password")
+
+          div(class="control-group")
+            label(class="control-label") 确认密码
+            div(class="controls")
+              div(class="input-icon left")
+                i.fa.fa-check
+                input(class="m-wrap",type="password",placeholder="确认密码",name="rpassword",ms-duplex="register_confirm_passwd")
+
+          div(class="control-group")
+            label(class="control-label") 邮箱
+            div(class="controls")
+              div(class="input-icon left")
+                i.icon-envelope
+                input(class="m-wrap",type="text",placeholder="邮箱",name="email",ms-duplex="register_email")
+          
+          div.control-group
+            label.control-label(ms-text="'省'")
+            div.controls(style="")
+              div.input-icon.left
+                i.icon-pointer
+              select#location_p.register-select-normal(name="location_p",tabindex="0")
+
+          div.control-group
+            label.control-label(ms-text="'市'")
+            div.controls(style="")
+              div.input-icon.left
+                i.icon-pointer
+              select#location_c.register-select-normal(name="location_c",tabindex="0")
+
+          div.control-group
+            label.control-label(ms-text="'区'")
+            div.controls(style="")
+              div.input-icon.left
+                i.icon-pointer
+              select#location_a.register-select-normal(name="location_a",tabindex="0")
+
+          div(class="control-group")
+            label(class="control-label") 地址
+            div(class="controls",style="")
+              div(class="input-icon left")
+                i.icon-pointer
+                input(class="m-wrap",type="text",placeholder="酒店名称",name="location",ms-duplex="register_hotelname")
+
+          div(class="control-group")
+            div(class="controls",style="margin-top: -28px;")
+              label(class="checkbox",style="display: block;")
+              input(type="checkbox",name="tnc",style="margin-right: 6px;margin-bottom: 6px;")
+              | 我同意服务条款和隐私政策
+              div(id="register_tnc_error")
+  
+  div.modal-footer
+    button.btn(type="button",data-dismiss="modal")
+      i.fa.fa-undo
+      | 取消
+    button.btn.green(type="button",ms-click="submit")
+      i.fa.fa-check
+      | 确认

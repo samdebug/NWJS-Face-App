@@ -1,0 +1,251 @@
+doctype html
+//div(id="fullpage",style="display:none;")
+//  div.section
+//    img(src="images/poster/poster1.png")
+//  div.section
+//    img(src="images/poster/poster2.jpg")
+//  div.section
+//    img(src="images/poster/poster3.png")
+//  div.section
+//    img(src="images/poster/poster4.png")
+//  div.section
+//    img(src="images/poster/poster5.png")
+//  div.section
+//    img(src="images/poster/poster6.png")
+div.container-fluid
+  ul.breadcrumb
+    li
+      a(href="#",ms-text="'主页'",ms-click="switch_to_page('basicdata')")
+      i.fa.fa-circle
+    li
+      a(ms-text="'基本资料'")
+  h3.page-title(ms-html="'基本资料'")
+  div.row-fluid.profile.wow.fadeIn
+    div.span12
+      div.span4.profile-info
+        div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;height: 332px;")
+          div.portlet-title(style="padding: 12px 10px 17px;")
+            div.caption(style="font-weight:bold")
+              //i.icon-paper-plane
+              | 简介
+            div.actions     
+              //a.btn.red.mini.hastip(title="编辑个人资料",ms-click="change_data",href="#",style="height: 17px;color: rgb(216, 74, 56);background-color: rgb(255, 255, 255);margin-left: 5px !important;border-radius: 15px !important;border: 1px solid;padding-top: 8px;min-width: 25px;margin-top: -6px;")
+                //i.icon-pencil
+          div.portlet-body.weather-span(style="text-align: center;")
+            div.pm25
+              p(style="color: rgb(90, 115, 145);font-size: 14px;")
+                span 空气质量
+                span(ms-text="air")
+            div.local
+              span(style="color: rgb(90, 115, 145);font-size: 14px;")
+                //i.icon-pointer(style="color:rgb(22, 158, 244) !important;padding-top: 3px;padding-right: 3px;")
+                img(src="images/placeholder.png",style="height: 15px;")
+                | {{city}}
+            div.day(style="padding-top: 10px;")
+              p(ms-text="month_day",style="color: rgb(90, 115, 145);font-size: 14px;")
+            div
+              p
+                span(ms-text="week",style="padding-right: 13px;")
+                span(ms-text="old_date")
+            div(style="margin-left: -60px;")
+              canvas(id="day0_weather",width="40",height="40",style="margin-top: -5px;padding-right: 15px;")
+              //img(src="",id="weather_icon")
+              span(ms-text="temp",style="position: absolute;")
+
+          div.weather-span(style="text-align: center;")
+            div.span4(style="border-right: 2px dotted #EBEBEB;")
+              p(ms-text="day1")
+              canvas(id="day1_weather",width="40",height="40")
+              //img(src="",id="day1_weather")
+            div.span4(style="border-right: 2px dotted #EBEBEB;")
+              p(ms-text="day2")
+              canvas(id="day2_weather",width="40",height="40")
+              //img(src="",id="day2_weather")
+            div.span4
+              p(ms-text="day3")
+              canvas(id="day3_weather",width="40",height="40")
+              //img(src="",id="day3_weather")
+
+      ul.unstyled.profile-nav.span4
+        div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
+          div.portlet-title
+            //div.caption(style="font-weight:bold")
+            //div.actions
+              //a.btn.red.mini(ms-click="change_head",href="#",style="height: 17px;color: rgb(216, 74, 56);background-color: rgb(255, 255, 255);margin-left: 5px !important;border-radius: 15px !important;border: 1px solid;padding-top: 8px;min-width: 25px;margin-top: -6px;")
+                //i.icon-pencil    
+          div.portlet-body(style="padding-bottom: 32px;")
+            li.avatar-view(style="text-align: center;padding-bottom: 22px;",id="crop-avatar")
+              canvas.hastip(title="点击更换头像",id="headers",style="border-radius: 70px !important;width: 140px;height: 140px;text-align: center;cursor: pointer;",ms-click="change_head")
+            li
+              div(ms-text="user",style="text-align: center;color: rgb(90, 115, 145);font-size: 20px;font-weight: 600;margin-bottom: 7px;")
+              //div(ms-text="user",style="text-align: center;text-transform: uppercase;color: #5b9bd1;font-size: 13px;font-weight: 800;margin-bottom: 7px;")
+            li
+              div(style="text-align: center;padding-top:19px")
+                button.hastip.wave(title="修改资料",type="button",class="btn btn-circle blue btn-sm",style="color: #FFF;background-color: #4A93FF;border-color: #4A93FF;padding: 8px 25px;border-radius: 20px !important;margin-left: 10px;height: 36px;",ms-click="change_data") 修改
+                button.hastip.wave(title="为账户充值",ms-click="recharge",type="button",class="btn btn-circle red btn-sm",style="color: #fff;background-color: #e7505a;border-color: #e7505a;padding: 8px 25px;border-radius: 20px !important;margin-left: 20px;height: 36px;") 充值
+
+      div.span4
+       div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;height: 332px;")
+         div.portlet-title(style="padding: 12px 10px 17px;")
+            div.caption(style="font-weight:bold")
+              //i.icon-paper-plane
+              | 计费
+            div.actions           
+         div.portlet-body(style="padding-top: 33px;")
+           div.portlet.sale-summary
+             //div.portlet-title
+               //div.caption
+               //| Sales Summary
+             ul.unstyled
+                li
+                  span(class="sale-info",style="font-weight: 100;color: rgb(90, 115, 145) !important;") 剩余对比次数
+                    i.icon-img-down
+                  span(class="sale-num",ms-text="remain",style="font-family: 'bebas';font-size: 26px;")
+                li
+                  span.sale-info(style="font-weight: 100;color: rgb(90, 115, 145) !important;")
+                    | 账号等级 
+                  span(class="sale-num",ms-text="userlevel",style="font-family: 'bebas';font-size: 26px;")
+                li
+                  span(class="sale-info",style="font-weight: 100;color: rgb(90, 115, 145) !important;") 总对比次数
+                    i.icon-img-up
+                  span(class="sale-num",ms-text="total",style="font-family: 'bebas';font-size: 26px;")
+                li
+                  span(class="sale-info",style="font-weight: 100;color: rgb(90, 115, 145) !important;") 平均识别度
+                    i.icon-img-up
+                  span(class="sale-num",ms-text="average + '%'",style="font-family: 'bebas';font-size: 26px;")
+                  
+  div.row-fluid.wow.fadeIn
+    div.span12
+      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
+        div.portlet-title(style="padding: 12px 10px 17px;")
+          div.caption(style="font-weight:bold")
+            //i.icon-bar-chart
+            | 对比次数
+          div.actions
+        div.portlet-body
+          p(style="padding-left: 10px;")
+            span(style="font-size: 13px;color:#4b4b4b;padding: 5px;") 过去十天内一共对比了
+            span(ms-text="amount_compare",style="font-family: bebas;font-size: 26px;color: #1796f9;")
+            span(style="font-size: 13px;color:#4b4b4b;padding: 5px;") 次
+          div(id="day_chart",style="height:180px")
+
+  div.row-fluid.wow.fadeIn
+    div.span12
+      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
+        div.portlet-title(style="padding: 12px 10px 17px;")
+          div.caption(style="font-weight:bold")
+            //i.icon-emoticon-smile 
+            | 欢迎使用
+          div.actions
+        div.portlet-body
+          div.slider-wrapper.theme-default
+            div(id="slider",class="nivoSlider",style="box-shadow:none")
+              a(href="javascript:;") //http://www.zexabox.com
+                img(src="images/poster/poster1.png")
+              a(href="javascript:;")
+                img(src="images/poster/poster2.jpg")
+              a(href="javascript:;")    
+                img(src="images/poster/poster3.png")
+              a(href="javascript:;")
+                img(src="images/poster/poster4.png")
+              a(href="javascript:;")
+                img(src="images/poster/poster5.png")
+              a(href="javascript:;")
+                img(src="images/poster/poster6.png")
+
+  div.row-fluid.wow.fadeIn(ms-if="show_weather_animate === true")
+    div.span12
+      //div.portlet.solid.bordered.light-grey(style="border: 1px solid #4689AF;background: #2498DA !important;height: 250px;padding-top: 35px;",id="starfield")
+      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;height: 250px;padding-top: 35px;",id="starfield")
+        div.responsive.span3(data-tablet="span3",data-desktop="span3")
+          div.dashboard-stat.grey
+            div.containers(style="")
+              div(id="day0")
+            div(style="text-align: center;")
+              div.span6(ms-text="week",style="background: rgba(240, 240, 240, 0.33);padding: 10px;")
+              div.span6(ms-text="week",style="background: rgba(240, 240, 240, 0.33);padding: 10px;")
+
+        div.responsive.span3(data-tablet="span3",data-desktop="span3")
+          div.dashboard-stat.grey
+            div.containers(style="")
+              div(id="day1")
+            div(style="text-align: center;")
+              div.span6(ms-text="day1",style="background: rgba(240, 240, 240, 0.33);padding: 10px;")
+              div.span6(ms-text="day1",style="background: rgba(240, 240, 240, 0.33);padding: 10px;")
+
+        div.responsive.span3(data-tablet="span3",data-desktop="span3")
+          div.dashboard-stat.grey
+            div.containers(style="")
+              div(id="day2")
+            div(style="text-align: center;")
+              div.span6(ms-text="day2",style="background: rgba(240, 240, 240, 0.33);padding: 10px;")
+              div.span6(ms-text="day2",style="background: rgba(240, 240, 240, 0.33);padding: 10px;")
+
+        div.responsive.span3(data-tablet="span3",data-desktop="span3")
+          div.dashboard-stat.grey
+            div.containers(style="")
+              div(id="day3")
+            div(style="text-align: center;")
+              div.span6(ms-text="day3",style="background: rgba(240, 240, 240, 0.33);padding: 10px;")
+              div.span6(ms-text="day3",style="background: rgba(240, 240, 240, 0.33);padding: 10px;")
+
+          
+  div.row-fluid.wow.fadeIn
+    div.span12
+      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
+        div.portlet-title(style="padding: 12px 10px 17px;")
+          div.caption(style="font-weight:bold")
+            //i.icon-pointer
+            | 位置
+          div.actions
+            //div.btn-group.pull-right(id="relocate")
+              //a.btn.green(href="javascript:;",ms-text="'定位'")
+
+        div.portlet-body
+          div(id="allmap",style="height: 200px;")
+
+  div.row-fluid.wow.fadeIn(ms-if="show_weather == true")
+    div.span6
+      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
+        div.portlet-title(style="margin:10px")
+          div.caption(style="font-weight:bold")
+            //i.icon-map-marker 
+            | 天气
+          div.actions
+            //div.btn-group.pull-right(data-toggle="buttons-radio",ms-click="clear_log")
+              //a.btn.green(href="javascript:;",ms-text="lang.clear_log",ms-class="active:flow_type=='fwrite_mb'",data-flow-type="fwrite_mb")
+        div.portlet-body
+          div(id="img_weather")
+          div(id="_weather",style="height: 300px;")
+
+    div.span6
+      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
+        div.portlet-title(style="margin:10px")
+          div.caption(style="font-weight:bold")
+            //i.icon-map-marker 
+            | 日历
+          div.actions
+            //div.btn-group.pull-right(data-toggle="buttons-radio",ms-click="clear_log")
+              //a.btn.green(href="javascript:;",ms-text="lang.clear_log",ms-class="active:flow_type=='fwrite_mb'",data-flow-type="fwrite_mb")
+        div.portlet-body
+          div(id="",style="height: 300px;")
+
+  div.row-fluid
+    div.span12
+      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
+        div.portlet-title(style="padding: 12px 10px 17px;")
+          div.caption(style="font-weight:bold")
+            //i.ti-wallet
+            | 历史记录
+          div.actions
+            //div.btn-group.pull-right(data-toggle="buttons-radio",ms-click="clear_log")
+              //a.btn.green(href="javascript:;",ms-text="lang.clear_log",ms-class="active:flow_type=='fwrite_mb'",data-flow-type="fwrite_mb")
+        div.portlet-body
+          div#journals-scroller-1.scroller(data-height="320px")
+            table#log-table1.table.table-striped.table-hover
+              thead
+                tr
+                  th(ms-text="'时间'")
+                  th(ms-text="'类型'")
+                  th(ms-text="'内容'")
+                  th(ms-text="'操作'")

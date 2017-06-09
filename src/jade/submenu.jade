@@ -1,0 +1,6 @@
+doctype html
+li(ms-repeat-e="navs",ms-click="switch_to_page",ms-class="active:$index===active_index")
+  a(href="javascript:;",ms-data-id="e.id")
+    i(ms-class="{{e.icon}}")
+    span.title
+    | &nbsp;{{e.title}}

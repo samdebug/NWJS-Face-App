@@ -1,0 +1,11 @@
+doctype html
+div
+  div.modal-body
+    h5(ms-text="message")
+  div.modal-footer
+    button.btn(type="button",data-dismiss="modal",ms-click="cancel")
+      i.fa.fa-undo
+      | {{lang.btn_cancel}}
+    button.btn.green(type="button",data-dismiss="modal",ms-click="submit_confirm")
+      i.fa.fa-check
+      | {{lang.btn_confirm}}

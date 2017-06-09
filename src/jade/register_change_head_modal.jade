@@ -1,0 +1,53 @@
+doctype html
+div
+  div.modal-header
+    button.close(type="button",data-dismiss="modal",aria-hidden="true")
+    h4(ms-text="'更换头像'")
+  div.modal-body
+    div.alert.alert-error.hide
+      button(class="close",data-dismiss="alert")
+      | 请裁剪后再保存
+    p(ms-text="'选择本地照片,上传编辑自己的头像'",style="font-weight:bold")
+    div.row-fluid
+      div.span8
+        div(ms-visible="show_div == true",id="result",class="result",style="border: 1px solid rgb(240, 240, 240);width: 400px;height: 300px;background: rgb(240, 240, 240);text-align: center;vertical-align: middle;")
+          canvas(id="headerss",style="")
+
+        span(class="btn green fileinput-button",style="margin-top: 10px;") 
+          i(class="m-icon-swapup m-icon-white")
+          span(ms-text="'选择文件'")
+          input(type="file",id="file-input")
+
+        div(id="actions",style="display:none;padding-top: 10px;")
+          button.btn.green(type="button",id="edit",style="margin-right: 4px;")
+            i.icon-edit
+            | 编辑
+          button.btn.green(type="button",id="crop")
+            i.icon-t
+            | 裁剪
+
+      //div.span4
+        //div(id="preview-pane")
+          //div(class="preview-container")
+            //img(src="",class="jcrop-preview",alt="Preview",id="img_preview")
+
+      //div.span4
+        //div(id="result_150",style="border: 1px solid rgb(240, 240, 240);width: 150px;height: 150px;background: rgb(240, 240, 240);text-align: center;display: table-cell;vertical-align: middle;")
+          //img(id="img_150")
+
+        //div(id="result_55",style="border: 1px solid rgb(240, 240, 240);width: 55px;height: 55px;background: rgb(240, 240, 240);text-align: center;vertical-align: middle;margin-top: 10px;")
+          //img(id="img_55")
+       
+      //div.span4
+        //div(id="result_100",class="result",style="border: 1px solid rgb(240, 240, 240);width: 100px;height: 100px;background: rgb(240, 240, 240);text-align: center;display: table-cell;vertical-align: middle;")
+          //canvas(id="")
+        //div(id="result_55",class="result",style="border: 1px solid rgb(240, 240, 240);width: 55px;height: 55px;background: rgb(240, 240, 240);text-align: center;display: block;vertical-align: middle;margin-top:10px")
+          //canvas(id="")
+
+  div.modal-footer
+    button.btn(type="button",data-dismiss="modal")
+      i.fa.fa-undo
+      | 取消
+    button.btn.green(type="button",ms-click="submit",id="submit")
+      i.fa.fa-check
+      | 保存头像

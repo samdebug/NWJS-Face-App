@@ -1,0 +1,65 @@
+doctype html
+div
+  div.modal-header
+    button.close(type="button",data-dismiss="modal",aria-hidden="true")
+    h4(ms-text="'个人资料'")
+  div.modal-body
+    div.row-fluid.profile
+      div.span12
+        ul.unstyled.profile-nav
+          li(style="text-align: center;")
+            canvas(id="person",style="border-radius: 70px !important;width: 140px;height: 140px;")
+      
+      div.span12
+        div.portlet.sale-summary(style="padding-right: 20px;")
+          ul.unstyled
+            li
+              span(class="sale-info") 账号
+              span(class="sale-num",ms-text="account",style="font-size: 14px;padding-right: 14px;") 
+            li
+              span(class="sale-info") 用户名
+              span(class="sale-num",ms-text="user",style="font-size: 14px;padding-right: 14px;") 
+            li
+              span(class="sale-info") 真实名字
+              span(class="sale-num",ms-text="realname",style="font-size: 14px;padding-right: 14px;") 
+            li
+              span(class="sale-info") 创建时间
+              span(class="sale-num",ms-text="created",style="font-size: 14px;padding-right: 14px;") 
+            li
+              span(class="sale-info") 性别
+              span(class="sale-num",ms-text="sex",style="font-size: 14px;padding-right: 14px;") 
+            li
+              span(class="sale-info") 电话
+              span(class="sale-num",ms-text="tel",style="font-size: 14px;padding-right: 14px;") 
+            li
+              span(class="sale-info") 邮箱
+              span(class="sale-num",ms-text="email",style="font-size: 14px;padding-right: 14px;") 
+            li
+              span(class="sale-info") 用户等级
+              span(class="sale-num",ms-text="userlevel",style="font-size: 14px;padding-right: 14px;") 
+            li
+              span(class="sale-info") 平均相似度(%)
+              span(class="sale-num",ms-text="average",style="font-size: 14px;padding-right: 14px;") 
+            li
+              span(class="sale-info") 充值总数
+              span(class="sale-num",ms-text="recharge",style="font-size: 14px;padding-right: 14px;") 
+            li
+              span(class="sale-info") 剩余对比次数
+              span(class="sale-num",ms-text="remain",style="font-size: 14px;padding-right: 14px;")  
+            li
+              span(class="sale-info") 总对比次数
+              span(class="sale-num",ms-text="total",style="font-size: 14px;padding-right: 14px;")  
+            li
+              span(class="sale-info") 地址
+              span(class="sale-num",ms-text="location",style="font-size: 14px;padding-right: 14px;")  
+            li
+              span(class="sale-info") 酒店名称
+              span(class="sale-num",ms-text="hotelname",style="font-size: 14px;padding-right: 14px;")  
+ 
+  div.modal-footer
+    button.btn(type="button",data-dismiss="modal")
+      i.fa.fa-undo
+      | 取消
+    button.btn.green(type="button",ms-click="submit")
+      i.fa.fa-check
+      | 确认

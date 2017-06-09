@@ -1,0 +1,102 @@
+doctype html
+div
+  div.modal-header
+    button.close(type="button",data-dismiss="modal",aria-hidden="true")
+    h4(ms-text="'充值中心'")
+  div.modal-body
+    div.row-fluid
+      div.span12
+        div.portlet.box.blue(id="form_wizard_1")
+          div.portlet-title
+            div.caption
+              i.icon-credit-card
+              | 充值步骤
+          div.portlet-body.form
+            form(action="#",class="form-horizontal",id="submit_form",novalidate="novalidate")
+              div.form-wizard
+                div.navbar.steps
+                  div.navbar-inner
+                    ul.row-fluid.nav.nav-pills(id="myTab")
+                      li.span4.active
+                        a(href="#tab1",data-toggle="tab",class="step active")
+                          span.number(ms-text="'1'")
+                          span.desc
+                            i.icon-ok 
+                            | 选择
+                      li.span4
+                        a(href="#tab2",data-toggle="tab",class="step")
+                          span.number 2
+                          span.desc
+                            i.icon-ok 
+                            | 支付
+
+                      li.span4
+                        a(href="#tab3",data-toggle="tab",class="step")
+                          span.number 3
+                          span.desc
+                            i.icon-ok 
+                            | 结果   
+
+                div(id="bar",class="progress progress-success progress-striped")
+                  div(class="bar")
+
+                div.tab-content
+                  div.alert.alert-error.hide
+                    button(class="close",data-dismiss="alert")
+                    | 请先完成此步骤
+                  div(class="tab-pane active",id="tab1")
+                    h3(class="block") 选择支付方式
+                    div.row-fluid(style="padding: 30px;")
+                      div.span12
+                        form.choose.form-horizontal(action="javascripts:;",style="text-align: center;")
+                          div.control-group
+                            label.radio
+                              input(type="radio",name="option",value="wechat",ms-duplex-text="option",style="margin-left: 0px;")
+                              | 微信
+                              span(style="float:right;padding-left:10px")
+                                img(src="images/wechat.png",style="width: 20px;height: 20px;float: left;")
+
+                          div.control-group(style="")
+                            label.radio
+                              input(type="radio",name="option",value="alipay",ms-duplex-text="option",style="margin-left: 0px;")
+                              | 支付宝
+                              span(style="float:right;padding-left:10px")
+                                img(src="images/alipay.png",style="width: 20px;height: 20px;float: left;")
+
+                          div.control-group(style="")
+                            label.radio
+                              input(type="radio",name="option",value="credit_card",ms-duplex-text="option",style="margin-left: 0px;")
+                              | 其他银行卡
+                              span(style="float:right;padding-left:10px")
+                                img(src="images/credit.png",style="width: 20px;height: 20px;float: left;")
+                        
+                  div(class="tab-pane",id="tab2")
+                    h3(class="block",ms-text="pay_result") 
+                    div.row-fluid
+                      div.span12
+                        div(style="text-align: center")
+                          img(src="",id="code",style="height: 170px;padding:60px")
+
+                  div(class="tab-pane",id="tab3")
+                    h3(class="block",ms-text="compare_result")
+                    div(style="text-align: right",id="div_result")
+                      img(src="",id="show_result_pass",style="height: 120px")
+
+                div.form-actions.clearfix(style="background-color: rgb(255, 255, 255);")
+                  a(href="javascript:;",class="btn button-previous",style="display: none;")
+                    i.m-icon-swapleft
+                    | 上一步
+                  a(href="javascript:;",class="btn blue button-next")
+                    | 下一步
+                    i.m-icon-swapright.m-icon-white
+                  a(href="javascript:;",class="btn green button-submit",style="display: inline-block;")
+                    | 完成
+                    i(class="m-icon-swapright m-icon-white")
+
+  div.modal-footer
+    button.btn(type="button",data-dismiss="modal")
+      i.fa.fa-undo
+      | 取消
+    button.btn.green(type="button",ms-click="submit")
+      i.fa.fa-check
+      | 确定

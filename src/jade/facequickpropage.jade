@@ -1,0 +1,203 @@
+doctype html
+div.container-fluid.wow.fadeIn
+  ul.breadcrumb(style="display:none")
+    li
+      a(href="#",ms-text="'主页'",ms-click="switch_to_page('basicdata')")
+      i.fa.fa-circle
+    li
+      a(ms-text="'基本功能'")
+  h3.page-title(style="font-size:21px") 人证识别系统
+  div.row-fluid(style="")
+    div.portlet.solid.bordered.light-grey.sale-summary(style="background: rgb(255, 255, 255) !important;border: 1px solid #E9E9E9;height: 395px;",id="face_portlet")
+      //div.portlet-title(style="padding: 12px 10px 17px;")
+        div.caption(style="font-weight:bold")
+          i.icon-bar-chart
+          | 摄像头
+        div.actions
+          a.btn.btn-outline.btn-circle.blue.mini(ms-click="change_cam_modal",href="javascript:;")
+            i.icon-cog
+      div.portlet-body(style="text-align: center;")
+        div.span7
+          div.span12
+            div(ms-visible="show_ip_cam === false",title="更换信号源",style="cursor:pointer")
+              div(style="text-align: center;padding-top: 160px;",ms-visible="camera_error === true")
+                i.fa.fa-meh-o.hastip-facequickpro(style="font-size: 50px;color: rgb(182, 182, 182);",ms-visible="camera_error === true",ms-click="change_cam_modal",title="更换信号源")
+                h5(style="font-weight:bold;color: rgb(182, 182, 182);",ms-visible="camera_error === true") 未发现usb摄像头
+                span
+                  a.btn.btn-outline.blue.mini(ms-click="retry_camera",href="javascript:;",ms-visible="camera_error === true")
+                    | 重试
+                  //a.btn.btn-outline.blue.mini(ms-click="change_cam_modal",href="javascript:;",ms-visible="camera_error === true")
+                    | 更换信号源
+
+              div.hastip-facequickpro#webcam(style="margin-left: -13px;",ms-visible="camera_error === false",ms-click="change_cam_modal")
+                //img(src="images/frame.png",alt="")
+                //div.code-bg
+                  //div.line
+                //div#player
+                //p(id="showTime",style="display:none")
+                //div.box-outer(style="")
+                  div.main_box
+                    div.bar.tops
+                    div.bar.rights.delay
+                    div.bar.bottoms.delay
+                    div.bar.lefts
+                //canvas(id="canvas",width="300",height="225",style="position:absolute",ms-visible="show_tracking===true")
+                //object(type='application/x-vlc-plugin',pluginspage="http://www.videolan.org/",id='vlc',events='false',width="540",height="360")
+                  param(name='mrl',value='rtsp://admin:12345@192.168.2.124:554/Streaming/Channels/1')
+                  param(name='volume',value='50')
+                  param(name='autoplay',value='true')
+                  param(name='loop',value='false')
+                  param(name='fullscreen',value='false')
+                  param(name='controls',value='false')
+
+            div.hastip-facequickpro(ms-visible="show_ip_cam === true",title="更换信号源",style="cursor:pointer",id="radio_ip")
+              video(id="videoplayer",src="",width="550",controls,autoplay,style="margin-left: -10px;",ms-click="change_cam_modal")
+
+        div.span5
+          //div(style="float:left")
+            //h5(style="float: left;color: #646464;font-size: 13px;font-weight: bold;",ms-text="'当前信号源:' + source_cam")
+            a.btn.blue.mini(style="float: left;margin-top: 8px;",ms-click="change_cam_modal",href="javascript:;")
+              | 更换信号源
+          //div(style="float:right")
+            ul.unstyled
+              li(style="border-top: none;padding-top: 25px;")
+                span(class="sale-info",style="font-size: 13px;padding-left: 5px;margin-top: -1px;") 状态:
+                span(class="sale-num",ms-html="fattr_compare_status(status,'normal')")
+
+          div(ms-visible="show_all === false",style="")
+            div.loading-bro
+              svg(id="load",x="0px",y="0px",viewBox="0 0 150 150")
+                circle(id="loading-inner",cx="75",cy="75",r="60")
+            //div.loader.loader-5
+          div(ms-visible="show_all === true",style="margin-right:-11px")
+            //ul.unstyled
+              //li(style="border-top: none;padding: 0;")
+                //div(id="foo",ms-visible="show_spin===true")
+                //span(class="sale-info",style="font-size: 13px;padding-left: 5px;") 状态
+                //span(class="sale-num",ms-html="fattr_compare_status(status,'normal')",ms-visible="show_retry === false")
+                //span(class="sale-num",ms-visible="show_retry === true")
+                  a.btn.btn-outline.btn-circle.green.mini(ms-click="remove_all",href="javascript:;")
+                    | 重新对比
+              //li(style="border-top: none;padding: 0;")
+                //div(id="foo",ms-visible="show_spin===true")
+                span(class="sale-info",style="font-size: 13px;padding-left: 5px;") 结果
+                span(class="sale-num",ms-html="fattr_compare_status(result)")
+
+              //li(style="border-top: none;")
+                //div(id="foo",ms-visible="show_spin===true")
+                span(class="sale-info",style="font-size: 13px;padding-left: 5px;") 识别度
+                span(class="sale-num",ms-html="fattr_compare_status(com)") 
+            
+            //div
+              p(ms-text="'识别度:' + com",style="font-size: 22px;color: rgb(22, 158, 244);font-family: 'microsoft yahei';",ms-visible="show_retry === true")
+              //img(src="images/vs.png",style="padding-top: 35px;")
+
+            div(style="text-align: left;padding-top: 30px;font-family: 'dq-heiti';font-size: 17px;",ms-if="show_img === true")
+              span(style="color:#169EF4;")
+                i.icon-book-open(style="padding-right:10px;")
+                | 操作指南
+              p(style="padding-top: 20px;") 1.请确保已连接读卡器以及摄像头。
+              p 2.将五官置于摄像头画面的中央。
+              p 3.将身份证放在读卡器上便可以开始自动读卡。
+
+            //div#face_no_result(style="text-align: center;padding-top: 174px;font-family: 'dq-heiti';font-size: 17px;",ms-if="show_img === true")
+              i.fa.fa-meh-o(style="font-size: 50px;color: rgb(182, 182, 182);",ms-if="show_img === true")
+              h5(style="font-weight:bold;color: rgb(182, 182, 182);font-family: 'dq-heiti';",ms-if="show_img === true") 无结果
+
+            div(ms-visible="show_img === false")
+              div.span5(style="text-align: left;")
+                //div#mirror(style="")
+                //img.pic1(src="",id="mirror",style="width: 166px;margin-left: -53px;")
+                canvas(id="mirror",width="102px",height="126px",style="border: 1px solid #C9C9C9;")
+              div.span2(style="padding-top:30px")
+                img(src="",id="result_img")
+                p(ms-text="'识别度:' + com",style="font-size: 18px;color: rgb(22, 158, 244);font-family: 'dq-heiti';display: block;padding-top: 20px;width: 125px;margin-left: -30px;",ms-visible="show_retry === true")
+              div.span5(style="text-align: right;")
+                canvas(id="canvas_card",style="border: 1px solid #C9C9C9;")
+
+            div(ms-visible="show_img === false")
+              ul.unstyled(style="padding-top: 50px;margin: 0;",id="face_ul")
+                li(style="border-top: none;padding: 0;")
+                  span(class="sale-info",style="font-size: 13px;font-family: 'dq-heiti';font-weight: normal;color: #169EF4;") 姓名
+                  span(class="sale-num",ms-html="fattr_compare_status(personName)",style="font-family: 'dq-heiti'") 
+                li(style="border-top: none;padding: 0;")
+                  span(class="sale-info",style="font-size: 13px;font-family: 'dq-heiti';font-weight: normal;color: #169EF4;") 性别
+                  span(class="sale-num",ms-html="fattr_compare_status(sex)",style="font-family: 'dq-heiti'") 
+                li(style="border-top: none;padding: 0;")
+                  span(class="sale-info",style="font-size: 13px;font-family: 'dq-heiti';font-weight: normal;color: #169EF4;") 出生日期
+                  span(class="sale-num",ms-html="fattr_compare_status(birthday)",style="font-family: 'dq-heiti'") 
+                li(style="border-top: none;padding: 0;")
+                  span(class="sale-info",style="font-size: 13px;font-family: 'dq-heiti';font-weight: normal;color: #169EF4;") 民族
+                  span(class="sale-num",ms-html="fattr_compare_status(nation)",style="font-family: 'dq-heiti'") 
+                li(style="border-top: none;padding: 0;")
+                  span(class="sale-info",style="font-size: 13px;font-family: 'dq-heiti';font-weight: normal;color: #169EF4;") 身份证号
+                  span(class="sale-num",ms-html="fattr_compare_status(personId)",style="font-family: 'dq-heiti'") 
+                li(style="border-top: none;padding: 0;")
+                  span(class="sale-info",style="font-size: 13px;font-family: 'dq-heiti';font-weight: normal;color: #169EF4;") 地址
+                  span(class="sale-num",ms-html="fattr_compare_status(address)",style="font-family: 'dq-heiti'") 
+                li(style="border-top: none;padding: 0;")
+                  span(class="sale-info",style="font-size: 13px;font-family: 'dq-heiti';font-weight: normal;color: #169EF4;") 发证期
+                  span(class="sale-num",ms-html="fattr_compare_status(startDate)",style="font-family: 'dq-heiti'") 
+                li(style="border-top: none;padding: 0;")
+                  span(class="sale-info",style="font-size: 13px;font-family: 'dq-heiti';font-weight: normal;color: #169EF4;") 有效期
+                  span(class="sale-num",ms-html="fattr_compare_status(endDate)",style="font-family: 'dq-heiti'") 
+                li(style="border-top: none;padding: 0;")
+                  span(class="sale-info",style="font-size: 13px;font-family: 'dq-heiti';font-weight: normal;color: #169EF4;") 发证地点
+                  span(class="sale-num",ms-html="fattr_compare_status(department)",style="font-family: 'dq-heiti'")
+
+      //div(style="text-align: right;display:none;height: 0px;",id="div_result")
+        //img(src="",id="show_result_pass",style="height: 120px")
+
+  div.row-fluid(style="display:none")
+    div.span12
+      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
+        div.portlet-title(style="padding: 12px 10px 17px;color:#666")
+          div.caption(style="")
+            //i.icon-bar-chart
+            | 对比近况
+          div.actions
+            a.btn.btn-outline.blue.mini(ms-click="remove_all",href="javascript:;")
+              | 刷新
+          div.actions
+        div.portlet-body
+          div(id="amchart",style="height:220px")
+
+  div.row-fluid(style="")
+    div.span12
+      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
+        div.portlet-title(style="padding: 12px 10px 17px;color:#666")
+          div.caption(style="")
+            //i.icon-bar-chart
+            | 对比近况
+          div.actions
+            a.btn.btn-outline.blue.mini(ms-click="remove_all",href="javascript:;")
+              | 刷新
+        div.portlet-body
+          p(style="padding-left: 10px;")
+            span(style="font-size: 13px;color:#4b4b4b;padding: 5px;") 过去十天内一共对比了
+            span(ms-text="amount_compare",style="font-family: bebas;font-size: 26px;color: #1796f9;")
+            span(style="font-size: 13px;color:#4b4b4b;padding: 5px;") 次
+          div(id="day_chart",style="height:180px")
+
+  div.row-fluid
+    div.span12
+      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
+        div.portlet-title(style="padding: 12px 10px 17px;color:#666")
+          div.caption(style="")
+            //i.ti-wallet
+            | 历史记录
+          div.actions
+            //div.btn-group.pull-right(data-toggle="buttons-radio",ms-click="clear_log")
+              //a.btn.green(href="javascript:;",ms-text="lang.clear_log",ms-class="active:flow_type=='fwrite_mb'",data-flow-type="fwrite_mb")
+        
+        div.portlet-body
+          div#journals-scroller-1.scroller(data-height="250px")
+            table#log-table1.table.table-striped.table-hover
+              thead
+                tr
+                  th(ms-text="'摄像头'")
+                  th(ms-text="'身份证'")
+                  th(ms-text="'时间'")
+                  th(ms-text="'相似度'")
+                  th(ms-text="'剩余次数'")
+

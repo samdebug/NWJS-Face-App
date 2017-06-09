@@ -1,0 +1,25 @@
+doctype html
+li(ms-repeat-e="navs",ms-click="switch_to_page",ms-class="active:$index===active_index",style="")
+  a.wave(href="javascript:;",ms-data-id="e.id",style="border-top: 1px solid rgb(61, 73, 87)!important;")
+    i(ms-class="{{e.icon}}",style="",ms-data-id="e.id")
+    span.title(style="padding-left: 7px;",ms-data-id="e.id")
+      | {{e.title}}
+    span.arrow(ms-data-id="e.id")
+    span.selected(ms-class="active:$index===active_index")
+    //span(class="badge",ms-text=5)
+  ul.sub-menu(style="list-style: none;display:none;margin:0")
+    //li(ms-repeat-i="navs_monitor",ms-click="switch_to_page_monitor",ms-visible="open_monitor(e.id)",ms-class="active:$index===active_index_monitor")
+      //a(class="bg",href="javascript:;",ms-data-id="i.id")
+        //i
+        //span.title
+        //| {{i.title}}
+    li(ms-repeat-t="navs_base",ms-click="switch_to_page_base",ms-visible="open_base(e.id)",ms-class="active:$index===active_index_base")
+      a(class="bg",href="javascript:;",ms-data-id="t.id")
+        i
+        span.title
+        | {{t.title}}
+    li(ms-repeat-s="navs_overview",ms-click="switch_to_page_overview",ms-visible="open_overview(e.id)",ms-class="active:$index===active_index_overview")
+      a(class="bg",href="javascript:;",ms-data-id="s.id")
+        i
+        span.title
+        | {{s.title}}

@@ -1,0 +1,44 @@
+doctype html
+div
+  div.modal-header
+    button.close(type="button",data-dismiss="modal",aria-hidden="true")
+    h4(ms-text="'更换头像'")
+  div.modal-body
+    div.alert.alert-error.hide
+      button(class="close",data-dismiss="alert")
+      | 请裁剪后再保存
+    p(ms-text="'选择本地照片,上传编辑自己的头像'",style="font-weight:bold")
+    div.wrap(id="jcropdiv")
+      div(class="wl")
+        div(class="jc-demo-box",data="0",ms-visible="show_head === true")
+          div(id="target",class="jcrop_w")
+            img(src="",id="preview0")
+        div(class="jy-up-ch",style="padding-top: 50px;display:none")
+          a(id="idLeft",href="",class="bch bch1")
+          a(id="idSmall",href="",class="bch bch2")
+          a(id="idBig",href="",class="bch bch3")
+          a(id="idRight",href="",class="bch bch4")
+        div
+          span(class="btn green fileinput-button",style="float:none;margin-top: 10px;") 
+            i(class="m-icon-swapup m-icon-white")
+            span(ms-text="'选择文件'")
+            input(type="file",id="file_upload")
+
+      div(class="wr",id="preview-pane",style="position: absolute;left: 390px;top: 45px;",ms-visible="show_head === true")
+        div(class="preview-container")
+          div(class="pre-1")
+            img(src="",class="jcrop-preview jcrop_preview_s",alt="",id="preview1")
+          div(class="pre-2")
+            img(src="",class="jcrop-preview jcrop_preview_s",alt="",id="preview2")
+          div(class="pre-3")
+            img(src="",class="jcrop-preview jcrop_preview_s",alt="",id="preview3")
+
+      canvas(id="head_canvas",ms-visible="show_canvas === false",width="140px",height="140px")
+
+  div.modal-footer
+    button.btn(type="button",data-dismiss="modal")
+      i.fa.fa-undo
+      | 取消
+    button.btn.green(type="button",ms-click="submit",id="submit")
+      i.fa.fa-check
+      | 保存头像

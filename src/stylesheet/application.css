@@ -1,0 +1,202 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require "bootstrap.min"
+ *= require "bootstrap-responsive.min"
+ *= require "bootstrap-modal"
+ *= require font-awesome
+ *= require "style-metro"
+ *= require "style"
+ *= require "style-responsive"
+ *= require "default"
+ *= require "uniform.default"
+ *= require "DT_bootstrap"
+ *= require "chosen"
+ *= require "rotateInDownRight"
+ *= require "fadeInRight"
+ *= require "fadeInLeft"
+ *= require "fadeInDown"
+ *= require "jquery.easy-pie-chart"
+ *= require "bootstrap-toggle-buttons"
+ *= require_self
+ */
+.chzn-single {
+  padding-left: 33px !important;
+}
+
+div.checker.disabled>span {
+  background-color: #d9d9d9;
+  background-image: none;
+  padding: 0 0 0 0;
+  margin-left: 2px;
+  border: 1px #c9c9c9 solid;
+  width: 12px;
+  height: 12px;
+}
+
+.disk-checkbox-col {
+  width:72px;
+  margin-left:20px;
+  float:left;
+}
+
+.progress span {
+  position: absolute;
+  z-index: 2;
+  color: #fff;
+  text-align: center;
+  width: 100%;
+}
+
+.progress {
+  position: relative;
+}
+
+.modal-body form .control-group:last-child {
+  margin-bottom: 0px;
+}
+
+.modal-body form {
+  padding-bottom: 0px;
+}
+
+.control-group.error label {
+  color: #b94a48;
+}
+
+form.error tbody {
+  color: #b94a48;
+}
+
+form.error label {
+  color: #b94a48;
+}
+
+.control-group.error ul.chzn-choices {
+  border-color: #b94a48!important;
+}
+
+.control-group.error ul.chzn-choices input {
+  color: #b94a48!important;
+}
+
+.tabbable .scroller .disk-checkbox-col:first-child {
+  margin-left: 0px;
+}
+
+#change-message {
+  width: 196px;
+}
+
+#network-table .control-group {
+  margin-bottom: 0px;
+}
+
+#network-table input[type="text"] {
+  margin-bottom: 0px;
+}
+
+.quickmode .control-label {
+  float: left;
+  margin-top: 7px;
+}
+
+.quickmode  .controls {
+  margin-left: 120px;
+}
+
+.quickmode  .input-icon.left i{
+  color: #ccc;
+  display: block !important;
+  position: absolute !important;
+  z-index: 1;
+  margin: 9px 2px 4px 10px;
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.quickmode .input-icon.left input{
+  margin-bottom: 2px;
+}
+
+.details .control-label {
+  float: left;
+}
+
+.details  .controls {
+  margin-left: 80px;
+  margin-top: 15px;
+}
+
+.header .navbar-inner {
+  height: 47px;
+}
+
+.header .nav > li.dropdown {
+  padding-right: 0px;
+}
+
+.header .nav .frameless-header {
+  -webkit-app-region: no-drag;
+  /*width: 24px;
+    padding: 15px 6px 6px 24px;
+  */
+  font-size: 14px;
+} 
+.header .sidebar-toggler {
+  -webkit-app-region: no-drag;
+} 
+.header .nav > li.dropdown .dropdown-toggle {
+  padding-right: 5px;
+}
+
+.header.navbar.navbar-inverse.navbar-fixed-top {
+  -webkit-app-region: drag;
+}
+
+input[type="checkbox"][disabled], input[type="checkbox"][readonly] {
+  -webkit-appearance: none;
+  background-color: #d9d9d9 !important;
+  background-image: none;
+  padding: 0 0 0 0;
+  border: 1px #c9c9c9 solid;
+  width: 13px;
+  height: 13px;
+}
+
+.disk_offline {
+  color: #d9d9d9;
+}
+
+li > a > span.remove {
+  display: none;
+  float: left;
+  margin-top: 1px;
+}
+
+li > a.hover > span.remove {
+  display: block;
+}
+
+a.hover > i.icon-home {
+  display: none;
+}
+
+label.checkbox.dsu_tab_checkbox {
+  padding-left: 20px !important;
+}
+
+label.checkbox.dsu_tab_checkbox > span.badge {
+  margin-left: 3px;
+  padding-top: 3px;
+  padding-bottom: 1px;
+}
