@@ -1940,6 +1940,7 @@ class CentralLoginPage extends Page
             #$('#user_head').attr('style', 'display:block');
             #$('#user_setting').attr('style', 'display:block');
             @dview.attach()
+            $('#user_img_log').src = ""
 
         ).fail(=>
             @dview.attach())
@@ -9266,8 +9267,35 @@ class FaceQuickProPage extends DetailTablePage
         #@tigercam()
         #@player()
         @init_ip_cam()
-        console.log(88888888888);
+        @on_load();
         
+    on_load: () =>
+        try
+            id = @sd.register.items["account"];
+            urls = 'http://' + @sd.host + '/downloadAvatar/' + id + '/head/' + id + '_head.jpg';
+            $('#user_img_log')[0].src = urls
+        catch e
+            return
+
+        ###id = @sd.register.items["account"];
+        urls = 'http://' + @sd.host + '/api/downloadAvatar/' + id
+        #console.log(urls);
+        $.ajax
+            type:'get',
+            url: urls,
+            error: (e) ->
+                console.log(e);
+            success: (e) ->
+                header = document.getElementById("user_img_log");
+                cxt= header.getContext("2d");
+                img = new Image();
+                img.src=e;
+                img.onload = () =>
+                    w =  Math.min(400, img.width);
+                    h = img.height * (w / img.width);
+                    header.width = w;
+                    header.height = h;
+                    cxt.drawImage(img,0,0);###
 
     change_cam_modal:() =>
         (new FaceQuickChangeCam(@sd, this,@mode)).attach()
@@ -10254,9 +10282,6 @@ class FaceQuickProPage extends DetailTablePage
                         @vm.startDate = @set_time(data.detail.startDate)
                         @vm.endDate = @set_time(data.detail.endDate)
 
-                        canvas_cards = document.getElementById("canvas_card")
-                        cxt= canvas_cards.getContext("2d")
-
                         ###$("#myTab li:eq(1) a").tab "show"
                         $("#myTab li:eq(0)").addClass "done"
                         $('.alert-error', $('#submit_form')).hide()
@@ -10264,7 +10289,8 @@ class FaceQuickProPage extends DetailTablePage
                         $('#form_wizard_1').find('.bar').css({
                             width: 100 + '%'
                         })###
-
+                        canvas_cards = document.getElementById("canvas_card")
+                        cxt= canvas_cards.getContext("2d")
                         img = new Image()
                         img.src=path + '/person.jpg'
                         img.onload = () =>
@@ -11680,11 +11706,11 @@ class RegisterPage extends DetailTablePage
     constructor: (@sd,@switch_to_page) ->
         super "userfilepage-", "html/registerpage.html"
 
-        $(@sd.register).on "updated", (e, source) =>
+        ###$(@sd.register).on "updated", (e, source) =>
             @vm.journal = @subitems()
 
         $(@sd).on "compareresult", (e, result) =>
-            #@vm.journal = @subitems()
+            #@vm.journal = @subitems()###
 
     define_vm: (vm) =>
         vm.lang = lang.register
@@ -11730,6 +11756,7 @@ class RegisterPage extends DetailTablePage
         super()
         new WOW().init();
         $('.tip-twitter').remove();
+        $('.anchorBL').remove();
         $('.hastip').poshytip(
             className: 'tip-twitter'
             showTimeout: 0
@@ -11738,10 +11765,7 @@ class RegisterPage extends DetailTablePage
             slide: false
             followCursor: true
         )
-
-        $('.anchorBL').remove();
-        @vm.journal = @subitems()
-
+        #@vm.journal = @subitems()
         $scroller = $("#journals-scroller-1")
         $scroller.slimScroll
             size: '7px'
@@ -11752,7 +11776,11 @@ class RegisterPage extends DetailTablePage
             railVisible: false
             disableFadeOut: true
             railDraggable: true
-
+        $('#slider').nivoSlider(
+            effect:"fade",
+            animSpeed:100,
+            pauseTime:10000
+        )
         ###$("#page-scroller").slimScroll
             size: '7px'
             color: '#a1b2bd'
@@ -11763,29 +11791,25 @@ class RegisterPage extends DetailTablePage
             disableFadeOut: true
             railDraggable: true###
         
-        @refresh()
         #@location()
-        @on_load(this)
-        @maps(this)
-        @vm.show_weather = false
         #@calendar()
         #@weather()
         #@update_journal()
         #@data_refresh()
-        @datatable_init(this)
-        @count_day(this,@sd.pay.items)
         #@baidu_weather(this)
-        @old_time(this) 
-        $('#slider').nivoSlider(
-            effect:"fade",
-            animSpeed:100,
-            pauseTime:10000
-        )
         #@waves()
-        @vm.show_weather_animate = false
-        @back_to_top()
         #@fullpage()
         #@scroller()
+        @vm.show_weather_animate = false
+        @vm.show_weather = false
+
+        #@back_to_top()
+        @refresh()
+        @on_load()
+        #@maps(this)
+        @datatable_init(this)
+        @count_day(this,@sd.pay.items)
+        @old_time(this) 
         @nprocess()
 
     nprocess:() =>
@@ -11809,32 +11833,6 @@ class RegisterPage extends DetailTablePage
             });
             $.fn.fullpage.setAutoScrolling(true);
         }`)
-
-    back_to_top:() =>
-        $(`function() {
-            if ($('#back-to-top').length) {
-                var scrollTrigger = 100, // px
-                    backToTop = function () {
-                        var scrollTop = $(window).scrollTop();
-                        if (scrollTop > scrollTrigger) {
-                            $('#back-to-top').addClass('show');
-                        } else {
-                            $('#back-to-top').removeClass('show');
-                        }
-                    };
-                backToTop();
-                $(window).on('scroll', function () {
-                    backToTop();
-                });
-                $('#back-to-top').on('click', function (e) {
-                    e.preventDefault();
-                    $('html,body').animate({
-                        scrollTop: 0
-                    }, 700);
-                });
-            }
-        }`)
-
 
     waves:() =>
         $(document).ready(`function() {
@@ -11861,12 +11859,12 @@ class RegisterPage extends DetailTablePage
                 sAjaxSource: "http://" + page.sd.host + "/api/searchRecord",
                 aoColumnDefs: [
                   {
-                    "aTargets": [3],
+                    "aTargets": [0],
                     "mData": null,
                     "bSortable": false,
                     "bSearchable": false,
                     "mRender": function(data, type, full) {
-                      return "<a class='btn mini green' style='' id='view_detail'>查看</a>";
+                        return  "<img src=http://" + page.sd.host + "/images" + full[0].replace(" ", "%20") + " style='height: 20px;width: 20px;'>";
                     }
                   }, {
                     "aTargets": [1],
@@ -11874,13 +11872,7 @@ class RegisterPage extends DetailTablePage
                     "bSortable": false,
                     "bSearchable": false,
                     "mRender": function(data, type, full) {
-                      if (full[1] === "info") {
-                        return "<span class='label label-success'><i class='fa fa-volume-up'></i>提醒</span>";
-                      } else if (full[1] === "warning") {
-                        return "<span class='label label-warning'><i class='fa fa-warning-sign'></i>警告</span>";
-                      } else {
-                        return "<span class='label label-important'><i class='fa fa-remove'></i>错误</span>";
-                      }
+                        return  "<img src=http://" + page.sd.host + "/images" + full[1].replace(" ", "%20") + " style='height: 20px;width: 20px;'>";
                     }
                   }
                 ],
@@ -12412,46 +12404,30 @@ class RegisterPage extends DetailTablePage
             });
         }`);
 
-    on_load: (page) =>
-        $(document).ready(`function() {
-            try{
-                var xhr;  
-                if (window.XMLHttpRequest){  
-                    xhr=new XMLHttpRequest();  
-                }else{  
-                    xhr=new ActiveXObject("Microsoft.XMLHTTP");  
-                }
-                var header = document.getElementById("headers");
-                var cxt= header.getContext("2d");
-
-                //var header1 = document.getElementById("sibar_head");
-                var header1 = document.getElementById("user_img");
-                var cxt1= header1.getContext("2d");
-
-                var id = page.sd.register.items["account"];
-                xhr.open('get','http://' + page.sd.host + '/api/downloadAvatar/' + id ,true);
-                xhr.send(null);
-                xhr.onreadystatechange = function(){  
-                    if(xhr.readyState==4 || xhr.readyState==200){
-                        var img = new Image();
-                        img.src=xhr.responseText;
-                        img.onload = function(){
-                            var w = Math.min(400, img.width);
-                            var h = img.height * (w / img.width);
-                            header.width = w;
-                            header.height = h;
-                            header1.width = w;
-                            header1.height = h;
-                            cxt.drawImage(img,0,0);
-                            cxt1.drawImage(img,0,0);
-                        }
-                        //console.log(xhr.responseText);  
-                    }  
-                }
-            }catch(e){
-                console.log('error');
-            }
-        }`)
+    on_load: () =>
+        try
+            id = @sd.register.items["account"];
+            urls = 'http://' + @sd.host + '/downloadAvatar/' + id + '/head/' + id + '_head.jpg'
+            $('#headers')[0].src = urls
+        catch e
+            return
+        ###urls = 'http://' + @sd.host + '/api/downloadAvatar/' + id
+        $.ajax
+            type:'get',
+            url: urls,
+            error: (e) ->
+                console.log(e);
+            success: (e) ->
+                header = document.getElementById("headers");
+                cxt= header.getContext("2d");
+                img = new Image();
+                img.src=e;
+                img.onload = () =>
+                    w =  Math.min(400, img.width);
+                    h = img.height * (w / img.width);
+                    header.width = w;
+                    header.height = h;
+                    cxt.drawImage(img,0,0);###
 
     location: () =>
         longitude = 113.8875210000

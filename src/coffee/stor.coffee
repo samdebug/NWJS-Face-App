@@ -566,10 +566,12 @@ class CentralStorageData
             #@socket_statist.disconnect()
             @ws.close()
             clearInterval @_looper_id if @_looper_id?
-            NProgress.start()
-            setTimeout (=> NProgress.done();$('.fade').removeClass('out')),100
+            #NProgress.start()
+            #setTimeout (=> NProgress.done();$('.fade').removeClass('out')),100
             $(".page-content").css("background-color","#364150")
             $('.menu-toggler').attr('style', 'display:none')
+            $('.navbar-fixed-top').attr('style', 'display:none')
+
             if $('body').hasClass("page-sidebar-closed")
                 $('body').removeClass("page-sidebar-closed")
             return

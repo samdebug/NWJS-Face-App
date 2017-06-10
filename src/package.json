@@ -13,8 +13,7 @@
   "window": {
     "width": 1000,
     "height": 700,
-    "frame": false,
-    "toolbar": false,
-    "icon": "icons/logo.png"
+    "frame": true,
+    "toolbar": false
   }
 }

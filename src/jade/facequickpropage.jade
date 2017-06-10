@@ -6,9 +6,9 @@ div.container-fluid.wow.fadeIn
       i.fa.fa-circle
     li
       a(ms-text="'基本功能'")
-  h3.page-title(style="font-size:21px") 人证识别系统
+  h3.page-title(style="font-size:21px") 基本功能
   div.row-fluid(style="")
-    div.portlet.solid.bordered.light-grey.sale-summary(style="background: rgb(255, 255, 255) !important;border: 1px solid #E9E9E9;height: 395px;",id="face_portlet")
+    div.portlet.solid.bordered.light-grey.sale-summary(style="background: rgb(255, 255, 255) !important;height: 395px;",id="face_portlet")
       //div.portlet-title(style="padding: 12px 10px 17px;")
         div.caption(style="font-weight:bold")
           i.icon-bar-chart
@@ -108,12 +108,12 @@ div.container-fluid.wow.fadeIn
               div.span5(style="text-align: left;")
                 //div#mirror(style="")
                 //img.pic1(src="",id="mirror",style="width: 166px;margin-left: -53px;")
-                canvas(id="mirror",width="102px",height="126px",style="border: 1px solid #C9C9C9;")
+                canvas(id="mirror",width="102px",height="126px",style="")
               div.span2(style="padding-top:30px")
                 img(src="",id="result_img")
                 p(ms-text="'识别度:' + com",style="font-size: 18px;color: rgb(22, 158, 244);font-family: 'dq-heiti';display: block;padding-top: 20px;width: 125px;margin-left: -30px;",ms-visible="show_retry === true")
               div.span5(style="text-align: right;")
-                canvas(id="canvas_card",style="border: 1px solid #C9C9C9;")
+                img(id="canvas_card",style="",src="")
 
             div(ms-visible="show_img === false")
               ul.unstyled(style="padding-top: 50px;margin: 0;",id="face_ul")
@@ -150,7 +150,7 @@ div.container-fluid.wow.fadeIn
 
   div.row-fluid(style="display:none")
     div.span12
-      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
+      div.portlet.solid.bordered.light-grey(style="background: rgb(255, 255, 255) !important;")
         div.portlet-title(style="padding: 12px 10px 17px;color:#666")
           div.caption(style="")
             //i.icon-bar-chart
@@ -164,7 +164,7 @@ div.container-fluid.wow.fadeIn
 
   div.row-fluid(style="")
     div.span12
-      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
+      div.portlet.solid.bordered.light-grey(style="background: rgb(255, 255, 255) !important;")
         div.portlet-title(style="padding: 12px 10px 17px;color:#666")
           div.caption(style="")
             //i.icon-bar-chart
@@ -181,7 +181,7 @@ div.container-fluid.wow.fadeIn
 
   div.row-fluid
     div.span12
-      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
+      div.portlet.solid.bordered.light-grey(style="background: rgb(255, 255, 255) !important;")
         div.portlet-title(style="padding: 12px 10px 17px;color:#666")
           div.caption(style="")
             //i.ti-wallet

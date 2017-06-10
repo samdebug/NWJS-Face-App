@@ -1,25 +1,12 @@
 doctype html
-//div(id="fullpage",style="display:none;")
-//  div.section
-//    img(src="images/poster/poster1.png")
-//  div.section
-//    img(src="images/poster/poster2.jpg")
-//  div.section
-//    img(src="images/poster/poster3.png")
-//  div.section
-//    img(src="images/poster/poster4.png")
-//  div.section
-//    img(src="images/poster/poster5.png")
-//  div.section
-//    img(src="images/poster/poster6.png")
 div.container-fluid
-  ul.breadcrumb
+  ul.breadcrumb(style="display:none")
     li
       a(href="#",ms-text="'主页'",ms-click="switch_to_page('basicdata')")
       i.fa.fa-circle
     li
       a(ms-text="'基本资料'")
-  h3.page-title(ms-html="'基本资料'")
+  h3.page-title(ms-html="'基本资料'",style="font-size:21px")
   div.row-fluid.profile.wow.fadeIn
     div.span12
       div.span4.profile-info
@@ -75,7 +62,7 @@ div.container-fluid
                 //i.icon-pencil    
           div.portlet-body(style="padding-bottom: 32px;")
             li.avatar-view(style="text-align: center;padding-bottom: 22px;",id="crop-avatar")
-              canvas.hastip(title="点击更换头像",id="headers",style="border-radius: 70px !important;width: 140px;height: 140px;text-align: center;cursor: pointer;",ms-click="change_head")
+              img.hastip(src="",title="点击更换头像",id="headers",style="border-radius: 70px !important;width: 140px;height: 140px;text-align: center;cursor: pointer;",ms-click="change_head")
             li
               div(ms-text="user",style="text-align: center;color: rgb(90, 115, 145);font-size: 20px;font-weight: 600;margin-bottom: 7px;")
               //div(ms-text="user",style="text-align: center;text-transform: uppercase;color: #5b9bd1;font-size: 13px;font-weight: 800;margin-bottom: 7px;")
@@ -100,21 +87,21 @@ div.container-fluid
                 li
                   span(class="sale-info",style="font-weight: 100;color: rgb(90, 115, 145) !important;") 剩余对比次数
                     i.icon-img-down
-                  span(class="sale-num",ms-text="remain",style="font-family: 'bebas';font-size: 26px;")
+                  span(class="sale-num",ms-text="remain",style="font-family: 'bebas';font-size: 22px;")
                 li
                   span.sale-info(style="font-weight: 100;color: rgb(90, 115, 145) !important;")
                     | 账号等级 
-                  span(class="sale-num",ms-text="userlevel",style="font-family: 'bebas';font-size: 26px;")
+                  span(class="sale-num",ms-text="userlevel",style="font-family: 'bebas';font-size: 22px;")
                 li
                   span(class="sale-info",style="font-weight: 100;color: rgb(90, 115, 145) !important;") 总对比次数
                     i.icon-img-up
-                  span(class="sale-num",ms-text="total",style="font-family: 'bebas';font-size: 26px;")
+                  span(class="sale-num",ms-text="total",style="font-family: 'bebas';font-size: 22px;")
                 li
                   span(class="sale-info",style="font-weight: 100;color: rgb(90, 115, 145) !important;") 平均识别度
                     i.icon-img-up
-                  span(class="sale-num",ms-text="average + '%'",style="font-family: 'bebas';font-size: 26px;")
+                  span(class="sale-num",ms-text="average + '%'",style="font-family: 'bebas';font-size: 22px;")
                   
-  div.row-fluid.wow.fadeIn
+  div.row-fluid.wow.fadeIn(style="display:none")
     div.span12
       div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
         div.portlet-title(style="padding: 12px 10px 17px;")
@@ -230,22 +217,24 @@ div.container-fluid
         div.portlet-body
           div(id="",style="height: 300px;")
 
-  div.row-fluid
+  div.row-fluid(style="display:none")
     div.span12
-      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
-        div.portlet-title(style="padding: 12px 10px 17px;")
-          div.caption(style="font-weight:bold")
+      div.portlet.solid.bordered.light-grey(style="background: rgb(255, 255, 255) !important;")
+        div.portlet-title(style="padding: 12px 10px 17px;color:#666")
+          div.caption(style="")
             //i.ti-wallet
             | 历史记录
           div.actions
             //div.btn-group.pull-right(data-toggle="buttons-radio",ms-click="clear_log")
               //a.btn.green(href="javascript:;",ms-text="lang.clear_log",ms-class="active:flow_type=='fwrite_mb'",data-flow-type="fwrite_mb")
+        
         div.portlet-body
-          div#journals-scroller-1.scroller(data-height="320px")
+          div#journals-scroller-1.scroller(data-height="250px")
             table#log-table1.table.table-striped.table-hover
               thead
                 tr
+                  th(ms-text="'摄像头'")
+                  th(ms-text="'身份证'")
                   th(ms-text="'时间'")
-                  th(ms-text="'类型'")
-                  th(ms-text="'内容'")
-                  th(ms-text="'操作'")
+                  th(ms-text="'相似度'")
+                  th(ms-text="'剩余次数'")

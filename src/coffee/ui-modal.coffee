@@ -3898,7 +3898,7 @@ class FaceQuickChangeCam extends Modal
     submit: () =>
         selected = $("#cam_option").val()
         @page.frozen()
-        @connect_cam()
+        #@connect_cam()
         @page.change_cam(selected)
         @hide()
                 

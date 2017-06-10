@@ -90,11 +90,25 @@ ul.nav.pull-right
               span.time
                 | 刚刚
                 
+  li(ms-click="facequick")
+    a.frameless-header.dropdown-toggle.wave(href="javascript:;",style="height:29px;padding: 8px 10px 10px;")
+      //img(src="images/REFRESH.png",style="padding-top: 7px;height: 17px;")
+      i.icon-camera(style="padding-top: 7px;font-size: 20px;")
+
+  li(ms-click="register")
+    a.frameless-header.dropdown-toggle.wave(href="javascript:;",style="height:29px;padding: 8px 10px 10px;")
+      //img(src="images/REFRESH.png",style="padding-top: 7px;height: 17px;")
+      i.icon-user(style="padding-top: 7px;font-size: 20px;")
+
   li.dropdown(style="display:none",id="user_setting")
-    a.frameless-header.dropdown-toggle.wave(href="#",data-toggle="dropdown",style="height:29px;padding-right: 14px;padding-left: 14px;")
-      i.icon-settings(style="")
+    a.frameless-header.dropdown-toggle.wave(href="#",data-toggle="dropdown",style="padding-top:10px")
+      img(src="",style="height:30px;width:30px;border-radius: 50% !important;",id="user_img_log")
   
-    ul(class="dropdown-menu")
+    ul.wow.fadeIn(class="dropdown-menu")
+      li
+        a.wave(href="javascript:;",ms-click="change_head")
+          i.icon-user(style="padding-top: 3px;")
+          | 更改头像
       li
         a.wave(href="javascript:;",ms-click="change_data")
           i.icon-user(style="padding-top: 3px;")
@@ -117,17 +131,17 @@ ul.nav.pull-right
     //a.frameless-header.dropdown-toggle.wave(href="javascript:;",style="height:29px;padding: 10px 10px 10px;")
       //i.icon-logout(style="padding-top: 7px;")
 
-  li(ms-click="add_machine")
+  //li(ms-click="add_machine")
     a.frameless-header.dropdown-toggle(href="javascript:;",style="height:29px;padding: 10px 10px 10px;")
       //img(src="images/LOGOUT.png",style="padding-top: 7px;height: 17px;")
       i.icon-logout(style="padding-top: 7px;")
         
-  li(ms-click="refresh")
+  //li(ms-click="refresh")
     a.frameless-header.dropdown-toggle.wave(href="javascript:;",style="height:29px;padding: 10px 10px 10px;")
       //img(src="images/REFRESH.png",style="padding-top: 7px;height: 17px;")
       i.icon-refresh(style="padding-top: 7px;")
         
-  li(ms-click="mini_window")
+  //li(ms-click="mini_window")
     a.frameless-header.dropdown-toggle.wave(href="javascript:;",style="height:29px;padding: 10px 10px 10px;")
       //img(src="images/MIN.png",style="padding-top: 7px;height: 14px;")
       i.icon-minus(style="padding-top: 7px;")
@@ -136,7 +150,7 @@ ul.nav.pull-right
     //a.frameless-header.dropdown-toggle.wave(href="javascript:;",style="height:29px;padding: 10px 10px 10px;")
       //i(ms-class="icon-size-fullscreen:!fullscreen",ms-class-1="icon-size-actual:fullscreen",style="padding-top: 7px;")
         
-  li(ms-click="close_window")
+  //li(ms-click="close_window")
     a.frameless-header.dropdown-toggle.wave(href="javascript:;",style="height:29px;padding: 10px 10px 10px;")
       //img(src="images/CLOSE.png",style="padding-top: 7px;height: 12px;")
       i.icon-close(style="padding-top: 7px;")

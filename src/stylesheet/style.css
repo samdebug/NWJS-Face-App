@@ -398,7 +398,11 @@ Header and header elements.
   border: 0px;
   padding: 0px; 
   box-shadow: none;
-  height: 42px; 
+  height: 50px !important; 
+  background: #fff;
+  border-bottom: 1px solid rgba(30,35,42,.06);
+  box-shadow: 0 1px 3px 0 rgba(0,34,77,.05);
+  background-clip: content-box;
 }
 
 .header .nav {
@@ -1025,6 +1029,7 @@ Page title
   margin: 0px 0px 15px 0px;
   font-weight: 300;
   font-family: 'dq-heiti';
+  padding-top: 10px;
 }
 
 .page-title small {
@@ -1537,7 +1542,10 @@ Portlets
 /* Portlet background colors */
 /* Side bordered portlet */
 .portlet.bordered {
-  /*border-left: 2px solid #e6e9ec !important;*/ }
+    background: #fff !important;
+    border: 1px solid #e7eaf1 !important;
+    border-radius: 2px !important;
+    box-shadow: 0 1px 3px rgba(0,37,55,.05) !important; }
   .portlet.bordered > .portlet-title {
     border-bottom: 0; }
 

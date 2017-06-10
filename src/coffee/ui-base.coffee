@@ -200,6 +200,9 @@ class HeaderUI extends AvalonTemplUI
         vm.change_data = @change_data
         vm.lock = @lock
         vm.change_passwd = @change_passwd
+        vm.change_head = @change_head
+        vm.register = @register
+        vm.facequick = @facequick
 
     rendered: () =>
         new WOW().init();
@@ -214,17 +217,54 @@ class HeaderUI extends AvalonTemplUI
             allowTipHover: false,
             fade: false
         )
+        @back_to_top()
         return
-    
+
+    back_to_top:() =>
+        $(`function() {
+            if ($('#back-to-top').length) {
+                var scrollTrigger = 100, // px
+                    backToTop = function () {
+                        var scrollTop = $(window).scrollTop();
+                        if (scrollTop > scrollTrigger) {
+                            $('#back-to-top').addClass('show');
+                        } else {
+                            $('#back-to-top').removeClass('show');
+                        }
+                    };
+                backToTop();
+                $(window).on('scroll', function () {
+                    backToTop();
+                });
+                $('#back-to-top').on('click', function (e) {
+                    e.preventDefault();
+                    $('html,body').animate({
+                        scrollTop: 0
+                    }, 700);
+                });
+            }
+        }`)
+
     lock:() =>
         return
+
+    facequick:() =>
+        (new FaceQuickProPage(sds[0], "")).attach()
+
+    register:() =>
+        @refresh_facepage()
+        (new RegisterPage(sds[0], "")).attach()
+
+    change_head:() =>
+        (new RegisterChangeHeadModal(sds[0], this)).attach()
 
     change_passwd:() =>
         (new RegisterChangePasswdModal(sds[0], this)).attach()
 
     change_data:() =>
-        account = sds[0].register.items['account']
-        (new RegisterDetailModal(sds[0], this,account)).attach()
+        #account = sds[0].register.items['account']
+        #(new RegisterDetailModal(sds[0], this,account)).attach()
+        (new RegisterChangeDataModal(sds[0], this)).attach()
 
     hide_log: () =>
         $("#log_event").hide()
@@ -348,9 +388,12 @@ class HeaderUI extends AvalonTemplUI
         machines
 
     add_machine: () =>
-        @admin.remove_all()
-        @admin.new_machine true
-        @refresh_facepage()
+        (new ConfirmModal "确定要登出此账号吗?", =>
+            @admin.remove_all()
+            @admin.new_machine true
+            @refresh_facepage()
+        ).attach()
+        
 
     refresh_facepage:() =>
         ((window.clearInterval(i)) for i in compare_Interval)
@@ -676,8 +719,11 @@ class CentralDeviceView extends AvalonTemplUI
         
     init: (host,user) =>
         _settings = new (require("settings").Settings)
-        $(".page-content").css("background-color","#fff");
+        $(".page-content").css("background-color","#f7f8fa");
         $('.menu-toggler').attr('style', 'display:block');
+        $('.navbar-fixed-top').attr('style', 'display:block');
+        $('#user_setting').attr('style', 'display:block');
+        
         #$('.page-header-fixed').attr('style', 'background:#3D3D3D !important');
         #$(".page-header-fixed").css("background-color","#3D3D3D");
         port = _settings.port

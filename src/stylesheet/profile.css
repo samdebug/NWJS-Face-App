@@ -67,7 +67,7 @@ Profile Page
 
 /*profile navigation*/
 .profile ul.profile-nav {
-  /*margin-bottom:30px;*/
+  margin-bottom:0px;
 }
 
 .profile ul.profile-nav li {
