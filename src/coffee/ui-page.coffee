@@ -11781,15 +11781,6 @@ class RegisterPage extends DetailTablePage
             animSpeed:100,
             pauseTime:10000
         )
-        ###$("#page-scroller").slimScroll
-            size: '7px'
-            color: '#a1b2bd'
-            position: 'right'
-            height: '100%'
-            alwaysVisible: true
-            railVisible: false
-            disableFadeOut: true
-            railDraggable: true###
         
         #@location()
         #@calendar()
@@ -11806,7 +11797,7 @@ class RegisterPage extends DetailTablePage
         #@back_to_top()
         @refresh()
         @on_load()
-        #@maps(this)
+        @maps(this)
         @datatable_init(this)
         @count_day(this,@sd.pay.items)
         @old_time(this) 
@@ -11817,28 +11808,21 @@ class RegisterPage extends DetailTablePage
         setTimeout (=> NProgress.done();$('.fade').removeClass('out')),500
 
     scroller:() =>
-        $(`function() {
-            $(window).on("load",function(){
-                $(".page-content").mCustomScrollbar();
-            });
-        }`)
+        $(window).on "load", () =>
+            $(".page-content").mCustomScrollbar();
 
     fullpage:() =>
-        $(`function() {
-            $('#fullpage').fullpage({
-                navigation:true,
-                navigationPosition:"right",
-                navigationColor:"blue",
-                loopBottom:true
-            });
-            $.fn.fullpage.setAutoScrolling(true);
-        }`)
+        $('#fullpage').fullpage(
+            navigation:true,
+            navigationPosition:"right",
+            navigatinColor:"blue",
+            loopBottom:true
+        );
+        $.fn.fullpage.setAutoScrolling(true);
 
     waves:() =>
-        $(document).ready(`function() {
-            window.Waves.attach('.wave', ['waves-button', 'waves-float']);
-            window.Waves.init();
-        }`)
+        window.Waves.attach('.wave', ['waves-button', 'waves-float']);
+        window.Waves.init();
 
     data_refresh: ->
         chain = new Chain
@@ -12478,9 +12462,9 @@ class RegisterPage extends DetailTablePage
                 }
                 var myCity = new BMap.LocalCity();
                 myCity.get(myFun);
-                page.baidu_weather(page,page.vm.city);
+                //page.baidu_weather(page,page.vm.city);
                 
-                $('#relocate').click(function () {
+                /*$('#relocate').click(function () {
                     var geolocation = new BMap.Geolocation();
                     geolocation.getCurrentPosition(function(r){
                         if(this.getStatus() == BMAP_STATUS_SUCCESS){
@@ -12550,7 +12534,7 @@ class RegisterPage extends DetailTablePage
                             alert('failed'+this.getStatus());
                         }        
                     },{enableHighAccuracy: true})
-                });
+                });*/
 
             }catch(e){
                 return (new MessageModal(lang.register.map_error)).attach();
