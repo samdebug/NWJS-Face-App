@@ -9273,7 +9273,9 @@ class FaceQuickProPage extends DetailTablePage
         try
             id = @sd.register.items["account"];
             urls = 'http://' + @sd.host + '/downloadAvatar/' + id + '/head/' + id + '_head.jpg';
-            $('#user_img_log')[0].src = urls
+            document.getElementById('user_img_log').src = urls; 
+            #$('#user_img_log')[0].src = urls
+            #$("#user_img_log").attr('src',urls);
         catch e
             return
 
@@ -11748,6 +11750,7 @@ class RegisterPage extends DetailTablePage
         vm.city = "深圳市"
         vm.show_weather_animate = false
         vm.switch_to_page = @switch_to_page
+        vm.gaode_maps = @gaode_maps
 
         #vm.tip_day1 = "vvv"
         #vm.tip_day2 = "123"
@@ -11797,7 +11800,7 @@ class RegisterPage extends DetailTablePage
         #@back_to_top()
         @refresh()
         @on_load()
-        @maps(this)
+        @gaode_maps()
         @datatable_init(this)
         @count_day(this,@sd.pay.items)
         @old_time(this) 
@@ -12392,9 +12395,11 @@ class RegisterPage extends DetailTablePage
         try
             id = @sd.register.items["account"];
             urls = 'http://' + @sd.host + '/downloadAvatar/' + id + '/head/' + id + '_head.jpg'
-            $('#headers')[0].src = urls
+            document.getElementById('headers').src = urls; 
+            #$('#headers')[0].src = urls
+            #$("#headers").attr('src',urls);
         catch e
-            return
+            console.log(e);
         ###urls = 'http://' + @sd.host + '/api/downloadAvatar/' + id
         $.ajax
             type:'get',
@@ -12418,7 +12423,63 @@ class RegisterPage extends DetailTablePage
         latitude = 22.5533490000
         @maps(longitude,latitude)
 
-    maps: (page) =>
+    gaode_maps:() =>
+        try
+            map = new AMap.Map('allmap', {
+                resizeEnable: true
+            });
+
+            map.plugin 'AMap.Geolocation', () =>
+                geolocation = new AMap.Geolocation({
+                    enableHighAccuracy: true, #是否使用高精度定位，默认:true
+                    timeout: 10000,          #超过10秒后停止定位，默认：无穷大
+                    buttonOffset: new AMap.Pixel(10, 20),#定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+                    zoomToAccuracy: true,      #定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+                    buttonPosition:'RB'
+                });
+                map.addControl(geolocation);
+                geolocation.getCurrentPosition();
+
+                AMap.event.addListener(geolocation, 'complete', (data) =>
+                    @vm.city = data.addressComponent.city;
+                    @baidu_weather(this,@vm.city);
+                )
+
+                AMap.event.addListener(geolocation, 'error', (data) => 
+                    console.log data
+                    return (new MessageModal(lang.register.map_error)).attach(); 
+                )
+        catch e
+            console.log e
+            return (new MessageModal(lang.register.map_error)).attach(); 
+
+    baidu_maps_new: () =>
+        try
+            map = new BMap.Map("allmap");    #创建Map实例
+            map.centerAndZoom(new BMap.Point(116.331398,39.897445),11);
+            map.enableScrollWheelZoom(true);     #开启鼠标滚轮缩放
+            $('.anchorBL').remove();
+
+            keyword = @sd.register.items["location"] + @sd.register.items["hotelname"];
+            urls = "http://api.map.baidu.com/geocoder/v2/?address=" + keyword + "&output=json&ak=SGlfxoEEgdtmV60T195lr7BYx6bFLvkI"
+            xhr=new XMLHttpRequest();  
+            xhr.open('get',urls ,true);
+            xhr.send(null);
+            xhr.onreadystatechange = () =>  
+                output = $.parseJSON(xhr.responseText);
+                if output isnt null
+                    map.clearOverlays();
+                    new_point = new BMap.Point(output.result.location.lng,output.result.location.lat);
+                    marker = new BMap.Marker(new_point); 
+                    map.addOverlay(marker);             
+                    map.panTo(new_point);
+                    @baidu_weather(this,@vm.city);
+                    return
+        catch e
+            console.log e
+            return (new MessageModal(lang.register.map_error)).attach();
+
+    baidu_maps_old: (page) =>
         $(`function() {
             try{
                 var map = new BMap.Map("allmap");    // 创建Map实例
@@ -12455,6 +12516,8 @@ class RegisterPage extends DetailTablePage
                 //setTimeout(function(){
                     //map.setZoom(20);   
                 //}, 2000);  //2秒后放大到14级
+                
+
                 function myFun(result){
                     var cityName = result.name;
                     map.setCenter(cityName);
@@ -12560,54 +12623,6 @@ class RegisterPage extends DetailTablePage
                   {"date":"2016/09/07 08:45:37","level":"info","chinese_message":"用户 Ace 完成了一次充值"},\
                   {"date":"2016/09/07 08:45:37","level":"warning","chinese_message":"用户 Ace 完成了一次充值"}]
         arrays
-
-    webcam: () =>
-        $(`function() {
-              var sayCheese = new SayCheese('#webcam', { audio: false });
-              sayCheese.on('start', function() {
-                //this.takeSnapshot();
-              });
-            
-              sayCheese.on('snapshot', function(snapshot) {
-                try{
-                    var canvas = document.getElementById('canvas'); 
-                    var context = canvas.getContext('2d');
-                    var type = 'png';
-                    var imgData = snapshot.toDataURL(type);
-                    imgData = imgData.replace(_fixType(type),'image/octet-stream');
-                    var filename = new Date().toLocaleDateString() + '.' + type;
-                    saveFile(imgData, filename);
-                    context.drawImage(snapshot, 0, 0, 320, 240);
-                    console.log(snapshot);
-                }
-                catch(e){
-                    console.log(e);
-                }
-              });
-              
-              var _fixType = function(type) {
-                        type = type.toLowerCase().replace(/jpg/i, 'jpeg');
-                        var r = type.match(/png|jpeg|bmp|gif/)[0];
-                        return 'image/' + r;
-                    };
-                    
-              var saveFile = function (data, filename) {
-                    var link = document.createElement('a');
-                    link.href = data;
-                    link.download = filename;
-                    var event = document.createEvent('MouseEvents');
-                    event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-                    link.dispatchEvent(event);
-                };
-            
-              sayCheese.start();
-              
-              $('#shot').click(function () {
-                console.log(sayCheese);
-                sayCheese.takeSnapshot();
-              });
-        }`)
-        
 
 class PreCountPage extends DetailTablePage
     constructor: (@sd) ->

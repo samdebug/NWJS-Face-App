@@ -425,3 +425,4 @@ this.IfacesRest = IfacesRest
 this.FileSystemRest = FileSystemRest
 this.ZnvConfigRest = ZnvConfigRest
 this.SyncConfigRest = SyncConfigRest
+this.Rest = Rest

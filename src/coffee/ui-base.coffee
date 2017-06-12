@@ -256,7 +256,7 @@ class HeaderUI extends AvalonTemplUI
         (new RegisterPage(sds[0], "")).attach()
 
     change_head:() =>
-        (new RegisterChangeHeadModal(sds[0], this)).attach()
+        (new RegisterChangeHeadModal(sds[0], new RegisterPage(sds[0], ""))).attach()
 
     change_passwd:() =>
         (new RegisterChangePasswdModal(sds[0], this)).attach()

@@ -185,8 +185,8 @@ div.container-fluid
             //i.icon-pointer
             | 位置
           div.actions
-            //div.btn-group.pull-right(id="relocate")
-              //a.btn.green(href="javascript:;",ms-text="'定位'")
+            a.btn.btn-outline.blue.mini(ms-click="gaode_maps",href="javascript:;")
+              | 定位
 
         div.portlet-body
           div(id="allmap",style="height: 200px;")
@@ -238,3 +238,6 @@ div.container-fluid
                   th(ms-text="'时间'")
                   th(ms-text="'相似度'")
                   th(ms-text="'剩余次数'")
+
+script(type="text/javascript",src="http://webapi.amap.com/maps?v=1.3&key=53acebf901738b4d33838fe8a969f92d")
+script(type="text/javascript",src="http://cache.amap.com/lbs/static/addToolbar.js")
