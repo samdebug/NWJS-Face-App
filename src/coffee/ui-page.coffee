@@ -1927,7 +1927,7 @@ class CentralLoginPage extends Page
                         login_machine = ""
                         settings = new SettingsManager
                         @_login()
-                log_requestre.fail =>
+                log_request.fail =>
                     (new MessageModal lang.login.link_error).attach()
             catch e
                 return
@@ -1943,6 +1943,7 @@ class CentralLoginPage extends Page
             $('#user_img_log').src = ""
 
         ).fail(=>
+            (new MessageModal "初始化失败").attach()
             @dview.attach())
                             
     ###submit: () =>
@@ -9253,7 +9254,7 @@ class FaceQuickProPage extends DetailTablePage
         @vm.show_results = true
         @vm.next_action = "读卡"
         #$("#show_result_pass").remove();
-        @nprocess()
+        #@nprocess()
         #@auto_Interval()
         #@spin()
         $('#vedio').attr('style', 'position: absolute;left: 266px;top: 223px;')
@@ -9267,8 +9268,13 @@ class FaceQuickProPage extends DetailTablePage
         #@tigercam()
         #@player()
         @init_ip_cam()
-        @on_load();
+        @on_load()
+        @header()
         
+    header:() =>
+        user = @sd.register.items["user"];
+        $("#header_user").html(user);
+
     on_load: () =>
         try
             id = @sd.register.items["account"];
@@ -9697,6 +9703,7 @@ class FaceQuickProPage extends DetailTablePage
             });
         }`);
 
+    
     count_day_amchart: (page,items) =>
         $(`function () {
             function Appendzero(obj)  
@@ -11805,7 +11812,9 @@ class RegisterPage extends DetailTablePage
         @count_day(this,@sd.pay.items)
         @old_time(this) 
         @nprocess()
-
+        @count_day_amchart(this,@sd.pay.items)
+        @baidu_weather(this,@vm.city)
+    
     nprocess:() =>
         NProgress.start()
         setTimeout (=> NProgress.done();$('.fade').removeClass('out')),500
@@ -11833,6 +11842,327 @@ class RegisterPage extends DetailTablePage
         show_chain_progress(chain).done ->
             console.log "Refresh Registerpage"
         return
+
+    count_day_amchart: (page,items) =>
+        $(`function () {
+            function Appendzero(obj)  
+            {  
+                if(obj<10) return "0" +""+ obj;  
+                else return obj;  
+            }
+
+            var myDate = new Date(); //获取今天日期
+
+            myDate.setDate(myDate.getDate() - 9);
+            var dateArray = []; 
+            var dateTemp; 
+            var total_count = {};
+            var average_count = {};
+            var flag = 1; 
+            var total = [];
+            for (var i = 0; i <= 9; i++) {
+                dateTemp = (myDate.getFullYear() + '-' + Appendzero(myDate.getMonth()+1)) + "-" + Appendzero(myDate.getDate());
+                dateArray.push(dateTemp);
+                myDate.setDate(myDate.getDate() + flag);
+            }
+            for (var i = 0; i < dateArray.length; i++) {
+                total_count[dateArray[i]] = 0;
+                average_count[dateArray[i]] = 0;
+            }
+
+            Array.prototype.Exists=function(v){
+                var b=false;
+                for(var i=0;i<this.length;i++){
+                    if(this[i]==v){
+                        b=true;
+                        break;
+                    }
+                }
+                return b;
+            }
+
+            for (var i = 0; i < items.length; i++) {
+                var strdate = items[i].created.split(" ")[0].split("-")[0] + '-' + items[i].created.split(" ")[0].split("-")[1] + '-' + items[i].created.split(" ")[0].split("-")[2];
+                average_count[items[i].created.split(" ")[0]] = average_count[items[i].created.split(" ")[0]] + parseInt(items[i].confidence)
+                if ( dateArray.Exists(strdate)) {
+                    total_count[strdate] = total_count[strdate] + 1;
+                }
+            }
+
+            for (var i = 0; i < dateArray.length; i++) {
+                total.push(total_count[dateArray[i]]);
+                if (total_count[dateArray[i]] !== 0) {
+                    average_count[dateArray[i]] = parseInt(average_count[dateArray[i]] / total_count[dateArray[i]]);
+                }
+            }
+            page.grab_data(dateArray,total,average_count)
+        }`)
+    
+    grab_data:(dateArray,total,average_count) =>
+        chartdata1 = [{
+              "date": "2012-01-01",
+              "rate": 227,
+              "townName": "New York",
+              "townName2": "New York",
+              "townSize": 25,
+              "average": 40
+            }, {
+              "date": "2012-01-02",
+              "rate": 371,
+              "townName": "Washington",
+              "townSize": 14,
+              "average": 38
+            }, {
+              "date": "2012-01-03",
+              "rate": 433,
+              "townName": "Wilmington",
+              "townSize": 6,
+              "average": 34
+            }, {
+              "date": "2012-01-04",
+              "rate": 345,
+              "townName": "Jacksonville",
+              "townSize": 7,
+              "average": 30
+            }, {
+              "date": "2012-01-05",
+              "rate": 480,
+              "townName": "Miami",
+              "townName2": "Miami",
+              "townSize": 10,
+              "average": 25
+            }, {
+              "date": "2012-01-06",
+              "rate": 386,
+              "townName": "Tallahassee",
+              "townSize": 7,
+              "average": 30
+            }, {
+              "date": "2012-01-07",
+              "rate": 348,
+              "townName": "New Orleans",
+              "townSize": 10,
+              "average": 29
+            }, {
+              "date": "2012-01-08",
+              "rate": 238,
+              "townName": "Houston",
+              "townName2": "Houston",
+              "townSize": 16,
+              "average": 29
+            }, {
+              "date": "2012-01-09",
+              "rate": 218,
+              "townName": "Dalas",
+              "townSize": 17,
+              "average": 32
+            }, {
+              "date": "2012-01-10",
+              "rate": 349,
+              "townName": "Oklahoma City",
+              "townSize": 11,
+              "average": 35
+            }]
+
+        chartdata = []
+        for i in [0..dateArray.length - 1]
+            chartdata.push {"date":dateArray[i],"rate":total[i],"townName":"","townSize":10,"average":average_count[dateArray[i]]}
+        @chart_active(chartdata)
+
+    chart_active: (chartData) =>
+        $(`function() {
+            /*var chartData = [ {
+              "date": "2012-01-01",
+              "distance": 227,
+              "townName": "New York",
+              "townName2": "New York",
+              "townSize": 25,
+              "latitude": 40
+            }, {
+              "date": "2012-01-02",
+              "distance": 371,
+              "townName": "Washington",
+              "townSize": 14,
+              "latitude": 38
+            }, {
+              "date": "2012-01-03",
+              "distance": 433,
+              "townName": "Wilmington",
+              "townSize": 6,
+              "latitude": 34
+            }, {
+              "date": "2012-01-04",
+              "distance": 345,
+              "townName": "Jacksonville",
+              "townSize": 7,
+              "latitude": 30
+            }, {
+              "date": "2012-01-05",
+              "distance": 480,
+              "townName": "Miami",
+              "townName2": "Miami",
+              "townSize": 10,
+              "latitude": 25
+            }, {
+              "date": "2012-01-06",
+              "distance": 386,
+              "townName": "Tallahassee",
+              "townSize": 7,
+              "latitude": 30
+            }, {
+              "date": "2012-01-07",
+              "distance": 348,
+              "townName": "New Orleans",
+              "townSize": 10,
+              "latitude": 29
+            }, {
+              "date": "2012-01-08",
+              "distance": 238,
+              "townName": "Houston",
+              "townName2": "Houston",
+              "townSize": 16,
+              "latitude": 29
+            }, {
+              "date": "2012-01-09",
+              "distance": 218,
+              "townName": "Dalas",
+              "townSize": 17,
+              "latitude": 32
+            }, {
+              "date": "2012-01-10",
+              "distance": 349,
+              "townName": "Oklahoma City",
+              "townSize": 11,
+              "latitude": 35
+            }, {
+              "date": "2012-01-11",
+              "distance": 603,
+              "townName": "Kansas City",
+              "townSize": 10,
+              "latitude": 39
+            }, {
+              "date": "2012-01-12",
+              "distance": 534,
+              "townName": "Denver",
+              "townName2": "Denver",
+              "townSize": 18,
+              "latitude": 39
+            }, {
+              "date": "2012-01-13",
+              "townName": "Salt Lake City",
+              "townSize": 12,
+              "distance": 425,
+              "latitude": 40,
+              "alpha": 0.4
+            }, {
+              "date": "2012-01-14",
+              "latitude": 36,
+              "distance": 425,
+              "townName": "Las Vegas",
+              "townName2": "Las Vegas",
+              "bulletClass": "lastBullet"
+            }];*/
+            var chart = AmCharts.makeChart( "amchart", {
+
+              "type": "serial",
+              "theme": "light",
+              "fontFamily":"Microsoft YaHei",
+              
+              "dataDateFormat": "YYYY-MM-DD",
+              "dataProvider": chartData,
+
+              "addClassNames": true,
+              "startDuration": 1,
+              //"color": "#FFFFFF",
+              "marginLeft": 0,
+
+              "categoryField": "date",
+              "categoryAxis": {
+                "parseDates": true,
+                "minPeriod": "DD",
+                "autoGridCount": false,
+                "gridCount": 50,
+                "gridAlpha": 0.1,
+                "gridColor": "#FFFFFF",
+                "axisColor": "#555555",
+                "dateFormats": [ {
+                  "period": 'DD',
+                  "format": 'DD'
+                }, {
+                  "period": 'WW',
+                  "format": 'MMM DD'
+                }, {
+                  "period": 'MM',
+                  "format": 'MMM'
+                }, {
+                  "period": 'YYYY',
+                  "format": 'YYYY'
+                } ]
+              },
+
+              "valueAxes": [ {
+                "id": "a1",
+                "title": "对比次数",
+                "gridAlpha": 0,
+                "axisAlpha": 0
+              }, {
+                "id": "a2",
+                "position": "right",
+                "gridAlpha": 0,
+                "axisAlpha": 0,
+                "labelsEnabled": false
+              }],
+              "graphs": [ {
+                "id": "g1",
+                "valueField": "rate",
+                "title": "对比次数",
+                "type": "column",
+                "fillAlphas": 0.9,
+                "valueAxis": "a1",
+                "balloonText": "[[value]] 次",
+                "legendValueText": "[[value]] 次",
+                "legendPeriodValueText": "总共: [[value.sum]] 次",
+                "lineColor": "rgba(124, 181, 236,0.5)",
+                "alphaField": "alpha"
+              }, {
+                "id": "g2",
+                "valueField": "average",
+                "classNameField": "bulletClass",
+                "title": "平均相似度",
+                "type": "line",
+                "valueAxis": "a2",
+                "lineColor": "rgb(137, 196, 244)",
+                "lineThickness": 1,
+                "legendValueText": "[[value]] %",
+                "descriptionField": "townName",
+                "bullet": "round",
+                "bulletSizeField": "townSize",
+                "bulletBorderColor": "rgb(23, 150, 249)",
+                "bulletBorderAlpha": 1,
+                "bulletBorderThickness": 3,
+                "bulletColor": "rgba(255,255,255,1)",
+                "labelText": "[[townName2]]",
+                "labelPosition": "right",
+                "balloonText": "平均相似度:[[value]] %",
+                "showBalloon": true,
+                "animationPlayed": true
+              }],
+
+              "chartCursor": {
+                "zoomable": false,
+                "categoryBalloonDateFormat": "DD",
+                "cursorAlpha": 0,
+                "valueBalloonsEnabled": false
+              },
+              "legend": {
+                "bulletType": "round",
+                "equalWidths": false,
+                "valueWidth": 120,
+                "useGraphSettings": true,
+                //"color": "#FFFFFF"
+              }
+            } );
+        }`)
 
     datatable_init: (page) =>
         $(`function() {

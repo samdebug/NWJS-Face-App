@@ -16,8 +16,8 @@ class Modal extends AvalonTemplUI
         $div.modal({backdrop:"static"})
         $(".tooltips").tooltip()
         #Nprogress
-        NProgress.start()
-        setTimeout (=> NProgress.done();$('.fade').removeClass('out')),10
+        #NProgress.start()
+        #setTimeout (=> NProgress.done();$('.fade').removeClass('out')),10
 
     hide: () =>
         $("##{@id}").modal("hide")

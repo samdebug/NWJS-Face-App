@@ -100,15 +100,22 @@ ul.nav.pull-right
       //img(src="images/REFRESH.png",style="padding-top: 7px;height: 17px;")
       i.icon-user(style="padding-top: 7px;font-size: 20px;")
 
+  //li(ms-click="")
+    a.frameless-header.dropdown-toggle.wave(href="javascript:;",style="height:29px;padding: 8px 10px 10px;")
+      input(id='s',type='search')
+
   li.dropdown(style="display:none",id="user_setting")
     a.frameless-header.dropdown-toggle.wave(href="#",data-toggle="dropdown",style="padding-top:10px")
       img(src="",style="height:30px;width:30px;border-radius: 50% !important;",id="user_img_log")
   
     ul.wow.fadeIn(class="dropdown-menu")
       li
+        a.wave(href="javascript:;",id="header_user")
+      li.divider
+      li
         a.wave(href="javascript:;",ms-click="change_head")
-          i.icon-user(style="padding-top: 3px;")
-          | 更改头像
+          i.icon-picture(style="padding-top: 3px;")
+          | 更换头像
       li
         a.wave(href="javascript:;",ms-click="change_data")
           i.icon-user(style="padding-top: 3px;")

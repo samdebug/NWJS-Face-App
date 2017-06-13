@@ -12,7 +12,7 @@ div.container-fluid
       div.span4.profile-info
         div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;height: 332px;")
           div.portlet-title(style="padding: 12px 10px 17px;")
-            div.caption(style="font-weight:bold")
+            div.caption(style="")
               //i.icon-paper-plane
               | 简介
             div.actions     
@@ -64,7 +64,7 @@ div.container-fluid
             li.avatar-view(style="text-align: center;padding-bottom: 22px;",id="crop-avatar")
               img.hastip(src="",title="点击更换头像",id="headers",style="border-radius: 70px !important;width: 140px;height: 140px;text-align: center;cursor: pointer;",ms-click="change_head")
             li
-              div(ms-text="user",style="text-align: center;color: rgb(90, 115, 145);font-size: 20px;font-weight: 600;margin-bottom: 7px;")
+              div(ms-text="user",style="text-align: center;color: rgb(90, 115, 145);font-size: 20px;font-weight: 600;margin-bottom: 12px;")
               //div(ms-text="user",style="text-align: center;text-transform: uppercase;color: #5b9bd1;font-size: 13px;font-weight: 800;margin-bottom: 7px;")
             li
               div(style="text-align: center;padding-top:19px")
@@ -74,7 +74,7 @@ div.container-fluid
       div.span4
        div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;height: 332px;")
          div.portlet-title(style="padding: 12px 10px 17px;")
-            div.caption(style="font-weight:bold")
+            div.caption(style="")
               //i.icon-paper-plane
               | 计费
             div.actions           
@@ -83,7 +83,7 @@ div.container-fluid
              //div.portlet-title
                //div.caption
                //| Sales Summary
-             ul.unstyled
+             ul.unstyled(style="padding: 15px;")
                 li
                   span(class="sale-info",style="font-weight: 100;color: rgb(90, 115, 145) !important;") 剩余对比次数
                     i.icon-img-down
@@ -120,7 +120,7 @@ div.container-fluid
     div.span12
       div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
         div.portlet-title(style="padding: 12px 10px 17px;")
-          div.caption(style="font-weight:bold")
+          div.caption(style="")
             //i.icon-emoticon-smile 
             | 欢迎使用
           div.actions
@@ -181,7 +181,7 @@ div.container-fluid
     div.span12
       div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
         div.portlet-title(style="padding: 12px 10px 17px;")
-          div.caption(style="font-weight:bold")
+          div.caption(style="")
             //i.icon-pointer
             | 位置
           div.actions
@@ -216,6 +216,20 @@ div.container-fluid
               //a.btn.green(href="javascript:;",ms-text="lang.clear_log",ms-class="active:flow_type=='fwrite_mb'",data-flow-type="fwrite_mb")
         div.portlet-body
           div(id="",style="height: 300px;")
+
+  div.row-fluid(style="")
+    div.span12
+      div.portlet.solid.bordered.light-grey(style="background: rgb(255, 255, 255) !important;")
+        div.portlet-title(style="padding: 12px 10px 17px;color:#666")
+          div.caption(style="")
+            //i.icon-bar-chart
+            | 对比近况
+          div.actions
+            //a.btn.btn-outline.blue.mini(ms-click="remove_all",href="javascript:;")
+              | 刷新
+          div.actions
+        div.portlet-body
+          div(id="amchart",style="height:220px")
 
   div.row-fluid(style="display:none")
     div.span12

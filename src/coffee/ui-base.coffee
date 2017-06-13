@@ -203,6 +203,7 @@ class HeaderUI extends AvalonTemplUI
         vm.change_head = @change_head
         vm.register = @register
         vm.facequick = @facequick
+        vm.username = ""
 
     rendered: () =>
         new WOW().init();
@@ -262,9 +263,9 @@ class HeaderUI extends AvalonTemplUI
         (new RegisterChangePasswdModal(sds[0], this)).attach()
 
     change_data:() =>
-        #account = sds[0].register.items['account']
-        #(new RegisterDetailModal(sds[0], this,account)).attach()
-        (new RegisterChangeDataModal(sds[0], this)).attach()
+        account = sds[0].register.items['account']
+        (new RegisterDetailModal(sds[0], this,account)).attach()
+        #(new RegisterChangeDataModal(sds[0], this)).attach()
 
     hide_log: () =>
         $("#log_event").hide()
