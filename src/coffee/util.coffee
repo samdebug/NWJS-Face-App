@@ -1,15 +1,11 @@
 prefix_wwn = "iqn.2013-01.net.zbx.initiator"
 temp_data = []
 server_type = { store: '', header: true, type: ''}
-
 global_Interval = []
 compare_Interval = []
-
 compare_result = []
 compare_card = []
-
 compare_temp = []
-
 disks_type = 
     enterprise:[
         'ST4000NM0033'
@@ -89,7 +85,10 @@ unique = (arr) ->
         result.push item if is_unique
     
     result
-    
+
+base_data = []
+
+this.base_data = base_data
 this.compare_temp = compare_temp
 this.compare_card = compare_card
 this.compare_result = compare_result

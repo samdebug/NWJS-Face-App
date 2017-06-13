@@ -221,6 +221,11 @@ class HeaderUI extends AvalonTemplUI
         @back_to_top()
         return
 
+    header:(host,user) =>
+        $("#user_img_log").attr('src', "/uploads/empimgs/" + Math.random());
+        urls = 'http://' + host + '/downloadAvatar/' + user + '/head/' + user + '_head.jpg'
+        $('#user_img_log').attr('src',urls)
+
     back_to_top:() =>
         $(`function() {
             if ($('#back-to-top').length) {
@@ -775,7 +780,7 @@ class CentralDeviceView extends AvalonTemplUI
         @notification_manager.notice()
         $(@sd).one "user_login", @login_event
         @sd.update "all"
-
+      
     open_overview: (id)=>
         if id is "overview" then true else false
     open_monitor: (id)=>

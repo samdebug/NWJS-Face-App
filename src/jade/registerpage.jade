@@ -20,16 +20,16 @@ div.container-fluid
                 //i.icon-pencil
           div.portlet-body.weather-span(style="text-align: center;")
             div.pm25
-              p(style="color: rgb(90, 115, 145);font-size: 14px;")
+              p(style="color: #8590A6;font-size: 14px;")
                 span 空气质量
                 span(ms-text="air")
             div.local
-              span(style="color: rgb(90, 115, 145);font-size: 14px;")
+              span(style="color: #8590A6;font-size: 14px;")
                 //i.icon-pointer(style="color:rgb(22, 158, 244) !important;padding-top: 3px;padding-right: 3px;")
                 img(src="images/placeholder.png",style="height: 15px;")
                 | {{city}}
             div.day(style="padding-top: 10px;")
-              p(ms-text="month_day",style="color: rgb(90, 115, 145);font-size: 14px;")
+              p(ms-text="month_day",style="color: #8590A6;font-size: 14px;")
             div
               p
                 span(ms-text="week",style="padding-right: 13px;")
@@ -37,7 +37,7 @@ div.container-fluid
             div(style="margin-left: -60px;")
               canvas(id="day0_weather",width="40",height="40",style="margin-top: -5px;padding-right: 15px;")
               //img(src="",id="weather_icon")
-              span(ms-text="temp",style="position: absolute;")
+              span(ms-text="temp",style="position: absolute;color:#8590A6")
 
           div.weather-span(style="text-align: center;")
             div.span4(style="border-right: 2px dotted #EBEBEB;")

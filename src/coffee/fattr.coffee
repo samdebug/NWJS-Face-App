@@ -295,7 +295,7 @@ compare_status = (session) ->
         else if session is "对比完成"
             return "<span class='label label-info' style='vertical-align: text-top;margin-right: 10px;border-radius: 10px !important;'>对比完成</span>"
         else
-            return "<span style='vertical-align: text-top;font-size: 12px;padding-right: 14px;color: rgb(136, 136, 136);'>#{session}</span>"
+            return "<span style='vertical-align: text-top;font-size: 12px;padding-right: 14px;color: rgb(136, 136, 136);color: #169EF4;'>#{session}</span>"
 
 fattr = health: health, role: role, rebuilding: rebuilding, cap_usage_vol: cap_usage_vol, cap: cap, raid: raid,\
         host: host, _import: _import, active_session: active_session, cap_usage: cap_usage, cap_usage_raid: cap_usage_raid,\

@@ -5302,6 +5302,7 @@ textarea.placeholder {
 
 .control-label {
   margin-top: 2px;
+  color: #555;
 }
 
 .control-label .required {

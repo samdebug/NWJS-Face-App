@@ -2591,7 +2591,7 @@ class RegisterChangeHeadModal extends Modal
             }
         }`)
 
-    _upload: (base64,filename,page) =>
+    _upload: (base64,filename,page,thispage) =>
         $(`function() {
             try{
                 function sumitImageFile(base64Codes){
@@ -2607,6 +2607,7 @@ class RegisterChangeHeadModal extends Modal
                         contentType : false,  
                         success:function(data){
                             //window.location.href="${ctx}"+data;
+                            thispage.refresh_header();
                             new MessageModal(lang.fileupload.upload_success).attach();
                             return page.attach();
                         },
@@ -2638,6 +2639,14 @@ class RegisterChangeHeadModal extends Modal
                 console.log(e);
             }
         }`)
+
+    refresh_header:() =>
+        $("#user_img_log").attr('src', "/uploads/empimgs/" + Math.random());
+        $("#headers").attr('src', "/uploads/empimgs/" + Math.random());
+        id = @sd.register.items["account"];
+        urls = 'http://' + @sd.host + '/downloadAvatar/' + id + '/head/' + id + '_head.jpg';
+        $('#user_img_log').attr('src',urls);
+        $('#headers').attr('src',urls);
 
     init: (page,mainpage) =>
         $(`function () {
@@ -2918,7 +2927,7 @@ class RegisterChangeHeadModal extends Modal
                     var urls = img2.toDataURL();
                     var filename = (page.sd.register.items["account"]).toString() + "_head.jpg";
                     page.hide();
-                    page._upload(urls,filename,mainpage);
+                    page._upload(urls,filename,mainpage,page);
                 }else{
                     $('.alert-error').show();
                 }

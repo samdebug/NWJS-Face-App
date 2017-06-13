@@ -1934,14 +1934,15 @@ class CentralLoginPage extends Page
         
                 
     _login: () =>
+        port = @settings.port
         chain = new Chain
         chain.chain @dview.init @vm.device, @vm.username
         show_chain_progress(chain, true).done(=>
             #$('#user_head').attr('style', 'display:block');
             #$('#user_setting').attr('style', 'display:block');
+            @head = new HeaderUI(@sd,"store")
+            @head.header("#{@vm.device}:" + port,@vm.username)
             @dview.attach()
-            $('#user_img_log').src = ""
-
         ).fail(=>
             (new MessageModal "初始化失败").attach()
             @dview.attach())
@@ -9268,42 +9269,13 @@ class FaceQuickProPage extends DetailTablePage
         #@tigercam()
         #@player()
         @init_ip_cam()
-        @on_load()
-        @header()
-        
-    header:() =>
-        user = @sd.register.items["user"];
-        $("#header_user").html(user);
+        @refresh_page()
 
-    on_load: () =>
-        try
-            id = @sd.register.items["account"];
-            urls = 'http://' + @sd.host + '/downloadAvatar/' + id + '/head/' + id + '_head.jpg';
-            document.getElementById('user_img_log').src = urls; 
-            #$('#user_img_log')[0].src = urls
-            #$("#user_img_log").attr('src',urls);
-        catch e
-            return
-
-        ###id = @sd.register.items["account"];
-        urls = 'http://' + @sd.host + '/api/downloadAvatar/' + id
-        #console.log(urls);
-        $.ajax
-            type:'get',
-            url: urls,
-            error: (e) ->
-                console.log(e);
-            success: (e) ->
-                header = document.getElementById("user_img_log");
-                cxt= header.getContext("2d");
-                img = new Image();
-                img.src=e;
-                img.onload = () =>
-                    w =  Math.min(400, img.width);
-                    h = img.height * (w / img.width);
-                    header.width = w;
-                    header.height = h;
-                    cxt.drawImage(img,0,0);###
+    refresh_page:() =>
+        if compare_card.length
+            compare_card.splice(0,compare_card.length)
+        if compare_result.length
+            compare_result.splice(0,compare_result.length)
 
     change_cam_modal:() =>
         (new FaceQuickChangeCam(@sd, this,@mode)).attach()
@@ -10273,6 +10245,7 @@ class FaceQuickProPage extends DetailTablePage
                             if compare_card.length
                                 compare_card.splice(0,compare_card.length)
 
+                        $("body").modalmanager "loading"
                         @vm.show_all = false
                         @person_msg = JSON.stringify(data.detail)
                         @vm.personName = data.detail.personName
@@ -10451,6 +10424,7 @@ class FaceQuickProPage extends DetailTablePage
         @vm.show_retry = true
 
     show_stamp_new: (con) =>
+        $("body").modalmanager "removeLoading"
         @vm.show_loading = true
         @vm.show_spin = false
         @vm.show_all = true
@@ -11764,56 +11738,57 @@ class RegisterPage extends DetailTablePage
 
     rendered: () =>
         super()
-        new WOW().init();
-        $('.tip-twitter').remove();
-        $('.anchorBL').remove();
-        $('.hastip').poshytip(
-            className: 'tip-twitter'
-            showTimeout: 0
-            allowTipHover: false
-            fade: false
-            slide: false
-            followCursor: true
-        )
-        #@vm.journal = @subitems()
-        $scroller = $("#journals-scroller-1")
-        $scroller.slimScroll
-            size: '7px'
-            color: '#a1b2bd'
-            position: 'right'
-            height: $scroller.attr("data-height")
-            alwaysVisible: true
-            railVisible: false
-            disableFadeOut: true
-            railDraggable: true
-        $('#slider').nivoSlider(
-            effect:"fade",
-            animSpeed:100,
-            pauseTime:10000
-        )
-        
-        #@location()
-        #@calendar()
-        #@weather()
-        #@update_journal()
-        #@data_refresh()
-        #@baidu_weather(this)
-        #@waves()
-        #@fullpage()
-        #@scroller()
-        @vm.show_weather_animate = false
-        @vm.show_weather = false
+        window.onLoad = () =>
+            new WOW().init();
+            $('.tip-twitter').remove();
+            $('.anchorBL').remove();
+            $('.hastip').poshytip(
+                className: 'tip-twitter'
+                showTimeout: 0
+                allowTipHover: false
+                fade: false
+                slide: false
+                followCursor: true
+            )
+            #@vm.journal = @subitems()
+            $scroller = $("#journals-scroller-1")
+            $scroller.slimScroll
+                size: '7px'
+                color: '#a1b2bd'
+                position: 'right'
+                height: $scroller.attr("data-height")
+                alwaysVisible: true
+                railVisible: false
+                disableFadeOut: true
+                railDraggable: true
+            $('#slider').nivoSlider(
+                effect:"fade",
+                animSpeed:100,
+                pauseTime:10000
+            )
+            
+            #@location()
+            #@calendar()
+            #@weather()
+            #@update_journal()
+            #@data_refresh()
+            #@baidu_weather(this)
+            #@waves()
+            #@fullpage()
+            #@scroller()
+            @vm.show_weather_animate = false
+            @vm.show_weather = false
 
-        #@back_to_top()
-        @refresh()
-        @on_load()
-        @gaode_maps()
-        @datatable_init(this)
-        @count_day(this,@sd.pay.items)
-        @old_time(this) 
-        @nprocess()
-        @count_day_amchart(this,@sd.pay.items)
-        @baidu_weather(this,@vm.city)
+            #@back_to_top()
+            @refresh()
+            @on_load()
+            @gaode_maps()
+            @datatable_init(this)
+            @count_day(this,@sd.pay.items)
+            @old_time(this) 
+            @nprocess()
+            @count_day_amchart(this,@sd.pay.items)
+            @baidu_weather(this,@vm.city)
     
     nprocess:() =>
         NProgress.start()
@@ -12362,91 +12337,61 @@ class RegisterPage extends DetailTablePage
         }`);
 
     baidu_weather:(page,city) =>
-        $(document).ready(`function() {
-            try{
-                var xhr;  
-                if (window.XMLHttpRequest){  
-                    xhr=new XMLHttpRequest();  
-                }else{  
-                    xhr=new ActiveXObject("Microsoft.XMLHTTP");  
-                }
-                xhr.open('get','http://api.map.baidu.com/telematics/v3/weather?location=' + city + '&output=json&ak=SGlfxoEEgdtmV60T195lr7BYx6bFLvkI',true);
-                xhr.send(null);
+        try
+            if (window.XMLHttpRequest)
+                xhr=new XMLHttpRequest();  
+            else
+                xhr=new ActiveXObject("Microsoft.XMLHTTP");
+            xhr.open('get','http://api.map.baidu.com/telematics/v3/weather?location=' + city + '&output=json&ak=SGlfxoEEgdtmV60T195lr7BYx6bFLvkI',true);
+            xhr.send(null);
+            xhr.onreadystatechange = () =>  
+                if xhr.readyState is 4 or xhr.readyState is 200 
+                    respon = $.parseJSON(xhr.responseText);    
+                    
+                    #空气质量
+                    air_con = parseInt(respon.results[0].pm25);
+                    if (0 <= air_con and air_con< 35)
+                        @vm.air = "优";
+                    else if (35 <= air_con and air_con < 75)
+                       @vm.air = "良";
+                    else if (75 <= air_con and air_con < 115)
+                       @vm.air = "轻度污染";
+                    else if (115 <= air_con and air_con < 150)
+                       @vm.air = "中度污染";
+                    else if (150 <= air_con and air_con < 250)
+                       @vm.air = "重度污染";
+                    else
+                       @vm.air = "严重污染";
+                    
+                    @vm.day1 = respon.results[0].weather_data[1].date;
+                    @vm.day2 = respon.results[0].weather_data[2].date;
+                    @vm.day3 = respon.results[0].weather_data[3].date;
+                    @vm.temp = respon.results[0].weather_data[0].temperature;
 
-                var img_now = document.getElementById("weather_icon");
-                var img_day1 = document.getElementById("day1_weather");
-                var img_day2 = document.getElementById("day2_weather");
-                var img_day3 = document.getElementById("day3_weather");
-                xhr.onreadystatechange = function(){  
-                    if(xhr.readyState==4 || xhr.readyState==200){
-                        var respon = JSON.parse(xhr.responseText);
+                    # skycons 
+                    skycons = new Skycons({"color": "rgb(22, 158, 244)"});
 
-                        /*img_now.src=respon.results[0].weather_data[0].dayPictureUrl;
-                        img_day1.src=respon.results[0].weather_data[1].dayPictureUrl;
-                        img_day2.src=respon.results[0].weather_data[2].dayPictureUrl;
-                        img_day3.src=respon.results[0].weather_data[3].dayPictureUrl;*/
-                        
-                        //空气质量
-                        var air_con = parseInt(respon.results[0].pm25);
-                        if (0 <= air_con && air_con< 35){
-                            page.vm.air = "优";
-                        }else if (35 <= air_con && air_con < 75){
-                            page.vm.air = "良";
-                        }else if (75 <= air_con && air_con < 115){
-                            page.vm.air = "轻度污染";
-                        }else if (115 <= air_con && air_con < 150){
-                            page.vm.air = "中度污染";
-                        }else if (150 <= air_con && air_con < 250){
-                            page.vm.air = "重度污染";
-                        }else{
-                            page.vm.air = "严重污染";
-                        }
-
-                        //天气动画
-                        /*for (var i=0;i<respon.results[0].weather_data.length;i++){
-                            console.log(respon.results[0].weather_data[i].weather);
-                            if ( respon.results[0].weather_data[i].weather == "晴" ){
-                                $("#day" + i).addClass("sunny");
-                            }else if ( respon.results[0].weather_data[i].weather == "多云" ){
-                                $("#day" + i).addClass("cloudy");
-                            }else if ( respon.results[0].weather_data[i].weather == "阴转小雨" || respon.results[0].weather_data[i].weather == "小雨"){
-                                $("#day" + i).addClass("rainy");
-                            }else{
-                                $("#day" + i).addClass("stormy");
-                            }
-                        }*/
-                        
-                        page.vm.day1 = respon.results[0].weather_data[1].date;
-                        page.vm.day2 = respon.results[0].weather_data[2].date;
-                        page.vm.day3 = respon.results[0].weather_data[3].date;
-                        page.vm.temp = respon.results[0].weather_data[0].temperature;
-
-                        /* skycons */
-                        var skycons = new Skycons({"color": "rgb(22, 158, 244)"});
-                        for (var i=0;i<respon.results[0].weather_data.length;i++){
-                            var staus = respon.results[0].weather_data[i].weather;
-                            var idx = 'day' + i + '_weather';
-                            if ( staus.indexOf("晴") >= 0 ){
-                                skycons.add(document.getElementById(idx), Skycons.CLEAR_DAY);
-                            }else if (staus.indexOf("云") >= 0 ){
-                                skycons.add(document.getElementById(idx), Skycons.CLOUDY);
-                            }else if (staus.indexOf("雹") >= 0 ){
-                                skycons.add(document.getElementById(idx), Skycons.SLEET);
-                            }else if (staus.indexOf("雪") >= 0 ){
-                                skycons.add(document.getElementById(idx), Skycons.SNOW);
-                            }else if (staus.indexOf("雾") >= 0 ){
-                                skycons.add(document.getElementById(idx), Skycons.FOG);
-                            }else{
-                                skycons.add(document.getElementById(idx), Skycons.RAIN);
-                            }
-                        }
-                        skycons.play();
-                    }  
-                }
-            }catch(e){
-                console.log('error');
-            }
-        }`)
+                    count = 0
+                    for i in respon.results[0].weather_data
+                        staus = i.weather;
+                        idx = 'day' + count + '_weather';
+                        count = count + 1
+                        if ( staus.indexOf("晴") >= 0 )
+                            skycons.add(document.getElementById(idx), Skycons.CLEAR_DAY);
+                        else if (staus.indexOf("云") >= 0 )
+                           skycons.add(document.getElementById(idx), Skycons.CLOUDY);
+                        else if (staus.indexOf("雹") >= 0 )
+                           skycons.add(document.getElementById(idx), Skycons.SLEET);
+                        else if (staus.indexOf("雪") >= 0 )
+                           skycons.add(document.getElementById(idx), Skycons.SNOW);
+                        else if (staus.indexOf("雾") >= 0 )
+                           skycons.add(document.getElementById(idx), Skycons.FOG);
+                        else
+                           skycons.add(document.getElementById(idx), Skycons.RAIN);
+                    skycons.play();
+        catch e
+            console.log('error');
+            return
 
     old_time:(page) =>
         $(`function() {
@@ -12722,14 +12667,11 @@ class RegisterPage extends DetailTablePage
         }`);
 
     on_load: () =>
-        try
-            id = @sd.register.items["account"];
-            urls = 'http://' + @sd.host + '/downloadAvatar/' + id + '/head/' + id + '_head.jpg'
-            document.getElementById('headers').src = urls; 
-            #$('#headers')[0].src = urls
-            #$("#headers").attr('src',urls);
-        catch e
-            console.log(e);
+        $("#headers").attr('src', "/uploads/empimgs/" + Math.random());
+        id = @sd.register.items["account"];
+        urls = 'http://' + @sd.host + '/downloadAvatar/' + id + '/head/' + id + '_head.jpg'
+        $('#headers').attr('src', urls);
+
         ###urls = 'http://' + @sd.host + '/api/downloadAvatar/' + id
         $.ajax
             type:'get',
@@ -12772,7 +12714,7 @@ class RegisterPage extends DetailTablePage
 
                 AMap.event.addListener(geolocation, 'complete', (data) =>
                     @vm.city = data.addressComponent.city;
-                    @baidu_weather(this,@vm.city);
+                    #@baidu_weather(this,@vm.city);
                 )
 
                 AMap.event.addListener(geolocation, 'error', (data) => 
