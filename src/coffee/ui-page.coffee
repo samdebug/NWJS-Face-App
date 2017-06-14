@@ -1940,8 +1940,8 @@ class CentralLoginPage extends Page
         show_chain_progress(chain, true).done(=>
             #$('#user_head').attr('style', 'display:block');
             #$('#user_setting').attr('style', 'display:block');
-            @head = new HeaderUI(@sd,"store")
-            @head.header("#{@vm.device}:" + port,@vm.username)
+            #@head = new HeaderUI(@sd,"store")
+            #@head.header("#{@vm.device}:" + port,@vm.username)
             @dview.attach()
         ).fail(=>
             (new MessageModal "初始化失败").attach()
@@ -10240,12 +10240,12 @@ class FaceQuickProPage extends DetailTablePage
                             @vm.result = "已通过"
                             return
 
+                        $("body").modalmanager "loading"
                         if 'fail' in compare_result or data.detail.personId not in compare_card
                             $("#div_result").css("display","none")
                             if compare_card.length
                                 compare_card.splice(0,compare_card.length)
 
-                        $("body").modalmanager "loading"
                         @vm.show_all = false
                         @person_msg = JSON.stringify(data.detail)
                         @vm.personName = data.detail.personName
@@ -10271,11 +10271,12 @@ class FaceQuickProPage extends DetailTablePage
                         $('#form_wizard_1').find('.bar').css({
                             width: 100 + '%'
                         })###
-                        canvas_cards = document.getElementById("canvas_card")
-                        cxt= canvas_cards.getContext("2d")
+                        
                         img = new Image()
                         img.src=path + '/person.jpg'
                         img.onload = () =>
+                            canvas_cards = document.getElementById("canvas_card")
+                            cxt= canvas_cards.getContext("2d")
                             w = Math.min(400, img.width)
                             h = img.height * (w / img.width)
                             canvas_cards.width = w
@@ -10329,6 +10330,8 @@ class FaceQuickProPage extends DetailTablePage
                     @vm.status = "读卡器未连接"
                     @vm.result = "读卡器未连接"
                     @vm.com = "0%"
+                    $("#gritter-notice-wrapper").remove()
+                    @show_tips(@vm.result)
                     #@vm.show_card_result = false
                     #$('.alert-error', $('#submit_form')).show()
                     #return (new MessageModal(@vm.lang.get_card_error)).attach()
@@ -10337,9 +10340,24 @@ class FaceQuickProPage extends DetailTablePage
                 @vm.status = "未安装驱动"
                 @vm.result = "未安装驱动"
                 @vm.com = "0%"
+                $("#gritter-notice-wrapper").remove()
+                @show_tips(@vm.result)
         catch e
             console.log e
-            
+           
+    show_tips:(tips) =>
+        $.extend($.gritter.options, 
+            class_name: 'gritter', 
+            position: 'bottom-right', 
+            fade_in_speed: 1000, 
+            fade_out_speed: 100, 
+            time: 10000
+        );
+        $.gritter.add(
+            title: '提示',
+            text: tips
+        );
+
     check_remain:() =>
         if parseInt(@sd.register.items["remain"]) <= 0
             return false
@@ -10424,7 +10442,8 @@ class FaceQuickProPage extends DetailTablePage
         @vm.show_retry = true
 
     show_stamp_new: (con) =>
-        $("body").modalmanager "removeLoading"
+        $(".modal-backdrop").hide()
+        #$("body").modalmanager "removeLoading"
         @vm.show_loading = true
         @vm.show_spin = false
         @vm.show_all = true
@@ -10538,12 +10557,13 @@ class FaceQuickProPage extends DetailTablePage
                     //mirror.width = snapshot.width;
                     //mirror.height = snapshot.height;
 
-                    var facecut = document.getElementById('mirror');
-                    var cxt = facecut.getContext("2d");
+                   
                     var mirror = new Image();
                     var imgData = snapshot.toDataURL('png');
                     mirror.src = imgData;
                     mirror.onload = function(){
+                        var facecut = document.getElementById('mirror');
+                        var cxt = facecut.getContext("2d");
                         cxt.drawImage(mirror,190,87,264,282,0,0,120,126);
                         var dataURL = facecut.toDataURL("image/jpg");
                         var filename = page.sd.register.items["account"] + "_" + page.personal_id +"_own.jpg";
@@ -11738,57 +11758,56 @@ class RegisterPage extends DetailTablePage
 
     rendered: () =>
         super()
-        window.onLoad = () =>
-            new WOW().init();
-            $('.tip-twitter').remove();
-            $('.anchorBL').remove();
-            $('.hastip').poshytip(
-                className: 'tip-twitter'
-                showTimeout: 0
-                allowTipHover: false
-                fade: false
-                slide: false
-                followCursor: true
-            )
-            #@vm.journal = @subitems()
-            $scroller = $("#journals-scroller-1")
-            $scroller.slimScroll
-                size: '7px'
-                color: '#a1b2bd'
-                position: 'right'
-                height: $scroller.attr("data-height")
-                alwaysVisible: true
-                railVisible: false
-                disableFadeOut: true
-                railDraggable: true
-            $('#slider').nivoSlider(
-                effect:"fade",
-                animSpeed:100,
-                pauseTime:10000
-            )
-            
-            #@location()
-            #@calendar()
-            #@weather()
-            #@update_journal()
-            #@data_refresh()
-            #@baidu_weather(this)
-            #@waves()
-            #@fullpage()
-            #@scroller()
-            @vm.show_weather_animate = false
-            @vm.show_weather = false
+        new WOW().init();
+        $('.tip-twitter').remove();
+        $('.anchorBL').remove();
+        $('.hastip').poshytip(
+            className: 'tip-twitter'
+            showTimeout: 0
+            allowTipHover: false
+            fade: false
+            slide: false
+            followCursor: true
+        )
+        #@vm.journal = @subitems()
+        $scroller = $("#journals-scroller-1")
+        $scroller.slimScroll
+            size: '7px'
+            color: '#a1b2bd'
+            position: 'right'
+            height: $scroller.attr("data-height")
+            alwaysVisible: true
+            railVisible: false
+            disableFadeOut: true
+            railDraggable: true
+        $('#slider').nivoSlider(
+            effect:"fade",
+            animSpeed:100,
+            pauseTime:10000
+        )
+        
+        #@location()
+        #@calendar()
+        #@weather()
+        #@update_journal()
+        #@data_refresh()
+        #@baidu_weather(this)
+        #@waves()
+        #@fullpage()
+        #@scroller()
+        @vm.show_weather_animate = false
+        @vm.show_weather = false
 
-            #@back_to_top()
-            @refresh()
-            @on_load()
-            @gaode_maps()
-            @datatable_init(this)
-            @count_day(this,@sd.pay.items)
-            @old_time(this) 
-            @nprocess()
-            @count_day_amchart(this,@sd.pay.items)
-            @baidu_weather(this,@vm.city)
+        #@back_to_top()
+        @refresh()
+        @on_load()
+        @gaode_maps()
+        @datatable_init(this)
+        @count_day(this,@sd.pay.items)
+        @old_time(this) 
+        @nprocess()
+        @count_day_amchart(this,@sd.pay.items)
+        @baidu_weather(this,@vm.city)
     
     nprocess:() =>
         NProgress.start()
@@ -12337,14 +12356,14 @@ class RegisterPage extends DetailTablePage
         }`);
 
     baidu_weather:(page,city) =>
-        try
-            if (window.XMLHttpRequest)
-                xhr=new XMLHttpRequest();  
-            else
-                xhr=new ActiveXObject("Microsoft.XMLHTTP");
-            xhr.open('get','http://api.map.baidu.com/telematics/v3/weather?location=' + city + '&output=json&ak=SGlfxoEEgdtmV60T195lr7BYx6bFLvkI',true);
-            xhr.send(null);
-            xhr.onreadystatechange = () =>  
+        if (window.XMLHttpRequest)
+            xhr=new XMLHttpRequest();  
+        else
+            xhr=new ActiveXObject("Microsoft.XMLHTTP");
+        xhr.open('get','http://api.map.baidu.com/telematics/v3/weather?location=' + city + '&output=json&ak=SGlfxoEEgdtmV60T195lr7BYx6bFLvkI',true);
+        xhr.send(null);
+        xhr.onreadystatechange = () =>  
+            try
                 if xhr.readyState is 4 or xhr.readyState is 200 
                     respon = $.parseJSON(xhr.responseText);    
                     
@@ -12389,9 +12408,9 @@ class RegisterPage extends DetailTablePage
                         else
                            skycons.add(document.getElementById(idx), Skycons.RAIN);
                     skycons.play();
-        catch e
-            console.log('error');
-            return
+            catch e
+                console.log e
+                return
 
     old_time:(page) =>
         $(`function() {
@@ -12667,10 +12686,11 @@ class RegisterPage extends DetailTablePage
         }`);
 
     on_load: () =>
-        $("#headers").attr('src', "/uploads/empimgs/" + Math.random());
         id = @sd.register.items["account"];
-        urls = 'http://' + @sd.host + '/downloadAvatar/' + id + '/head/' + id + '_head.jpg'
-        $('#headers').attr('src', urls);
+        urls = 'http://' + @sd.host + '/downloadAvatar/' + id + '/head/' + id + '_head.jpg';
+        $("#headers").attr('src', urls + "?t=" + Math.random());
+        $("#user_img_log").attr('src', urls + "?t=" + Math.random());
+        #$('#headers').attr('src', urls);
 
         ###urls = 'http://' + @sd.host + '/api/downloadAvatar/' + id
         $.ajax
@@ -12713,8 +12733,12 @@ class RegisterPage extends DetailTablePage
                 geolocation.getCurrentPosition();
 
                 AMap.event.addListener(geolocation, 'complete', (data) =>
-                    @vm.city = data.addressComponent.city;
-                    #@baidu_weather(this,@vm.city);
+                    try
+                        @vm.city = data.addressComponent.city;
+                        #@baidu_weather(this,@vm.city);
+                    catch e
+                        console.log e
+                        return
                 )
 
                 AMap.event.addListener(geolocation, 'error', (data) => 

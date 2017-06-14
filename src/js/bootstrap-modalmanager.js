@@ -242,11 +242,11 @@
 
 			if (modal && modal.options.backdrop != 'static') {
 				$container.on('click.modal', targetIsSelf(function (e) {
-					modal.hide();
+					//modal.hide();
 				}));
 			} else if (modal) {
 				$container.on('click.modal', targetIsSelf(function (e) {
-					modal.attention();
+					//modal.attention();
 				}));
 			}
 
@@ -328,9 +328,9 @@
 					.appendTo(this.$element)
 					.addClass('in');
 
-				this.$spinner = $(this.createContainer())
+				/*this.$spinner = $(this.createContainer())
 					.append($spinner)
-					.on('click.modalmanager', $.proxy(this.loading, this));
+					.on('click.modalmanager', $.proxy(this.loading, this));*/
 
 				this.isLoading = true;
 
@@ -409,6 +409,7 @@
 		backdropLimit: 999,
 		resize: true,
 		//spinner: '<div class="loading-spinner fade" style="width: 200px; margin-left: -100px;"><div class="progress progress-striped active"><div class="bar" style="width: 100%;"></div></div></div>',
+		//spinner: '<div class="loading-spinner fade" style="width: 200px; margin-left: -100px;"><div class="loaders"><div class="loading"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>',
 		spinner: '<div class="loading-spinner fade" style="width: 200px; margin-left: -100px;"></div>',
 		backdropTemplate: '<div class="modal-backdrop" />'
 	};

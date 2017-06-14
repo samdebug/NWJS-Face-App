@@ -176,21 +176,6 @@ div.container-fluid
               div.span6(ms-text="day3",style="background: rgba(240, 240, 240, 0.33);padding: 10px;")
               div.span6(ms-text="day3",style="background: rgba(240, 240, 240, 0.33);padding: 10px;")
 
-          
-  div.row-fluid.wow.fadeIn
-    div.span12
-      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
-        div.portlet-title(style="padding: 12px 10px 17px;")
-          div.caption(style="")
-            //i.icon-pointer
-            | 位置
-          div.actions
-            a.btn.btn-outline.blue.mini(ms-click="gaode_maps",href="javascript:;")
-              | 定位
-
-        div.portlet-body
-          div(id="allmap",style="height: 200px;")
-
   div.row-fluid.wow.fadeIn(ms-if="show_weather == true")
     div.span6
       div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
@@ -253,5 +238,19 @@ div.container-fluid
                   th(ms-text="'相似度'")
                   th(ms-text="'剩余次数'")
 
+  div.row-fluid.wow.fadeIn
+    div.span12
+      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
+        div.portlet-title(style="padding: 12px 10px 17px;")
+          div.caption(style="")
+            //i.icon-pointer
+            | 位置
+          div.actions
+            a.btn.btn-outline.blue.mini(ms-click="gaode_maps",href="javascript:;")
+              | 定位
+
+        div.portlet-body
+          div(id="allmap",style="height: 200px;")
+          
 script(type="text/javascript",src="http://webapi.amap.com/maps?v=1.3&key=53acebf901738b4d33838fe8a969f92d")
 script(type="text/javascript",src="http://cache.amap.com/lbs/static/addToolbar.js")

@@ -2607,7 +2607,7 @@ class RegisterChangeHeadModal extends Modal
                         contentType : false,  
                         success:function(data){
                             //window.location.href="${ctx}"+data;
-                            thispage.refresh_header();
+                            //thispage.refresh_header();
                             new MessageModal(lang.fileupload.upload_success).attach();
                             return page.attach();
                         },
@@ -2641,17 +2641,16 @@ class RegisterChangeHeadModal extends Modal
         }`)
 
     refresh_header:() =>
-        $("#user_img_log").attr('src', "/uploads/empimgs/" + Math.random());
-        $("#headers").attr('src', "/uploads/empimgs/" + Math.random());
         id = @sd.register.items["account"];
         urls = 'http://' + @sd.host + '/downloadAvatar/' + id + '/head/' + id + '_head.jpg';
-        $('#user_img_log').attr('src',urls);
-        $('#headers').attr('src',urls);
+        $("#user_img_log").attr('src', urls + "?t=" + Math.random());
+        $("#headers").attr('src', urls + "?t=" + Math.random());
+        #$('#user_img_log').attr('src',urls);
+        #$('#headers').attr('src',urls);
 
     init: (page,mainpage) =>
         $(`function () {
           'use strict'
-
           var result = $('#result')
           var result_150 = $('#result_150')
           var result_55 = $('#result_55')
