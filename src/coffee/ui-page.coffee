@@ -1940,8 +1940,8 @@ class CentralLoginPage extends Page
         show_chain_progress(chain, true).done(=>
             #$('#user_head').attr('style', 'display:block');
             #$('#user_setting').attr('style', 'display:block');
-            #@head = new HeaderUI(@sd,"store")
-            #@head.header("#{@vm.device}:" + port,@vm.username)
+            @head = new HeaderUI(@sd,"store")
+            @head.avatar("#{@vm.device}:" + port,@vm.username)
             @dview.attach()
         ).fail(=>
             (new MessageModal "初始化失败").attach()
@@ -9263,11 +9263,7 @@ class FaceQuickProPage extends DetailTablePage
         #@chart_active()
         @count_day_highchart(this,@sd.pay.items)
         @datatable_init(this)
-        @handle_pic()
         #@clock_create()
-        #@rtsp_player()
-        #@tigercam()
-        #@player()
         @init_ip_cam()
         @refresh_page()
 
@@ -9344,129 +9340,18 @@ class FaceQuickProPage extends DetailTablePage
         
         @vm.show_canvas = true;
         @vm.show_img = false;
-        
-    player:() =>
-        $(`function() {
-            var indexPlayer = 1;
-            function createPlayer(){
-                indexPlayer++;
-                var playerId = 'vxg_media_player' + indexPlayer;
-                var div = document.createElement('div');
-                div.setAttribute("id", playerId);
-                div.setAttribute("class", "vxgplayer");
-                var runtimePlayers = document.getElementById('runtimePlayers');
-                runtimePlayers.appendChild(div);
-                vxgplayer(playerId, {
-                    url: '',
-                    nmf_path: 'media_player.nmf',
-                    nmf_src: 'pnacl/Release/media_player.nmf',
-                    latency: 300000,
-                    aspect_ratio_mode: 1,
-                    autohide: 3,
-                    controls: true,
-                    avsync: true,
-                    autoreconnect: 1
-                }).ready(function(){
-                    console.log(' =>ready player '+playerId);
-                    vxgplayer(playerId).src(document.getElementById('url_input').value);
-                    vxgplayer(playerId).play();
-                    console.log(' <=ready player '+playerId);
-                });
-            }
-            function removeLatestPlayer(){
-                if(indexPlayer > 1){
-                    var playerId = 'vxg_media_player' + indexPlayer;
-                    vxgplayer(playerId).dispose();
-                    document.getElementById('vxg_media_player' + indexPlayer).remove();
-                    indexPlayer--;
-                }
-            }
-            
-            function customDigitalZoomOn(){
-                vxgplayer('vxg_media_player1').custom_digital_zoom(true);
-                digzoom_on.style.display = "none";
-                digzoom_off.style.display = "";
-                digzoom_params.style.display = "";
-                
-            }
-            function customDigitalZoomOff(){
-                vxgplayer('vxg_media_player1').custom_digital_zoom(false);
-                digzoom_on.style.display = "";
-                digzoom_off.style.display = "none";
-                digzoom_params.style.display = "none";
-            }
-                
-            function setCustomDigitalZoom(){
-                try{
-                    vxgplayer('vxg_media_player1').setCustomDigitalZoom(parseInt(digzoom_ratio.value,10), parseInt(digzoom_x.value,10), parseInt(digzoom_y.value,10))
-                }catch(e){
-                    alert(e);
-                }
-            }
-            
-            function resetCustomDigitalZoom(){
-                vxgplayer('vxg_media_player1').setCustomDigitalZoom(100, 0, 0);
-            }
-        }`)
-        
-    tigercam:() =>
-        renderer = require("wcjs-renderer");
-        vlc = require("wcjs-prebuilt").createPlayer();
-        options = {};
-        renderer.bind(document.getElementById("canvas"), vlc, options);
-        vlc.play("rtsp://admin:12345@192.168.2.124:554/Streaming/Channels/1");
-
-    rtsp_player:() =>
-        $(`function() {
-            var indexPlayer = 1;
-            indexPlayer++;
-            var playerId = 'vxg_media_player' + indexPlayer;
-            var div = document.createElement('div');
-            div.setAttribute("id", playerId);
-            div.setAttribute("class", "vxgplayer");
-            var runtimePlayers = document.getElementById('dynamicallyPlayers');
-            runtimePlayers.appendChild(div);
-            vxgplayer(playerId, {
-                    url: '',
-                    nmf_path: 'media_player.nmf',
-                    nmf_src: 'js/pnacl/Release/media_player.nmf',
-                    latency: 300000,
-                    aspect_ratio_mode: 1,
-                    autohide: 3,
-                    controls: true,
-                    connection_timeout: 5000,
-                    connection_udp: 0,
-                    custom_digital_zoom: false
-            }).ready(function(){
-                console.log(' =>ready player '+playerId);
-                vxgplayer(playerId).src('rtsp://admin:12345@192.168.2.124:554/Streaming/Channels/1');
-                vxgplayer(playerId).play();
-                console.log(' <=ready player '+playerId);
-            });
-        }`)
 
     clock_create:() =>
-        $(`function() {
-            setInterval(function(){
-                var date = new Date();
-                var y = date.getFullYear();
-                var m = date.getMonth() + 1;
-                var d = date.getDate();
-                var h = date.getHours();
-                var i = date.getMinutes();
-                var s = date.getSeconds();
-                document.getElementById("showTime").innerHTML = y + '年' + (m<10?'0' + m:m) + '月' + (d<10?'0' + d:d) + '日 ' + (h<12?'上午':'下午') + ((h=h%12)<10?'0' + h:h) + ':' + (i<10?'0' + i:i) + ':' + (s<10?'0' + s:s);
-            },500);
-        }`)
-
-    handle_pic:() =>
-        $(`function() {
-            $(".hover").mouseleave(
-              function () {
-                $(this).removeClass("hover");
-              }
-            );
-        }`)
+        setInterval(() =>
+            date = new Date();
+            y = date.getFullYear();
+            m = date.getMonth() + 1;
+            d = date.getDate();
+            h = date.getHours();
+            i = date.getMinutes();
+            s = date.getSeconds();
+            document.getElementById("showTime").innerHTML = y + '年' + (m<10?'0' + m:m) + '月' + (d<10?'0' + d:d) + '日 ' + (h<12?'上午':'下午') + ((h=h%12)<10?'0' + h:h) + ':' + (i<10?'0' + i:i) + ':' + (s<10?'0' + s:s);
+        ,500);
 
     remove_all:() =>
         #$("#div_result").remove()
@@ -10240,7 +10125,7 @@ class FaceQuickProPage extends DetailTablePage
                             @vm.result = "已通过"
                             return
 
-                        $("body").modalmanager "loading"
+                        #$("body").modalmanager "loading"
                         if 'fail' in compare_result or data.detail.personId not in compare_card
                             $("#div_result").css("display","none")
                             if compare_card.length
@@ -10442,7 +10327,7 @@ class FaceQuickProPage extends DetailTablePage
         @vm.show_retry = true
 
     show_stamp_new: (con) =>
-        $(".modal-backdrop").hide()
+        #$(".modal-backdrop").hide()
         #$("body").modalmanager "removeLoading"
         @vm.show_loading = true
         @vm.show_spin = false
@@ -11800,7 +11685,6 @@ class RegisterPage extends DetailTablePage
 
         #@back_to_top()
         @refresh()
-        @on_load()
         @gaode_maps()
         @datatable_init(this)
         @count_day(this,@sd.pay.items)
@@ -11808,7 +11692,15 @@ class RegisterPage extends DetailTablePage
         @nprocess()
         @count_day_amchart(this,@sd.pay.items)
         @baidu_weather(this,@vm.city)
+        @avatar()
     
+    avatar: () =>
+        id = @sd.register.items["account"];
+        urls = 'http://' + @sd.host + '/downloadAvatar/' + id + '/head/' + id + '_head.jpg';
+        #random = Math.random();
+        $("#headers").attr('src', urls + "?t=" + random);
+        $("#user_img_log").attr('src', urls + "?t=" + random);
+
     nprocess:() =>
         NProgress.start()
         setTimeout (=> NProgress.done();$('.fade').removeClass('out')),500
@@ -12685,31 +12577,6 @@ class RegisterPage extends DetailTablePage
             });
         }`);
 
-    on_load: () =>
-        id = @sd.register.items["account"];
-        urls = 'http://' + @sd.host + '/downloadAvatar/' + id + '/head/' + id + '_head.jpg';
-        $("#headers").attr('src', urls + "?t=" + Math.random());
-        $("#user_img_log").attr('src', urls + "?t=" + Math.random());
-        #$('#headers').attr('src', urls);
-
-        ###urls = 'http://' + @sd.host + '/api/downloadAvatar/' + id
-        $.ajax
-            type:'get',
-            url: urls,
-            error: (e) ->
-                console.log(e);
-            success: (e) ->
-                header = document.getElementById("headers");
-                cxt= header.getContext("2d");
-                img = new Image();
-                img.src=e;
-                img.onload = () =>
-                    w =  Math.min(400, img.width);
-                    h = img.height * (w / img.width);
-                    header.width = w;
-                    header.height = h;
-                    cxt.drawImage(img,0,0);###
-
     location: () =>
         longitude = 113.8875210000
         latitude = 22.5533490000
@@ -12742,8 +12609,12 @@ class RegisterPage extends DetailTablePage
                 )
 
                 AMap.event.addListener(geolocation, 'error', (data) => 
-                    console.log data
-                    return (new MessageModal(lang.register.map_error)).attach(); 
+                    try
+                        console.log data
+                        return (new MessageModal(lang.register.map_error)).attach(); 
+                    catch e
+                        console.log e
+                        return
                 )
         catch e
             console.log e

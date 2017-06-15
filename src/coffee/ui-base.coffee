@@ -221,9 +221,10 @@ class HeaderUI extends AvalonTemplUI
         @back_to_top()
         return
 
-    header:(host,user) =>
+    avatar:(host,user) =>
+        random = Math.random();
         urls = 'http://' + host + '/downloadAvatar/' + user + '/head/' + user + '_head.jpg';
-        $("#user_img_log").attr('src', urls + "?t=" + Math.random());
+        $("#user_img_log").attr('src', urls + "?t=" + random);
         #$('#user_img_log').attr('src',urls)
 
     back_to_top:() =>

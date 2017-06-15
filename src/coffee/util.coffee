@@ -6,6 +6,7 @@ compare_Interval = []
 compare_result = []
 compare_card = []
 compare_temp = []
+random = ""
 disks_type = 
     enterprise:[
         'ST4000NM0033'
@@ -88,6 +89,7 @@ unique = (arr) ->
 
 base_data = []
 
+this.random = random
 this.base_data = base_data
 this.compare_temp = compare_temp
 this.compare_card = compare_card

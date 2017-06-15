@@ -2608,6 +2608,7 @@ class RegisterChangeHeadModal extends Modal
                         success:function(data){
                             //window.location.href="${ctx}"+data;
                             //thispage.refresh_header();
+                            random = Math.random();
                             new MessageModal(lang.fileupload.upload_success).attach();
                             return page.attach();
                         },
