@@ -2026,6 +2026,7 @@ class CentralLoginPage extends Page
         }`)
 
     particles: (page) =>
+        console.log(2);
         $(`function() {
             particlesJS("particles-js", {
               "particles": {
