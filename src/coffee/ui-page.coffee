@@ -10113,6 +10113,7 @@ class FaceQuickProPage extends DetailTablePage
 
     get_card: () =>
         try
+           
             query = (new MachineRest('localhost:4567'))
             machine_path = query.get_path '123'
             machine_path.done (data) =>
