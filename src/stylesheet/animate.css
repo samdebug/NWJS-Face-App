@@ -1467,8 +1467,8 @@
 }
 
 .fadeInUp {
-  -webkit-animation-name: fadeInUp;
-  animation-name: fadeInUp;
+  -webkit-animation-name: fadeInUp !important;
+  animation-name: fadeInUp !important;
 }
 
 @-webkit-keyframes fadeInUpBig {

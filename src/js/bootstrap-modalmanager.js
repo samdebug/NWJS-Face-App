@@ -307,9 +307,10 @@
 		loading: function (callback) {
 			callback = callback || function () { };
 
-			this.$element
+			//隐藏或显示滚动条
+			/*this.$element
 				.toggleClass('modal-open', !this.isLoading || this.hasOpenModal())
-				.toggleClass('page-overflow', $(window).height() < this.$element.height());
+				.toggleClass('page-overflow', $(window).height() < this.$element.height());*/
 
 			if (!this.isLoading) {
 

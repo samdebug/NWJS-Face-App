@@ -359,6 +359,10 @@ Header and header elements.
   margin: 0 !important;
 }
 
+.navbar-inverse .nav>li>a:focus, .navbar-inverse .nav>li>a:hover{
+  color: #363E58 !important;
+}
+
 .header.navbar-fixed-top {
   z-index: 9995 !important;
 }

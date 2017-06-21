@@ -1,14 +1,16 @@
 doctype html
 //div.container-fluid(style="position: relative;left: -9%;z-index: 1;")
-div.container-fluid(style="position: relative;left: 0%;z-index: 1;padding-left: 40px;")
-  div.logo(style="")
+div.container-fluid(style="position: relative;left: 0%;z-index: 1;padding-left: 40px;padding-top: 100px;")
+  //div.logo(style="")
     img(src="images/logo-big.png",style="height:25px")
   div.content.wow.bounceInDown(style="background:#FFF")
     form.form-vertical.login-form(action="javascript:;")
       //div.control-group
         //a(href="javascript:;",style="padding-left: 95px;")
           //img(class="img-circle",src="images/bb.png",style="height: 100px;border-radius: 50% !important;")
-      h3.form-title(ms-text="lang.title",style="text-align: center;color: #32c5d2!important;")
+      //h3.form-title(ms-text="lang.title",style="text-align: center;color: #32c5d2!important;")
+      div.logo(style="margin: 0px 0px 20px 0px; !important")
+        img(src="images/logo.png",style="height:60px")
       div.alert.alert-error.hide
         button.close(ms-click="close_alert")
         span(ms-text="lang.login_error")

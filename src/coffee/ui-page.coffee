@@ -1816,7 +1816,7 @@ class CentralLoginPage extends Page
 
     rendered: () =>
         super()
-        new WOW().init();
+        
         $.validator.addMethod "isLogined", (value, element) ->
             not (new SettingsManager).isLoginedMachine value
         $(".login-form").validate(
@@ -1860,13 +1860,13 @@ class CentralLoginPage extends Page
         #@nivo()
 
         new PCAS('location_p', 'location_c', 'location_a', '广东省', '', '')
-        $('.hastip-login').poshytip(
+        ###$('.hastip-login').poshytip(
             className: 'tip-twitter'
             showTimeout: 0
             alignTo: 'target'
             alignX: 'center'
             offsetY: 5
-        )
+        )###
 
         ###
         #$("#location_p").chosen()
@@ -1892,7 +1892,7 @@ class CentralLoginPage extends Page
         ###
         #@scroller()
         #@QQlogin()
-
+        new WOW().init();
         return
 
     scroller:() =>
@@ -2026,7 +2026,6 @@ class CentralLoginPage extends Page
         }`)
 
     particles: (page) =>
-        console.log(2);
         $(`function() {
             particlesJS("particles-js", {
               "particles": {
@@ -9202,6 +9201,7 @@ class FaceQuickProPage extends DetailTablePage
 
     rendered: () =>
         super()
+        new WOW().init();
         $('.hastip-facequickpro').poshytip(
             className: 'tip-twitter'
             showTimeout: 0
@@ -9219,7 +9219,7 @@ class FaceQuickProPage extends DetailTablePage
             railVisible: false
             disableFadeOut: true
             railDraggable: true
-        new WOW().init();
+        
         #@face_tracking()
         @webcam(this)
         @vm.show_card_result = false
@@ -9267,6 +9267,8 @@ class FaceQuickProPage extends DetailTablePage
         #@clock_create()
         @init_ip_cam()
         @refresh_page()
+        
+        #$("#fadein").attr('style', "display:block;");
 
     refresh_page:() =>
         if compare_card.length
@@ -9342,17 +9344,6 @@ class FaceQuickProPage extends DetailTablePage
         @vm.show_canvas = true;
         @vm.show_img = false;
 
-    clock_create:() =>
-        setInterval(() =>
-            date = new Date();
-            y = date.getFullYear();
-            m = date.getMonth() + 1;
-            d = date.getDate();
-            h = date.getHours();
-            i = date.getMinutes();
-            s = date.getSeconds();
-            document.getElementById("showTime").innerHTML = y + '年' + (m<10?'0' + m:m) + '月' + (d<10?'0' + d:d) + '日 ' + (h<12?'上午':'下午') + ((h=h%12)<10?'0' + h:h) + ':' + (i<10?'0' + i:i) + ':' + (s<10?'0' + s:s);
-        ,500);
 
     remove_all:() =>
         #$("#div_result").remove()
@@ -10113,7 +10104,6 @@ class FaceQuickProPage extends DetailTablePage
 
     get_card: () =>
         try
-           
             query = (new MachineRest('localhost:4567'))
             machine_path = query.get_path '123'
             machine_path.done (data) =>
@@ -10127,7 +10117,7 @@ class FaceQuickProPage extends DetailTablePage
                             @vm.result = "已通过"
                             return
 
-                        #$("body").modalmanager "loading"
+                        $("body").modalmanager "loading"
                         if 'fail' in compare_result or data.detail.personId not in compare_card
                             $("#div_result").css("display","none")
                             if compare_card.length
@@ -10330,7 +10320,7 @@ class FaceQuickProPage extends DetailTablePage
 
     show_stamp_new: (con) =>
         #$(".modal-backdrop").hide()
-        #$("body").modalmanager "removeLoading"
+        $("body").modalmanager "removeLoading"
         @vm.show_loading = true
         @vm.show_spin = false
         @vm.show_all = true
@@ -11639,22 +11629,30 @@ class RegisterPage extends DetailTablePage
         vm.show_weather_animate = false
         vm.switch_to_page = @switch_to_page
         vm.gaode_maps = @gaode_maps
+        vm.remain = "0"
+        vm.userlevel = "0"
+        vm.total = "0"
+        vm.average = "0"
+        vm.user = "加载中.."
+        
 
         #vm.tip_day1 = "vvv"
         #vm.tip_day2 = "123"
 
     rendered: () =>
         super()
-        new WOW().init();
+        @avatar()
         $('.tip-twitter').remove();
         $('.anchorBL').remove();
         $('.hastip').poshytip(
-            className: 'tip-twitter'
-            showTimeout: 0
-            allowTipHover: false
-            fade: false
+            className: 'tip-twitter',
+            showTimeout: 1,
+            alignTo: 'target',
+            alignX: 'center',
+            offsetY: 5,
+            allowTipHover: false,
+            fade: false,
             slide: false
-            followCursor: true
         )
         #@vm.journal = @subitems()
         $scroller = $("#journals-scroller-1")
@@ -11667,6 +11665,7 @@ class RegisterPage extends DetailTablePage
             railVisible: false
             disableFadeOut: true
             railDraggable: true
+
         $('#slider').nivoSlider(
             effect:"fade",
             animSpeed:100,
@@ -11694,8 +11693,9 @@ class RegisterPage extends DetailTablePage
         @nprocess()
         @count_day_amchart(this,@sd.pay.items)
         @baidu_weather(this,@vm.city)
-        @avatar()
-    
+        new WOW().init();
+        $("#fadein").attr('style', "display:block;");
+        
     avatar: () =>
         id = @sd.register.items["account"];
         urls = 'http://' + @sd.host + '/downloadAvatar/' + id + '/head/' + id + '_head.jpg';

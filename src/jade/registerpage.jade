@@ -1,5 +1,5 @@
 doctype html
-div.container-fluid
+div.container-fluid.wow.fadeInUp(id="fadein",style="display:none")
   ul.breadcrumb(style="display:none")
     li
       a(href="#",ms-text="'主页'",ms-click="switch_to_page('basicdata')")
@@ -7,7 +7,7 @@ div.container-fluid
     li
       a(ms-text="'基本资料'")
   h3.page-title(ms-html="'基本资料'",style="font-size:21px")
-  div.row-fluid.profile.wow.fadeIn
+  div.row-fluid.profile
     div.span12
       div.span4.profile-info
         div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;height: 332px;")
@@ -42,7 +42,7 @@ div.container-fluid
           div.weather-span(style="text-align: center;")
             div.span4(style="border-right: 2px dotted #EBEBEB;")
               p(ms-text="day1")
-              canvas(id="day1_weather",width="40",height="40")
+              canvas(id="day1_weather",width="40",height="40")  
               //img(src="",id="day1_weather")
             div.span4(style="border-right: 2px dotted #EBEBEB;")
               p(ms-text="day2")
@@ -62,7 +62,10 @@ div.container-fluid
                 //i.icon-pencil    
           div.portlet-body(style="padding-bottom: 32px;")
             li.avatar-view(style="text-align: center;padding-bottom: 22px;",id="crop-avatar")
-              img.hastip(src="",title="点击更换头像",id="headers",style="border-radius: 70px !important;width: 140px;height: 140px;text-align: center;cursor: pointer;",ms-click="change_head")
+              div.img-wrap
+                img.hastip(src="images/null.jpg",title="我要换头像",id="headers",style="border-radius: 70px !important;width: 140px;height: 140px;text-align: center;cursor: pointer;",ms-click="change_head")
+                a.hastip(title="我要换头像",href="#",ms-click="change_head")
+                  i.fa.fa-pencil-square-o
             li
               div(ms-text="user",style="text-align: center;color: rgb(90, 115, 145);font-size: 20px;font-weight: 600;margin-bottom: 12px;")
               //div(ms-text="user",style="text-align: center;text-transform: uppercase;color: #5b9bd1;font-size: 13px;font-weight: 800;margin-bottom: 7px;")
@@ -101,7 +104,7 @@ div.container-fluid
                     i.icon-img-up
                   span(class="sale-num",ms-text="average + '%'",style="font-family: 'bebas';font-size: 22px;")
                   
-  div.row-fluid.wow.fadeIn(style="display:none")
+  div.row-fluid(style="display:none")
     div.span12
       div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
         div.portlet-title(style="padding: 12px 10px 17px;")
@@ -116,9 +119,9 @@ div.container-fluid
             span(style="font-size: 13px;color:#4b4b4b;padding: 5px;") 次
           div(id="day_chart",style="height:180px")
 
-  div.row-fluid.wow.fadeIn
+  div.row-fluid
     div.span12
-      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
+      div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;min-height:200px")
         div.portlet-title(style="padding: 12px 10px 17px;")
           div.caption(style="")
             //i.icon-emoticon-smile 
@@ -127,20 +130,20 @@ div.container-fluid
         div.portlet-body
           div.slider-wrapper.theme-default
             div(id="slider",class="nivoSlider",style="box-shadow:none")
-              a(href="javascript:;") //http://www.zexabox.com
+              a(href="javascript:;")
                 img(src="images/poster/poster1.png")
               a(href="javascript:;")
-                img(src="images/poster/poster2.jpg")
+                img(src="images/poster/poster2.png")
               a(href="javascript:;")    
                 img(src="images/poster/poster3.png")
-              a(href="javascript:;")
+              //a(href="javascript:;")
                 img(src="images/poster/poster4.png")
-              a(href="javascript:;")
+              //a(href="javascript:;")
                 img(src="images/poster/poster5.png")
-              a(href="javascript:;")
+              //a(href="javascript:;")
                 img(src="images/poster/poster6.png")
 
-  div.row-fluid.wow.fadeIn(ms-if="show_weather_animate === true")
+  div.row-fluid(ms-if="show_weather_animate === true")
     div.span12
       //div.portlet.solid.bordered.light-grey(style="border: 1px solid #4689AF;background: #2498DA !important;height: 250px;padding-top: 35px;",id="starfield")
       div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;height: 250px;padding-top: 35px;",id="starfield")
@@ -176,7 +179,7 @@ div.container-fluid
               div.span6(ms-text="day3",style="background: rgba(240, 240, 240, 0.33);padding: 10px;")
               div.span6(ms-text="day3",style="background: rgba(240, 240, 240, 0.33);padding: 10px;")
 
-  div.row-fluid.wow.fadeIn(ms-if="show_weather == true")
+  div.row-fluid(ms-if="show_weather == true")
     div.span6
       div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
         div.portlet-title(style="margin:10px")
@@ -238,7 +241,7 @@ div.container-fluid
                   th(ms-text="'相似度'")
                   th(ms-text="'剩余次数'")
 
-  div.row-fluid.wow.fadeIn
+  div.row-fluid
     div.span12
       div.portlet.solid.bordered.light-grey(style="border: 1px solid rgb(228, 228, 228);background: rgb(255, 255, 255) !important;")
         div.portlet-title(style="padding: 12px 10px 17px;")
