@@ -1,0 +1,142 @@
+<div class="container-fluid">
+<h3 class="page-title" ms-html="lang.title"></h3>
+<div class="row-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+            <h3 ms-text="lang.upgrade"></h3>
+			<blockquote>
+				<p style="font-size:16px">
+					<ul>
+						<li ms-text="lang.upgrade_tip1"/>
+						<li ms-text="lang.upgrade_tip2"/>
+                        <li ms-text="server_version"/>
+                        <li ms-text="gui_version"/>
+                        <li ms-text="product_model", ms-visible="show_productmodel"/>
+					</ul>
+				</p>
+			</blockquote>
+			<!-- The file upload form used as target for the file upload widget -->
+			<form id="fileupload" action="//jquery-file-upload.appspot.com/" method="POST" enctype="multipart/form-data">
+				<!-- Redirect browsers with JavaScript disabled to the origin page -->
+				<noscript>
+					&lt;input type="hidden" name="redirect" value="http://blueimp.github.com/jQuery-File-Upload/"&gt;
+				</noscript>
+				<!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+				<div class="row-fluid fileupload-buttonbar">
+					<div class="span7">
+						<!-- The fileinput-button span is used to style the file input field as button -->
+						<span class="btn green fileinput-button"> 
+							<i class="m-icon-swapup m-icon-white"></i>
+							<span ms-text="lang.upgrade_btn"></span>
+							<input type="file" name="files"/>
+						</span>
+					</div>
+				</div>
+				<table role="presentation" class="table table-striped">
+					<tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
+				</table>
+			</form>
+			<hr/>
+            <h3 ms-text="lang.diagnostic"></h3>
+			<blockquote>
+				<p style="font-size:16px">
+					<ul>
+						<li ms-text="lang.diagnostic_tip1"/>
+					</ul>
+				</p>
+			</blockquote>
+			<a ms-href="diagnosis_url" class="btn blue">
+				<i class="m-icon-swapdown m-icon-white"></i> 
+                {{lang.diagnostic_btn}}
+			</a>
+			<hr/>
+			<h3 ms-text="lang.reboot_and_shutdown"></h3>
+			<blockquote>
+				<p style="font-size:16px">
+					<ul>
+						<li ms-text="lang.reboot_and_shutdown_tip"/>
+					</ul>
+				</p>
+			</blockquote>
+			<a ms-click="poweroff" href="javascript:;" class="btn purple">
+				<i class="icon-pause"></i> 
+                {{lang.btn_halt}}
+			</a>
+			<a ms-click="reboot" href="javascript:;" class="btn blue">
+				<i class="icon-undo"></i> 
+                {{lang.btn_reboot}}
+			</a>
+			<a ms-click="sysinit" href="javascript:;" class="btn red">
+				<i class="icon-exclamation"></i> 
+                {{lang.btn_sysinit}}
+			</a>
+
+			<hr />
+			<h3 ms-text="lang.btn_recover"></h3>
+			<blockquote>
+				<p style="font-size:16px">
+					<ul>
+						<li ms-text="lang.data_recovery_tip"></li>
+					</ul>
+				</p>
+			</blockquote>
+			<a ms-click="recover" href="javascript:;" class="btn yellow">
+				<i class="icon-reorder"></i> 
+                {{lang.btn_recover}}
+			</a>			
+			<a ms-click="scan_system" href="javascript:;" class="btn green" ms-visible="fs_scan">
+				<i class="icon-refresh"></i> 
+                {{lang.btn_scan}}
+			</a>			
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span12">
+		<script id="template-upload" type="text/x-tmpl">
+							{% for (var i=0, file; file=o.files[i]; i++) { %}
+							    <tr class="template-upload fade">
+							        <td class="name"><span>{%=file.name%}</span></td>
+							        <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+							        {% if (file.error) { %}
+							            <td class="error" colspan="2"><span class="label label-important">Error</span> {%=file.error%}</td>
+							        {% } else if (o.files.valid && !i) { %}
+							            <td>
+							                <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="bar" style="width:0%;"></div></div>
+							            </td>
+							            <td class="start">{% if (!o.options.autoUpload) { %}
+							                <button class="btn blue"> <i class="icon-upload icon-white"></i>
+							                    <span>Start</span>
+							                </button>
+							            {% } %}</td>
+							        {% } else { %}
+							            <td colspan="2"></td>
+							        {% } %}
+							        <td class="cancel">{% if (!i) { %}
+							            <button class="btn red"> <i class="icon-ban-circle icon-white"></i>
+							                <span>Cancel</span>
+							            </button>
+							        {% } %}</td>
+							    </tr>
+							{% } %}
+		</script>
+		<!-- The template to display files available for download -->
+		<script id="template-download" type="text/x-tmpl">
+							{% for (var i=0, file; file=o.files[i]; i++) { %}
+							    <tr class="template-download fade">
+							        {% if (file.error) { %}
+							            <td></td>
+							            <td class="name"><span>{%=file.name%}</span></td>
+							            <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+							            <td class="error" colspan="2"><span class="label label-important">Error</span> {%=file.error%}</td>
+							        {% } else { %}
+							            <td class="name">{%= file.name %}</td>
+							            <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+							            <td colspan="2"></td>
+							        {% } %}
+							    </tr>
+							{% } %}
+		</script>
+	</div>
+</div>
+</div>

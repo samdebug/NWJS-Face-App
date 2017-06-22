@@ -11756,7 +11756,7 @@ class RegisterPage extends DetailTablePage
             for (var i = 0; i < dateArray.length; i++) {
                 total_count[dateArray[i]] = 0;
                 average_count[dateArray[i]] = 0;
-            }
+            }   
 
             Array.prototype.Exists=function(v){
                 var b=false;

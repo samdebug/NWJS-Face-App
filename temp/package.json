@@ -1,0 +1,19 @@
+{
+  "name": "Zadmin",
+  "description": "Zadmin",
+  "version": "2.7.2",
+  "main": "index.html",
+  "port": "4569",
+  "fs_max": 4,
+  "znv": false,
+  "sync":true,
+  "chosendir":false,
+  "product_model":false,
+  "fc":false,
+  "window": {
+    "width": 1000,
+    "height": 700,
+    "frame": true,
+    "toolbar": false
+  }
+}
