@@ -1,6 +1,13 @@
 Node-Webkit 自动化打包
 ====================
 
+### 软件截图
+
+![Alt text](https://github.com/samdebug/NWJS-Face-App/raw/master/screenshots/1.png)
+![Alt text](https://github.com/samdebug/NWJS-Face-App/raw/master/screenshots/2.png)
+![Alt text](https://github.com/samdebug/NWJS-Face-App/raw/master/screenshots/3.png)
+![Alt text](https://github.com/samdebug/NWJS-Face-App/raw/master/screenshots/4.png)
+
 ### 安装要求
 
 1. Node.js
