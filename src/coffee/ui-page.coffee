@@ -11628,20 +11628,18 @@ class RegisterPage extends DetailTablePage
         vm.city = "深圳市"
         vm.show_weather_animate = false
         vm.switch_to_page = @switch_to_page
-        vm.gaode_maps = @gaode_maps
         vm.remain = "0"
         vm.userlevel = "0"
         vm.total = "0"
         vm.average = "0"
         vm.user = "加载中.."
-        
-
         #vm.tip_day1 = "vvv"
         #vm.tip_day2 = "123"
 
     rendered: () =>
         super()
-        @avatar()
+        #new WOW().init();
+        $("#fadein").attr('style', "display:block;");
         $('.tip-twitter').remove();
         $('.anchorBL').remove();
         $('.hastip').poshytip(
@@ -11683,8 +11681,6 @@ class RegisterPage extends DetailTablePage
         #@scroller()
         @vm.show_weather_animate = false
         @vm.show_weather = false
-
-        #@back_to_top()
         @refresh()
         @gaode_maps()
         @datatable_init(this)
@@ -11693,8 +11689,8 @@ class RegisterPage extends DetailTablePage
         @nprocess()
         @count_day_amchart(this,@sd.pay.items)
         @baidu_weather(this,@vm.city)
-        new WOW().init();
-        $("#fadein").attr('style', "display:block;");
+        @avatar()
+        
         
     avatar: () =>
         id = @sd.register.items["account"];
