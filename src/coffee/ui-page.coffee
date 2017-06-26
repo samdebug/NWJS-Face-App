@@ -1907,7 +1907,6 @@ class CentralLoginPage extends Page
 
     submit: () =>
         #window.location.href = "register_guide.html";
-        
         port = @settings.port 
         if $(".login-form").validate().form()
             try
