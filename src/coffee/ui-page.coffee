@@ -15027,6 +15027,7 @@ this.VolumePage = VolumePage
 this.Page = Page
 
 ############################  cloud  #######################
+
 this.CentralLoginPage = CentralLoginPage
 this.CentralStoremonitorPage = CentralStoremonitorPage
 this.CentralServermonitorPage = CentralServermonitorPage
