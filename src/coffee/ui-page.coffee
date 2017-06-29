@@ -1816,7 +1816,10 @@ class CentralLoginPage extends Page
 
     rendered: () =>
         super()
-        
+        date2 = new Date("2017-06-29T01:10:44.276Z");
+        localeString = date2.toLocaleString();
+
+        console.log(localeString);
         $.validator.addMethod "isLogined", (value, element) ->
             not (new SettingsManager).isLoginedMachine value
         $(".login-form").validate(
