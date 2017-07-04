@@ -9876,6 +9876,7 @@ class FaceQuickProPage extends DetailTablePage
             } );
         }`)
 
+
     spin:() =>
         opts = {
             lines: 13, # loading小块的数量
