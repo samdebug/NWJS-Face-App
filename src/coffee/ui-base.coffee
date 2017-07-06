@@ -16,7 +16,7 @@ dtable_opt = (opt) ->
             sProcessing: "正在加载中……"
             sInfoFiltered:""
             sZeroRecords:"没有数据"
-        aoColumnDefs: [bSortable: false, aTargets: [0]]
+        aoC olumnDefs: [bSortable: false, aTargets: [0]]
     $.extend {}, global, opt
 
 table_update_listener = (res, table, call) ->

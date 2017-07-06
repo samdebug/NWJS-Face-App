@@ -1773,7 +1773,6 @@ class CentralLoginPage extends Page
         vm.device = "192.168.2.82"
         #vm.device = "113.87.161.169"
         #vm.device = "183.39.156.220"
-
         #vm.username = "755197"
         #vm.passwd = "zyh"
 
