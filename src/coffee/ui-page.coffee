@@ -3718,6 +3718,7 @@ class CentralStoreViewPage extends Page
         @data_table3 = $("#log-table3").dataTable dtable_opt(retrieve: true, bSort: false,scrollX: true)
         @data_table4= $("#log-table4").dataTable dtable_opt(retrieve: true, bSort: false,scrollX: true)
 
+
         $(".dataTables_filter input").addClass "m-wrap small"
         $(".dataTables_length select").addClass "m-wrap small"
         #$(".dataTables_filter input[type=search]").css({"background-color":"yellow","font-size":"200%"})
