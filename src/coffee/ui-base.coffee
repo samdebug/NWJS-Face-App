@@ -19,6 +19,7 @@ dtable_opt = (opt) ->
         aoC olumnDefs: [bSortable: false, aTargets: [0]]
     $.extend {}, global, opt
 
+
 table_update_listener = (res, table, call) ->
     $(res).on "updated", (e, source) ->
         $("#{table}").DataTable().clear().draw()
