@@ -578,6 +578,7 @@ class CentralStorageData
         catch e
             return
 
+
     disconnect_listener: =>
         $(this).triggerHandler "disconnect", @host
 
