@@ -112,7 +112,7 @@ class OverviewPage extends Page
 
         [max, ticks] = @flow_data_opt()
         @plot_flow max, ticks
-
+      
     flow_data_opt: () =>
         type = @flow_type()
         #type = @vm.flow_type
